@@ -47,9 +47,8 @@ class AutoML:
 
 
     @staticmethod
-    def task_type(solution:np.array) -> str:
+    def detect_task_type(solution:np.array) -> str:
         """Trouve le type de probleme (classification, regression etc)"""
-        print(f"Solution : {solution.shape}")
 
         if solution.ndim > 1:
             # Compter le nombre de 1 par ligne
@@ -87,14 +86,14 @@ class AutoML:
         data, solution, types = self.load_dataset(folder)
         
         # Trouver le type de probleme
-        problem_type = self.task_type(solution)
+        problem_type = self.detect_task_type(solution)
         if problem_type is None:
             raise ValueError(f"Le problème n'a pas été identifié !")
-        print(f"{problem_type}")
+        print(f"Probleme de type : {problem_type}")
 
         # Tester les models qui correspondent
         for model in self.models[problem_type]:
-            print(f"Test du model {model[0]}")
+            print(f"Test du model : {model[0]}")
 
 
     
