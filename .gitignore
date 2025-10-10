@@ -1,1 +1,13 @@
+# Ignore les dossiers de checkpoints de Jupyter Notebook
+.ipynb_checkpoints/
 
+# Ignore les dossiers de cache de Python
+__pycache__/
+
+# Ignore les fichiers de configuration d'IDE (ex: VSCode, PyCharm)
+.vscode/
+.idea/
+
+# Ignore les fichiers système (macOS, Windows)
+.DS_Store
+Thumbs.db
