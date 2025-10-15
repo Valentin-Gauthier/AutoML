@@ -18,6 +18,9 @@ from sklearn.model_selection import train_test_split
 # Evaluer les models
 from sklearn.metrics import accuracy_score, mean_squared_error, f1_score
 
+# Optimiser les hyperparametres
+from sklearn.model_selection import GridSearchCV
+
 class AutoML:
 
     def __init__(self):
@@ -41,6 +44,46 @@ class AutoML:
                 ('Random Forest Multi-label', MultiOutputClassifier(RandomForestClassifier(random_state=42))),
                 ('K-Neighbors Multi-label', MultiOutputClassifier(KNeighborsClassifier()))
             ]
+        }
+
+        self.param_grids = {
+            # Grilles pour la Régression 
+            'Random Forest Regressor': {
+                'n_estimators': [50, 100, 200],
+                'max_depth': [None, 10, 20],
+                'max_features': ['sqrt', 'log2', 1.0]
+            },
+            'K-Neighbors Regressor': {
+                'n_neighbors': [3, 5, 9],
+                'weights': ['uniform', 'distance'],
+                'p': [1, 2]
+            },
+        
+            # Grilles pour la Classification (Binaire / Multi-classe) 
+            'Logistic Regression': {
+                'C': [0.1, 1, 10],
+                'solver': ['liblinear', 'saga']
+            },
+            'Random Forest Classifier': {
+                'n_estimators': [50, 100, 200],
+                'max_depth': [None, 10, 20],
+                'min_samples_leaf': [1, 2, 4]
+            },
+            'K-Neighbors Classifier': {
+                'n_neighbors': [3, 5, 9],
+                'weights': ['uniform', 'distance']
+            },
+        
+            # Grilles pour la Classification Multi-label
+            # N'oublie pas le préfixe 'estimator__' car le modèle est dans un MultiOutputClassifier
+            'Random Forest Multi-label': {
+                'estimator__n_estimators': [50, 100],
+                'estimator__max_depth': [None, 10]
+            },
+            'K-Neighbors Multi-label': {
+                'estimator__n_neighbors': [3, 5, 9],
+                'estimator__weights': ['uniform', 'distance']
+            }
         }
         self.trained_models = {}
         self.scores = {}
@@ -93,8 +136,6 @@ class AutoML:
                 return "regression"
             
         return None
-
-
 
     def fit(self, folder:str):
 
@@ -171,10 +212,41 @@ class AutoML:
     
         for model_name, model in models_to_test:
             try:
-                print(f"Entraînement du modèle : {model_name}")
-                # On entraîne le modèle uniquement sur les données d'entraînement
-                model.fit(X_train, y_train)
-                self.trained_models[model_name] = model
+                print(f"Optimisation du modèle : {model_name}")
+                if model_name in self.param_grids:
+
+                    if self.problem_type == 'regression':
+                        scoring_metric = 'neg_mean_squared_error'
+                    elif self.problem_type == 'multilabel_classification':
+                        scoring_metric = 'f1_samples'
+                    else:
+                        scoring_metric = 'accuracy'
+                        
+                    # Créer l'objet GridSearchCV
+                    # cv=3 signifie 3-fold cross-validation
+                    # n_jobs=-1 utilise tous les cœurs CPU disponibles sur le cluster Skinner
+                    grid_search = GridSearchCV(
+                        model, 
+                        self.param_grids[model_name], 
+                        cv=3, 
+                        scoring=scoring_metric, 
+                        n_jobs=-1
+                    )
+                    
+                    # Lancer la recherche
+                    grid_search.fit(X_train, y_train)
+                    print(f"   => Meilleurs paramètres trouvés : {grid_search.best_params_}")
+                    # Le meilleur modèle est maintenant l'attribut best_estimator_
+                    self.trained_models[model_name] = grid_search.best_estimator_
+                else:
+                    # Si pas de grille définie, on fait un entraînement simple
+                    model.fit(X_train, y_train)
+                    self.trained_models[model_name] = model
+                    
+                
+                # # On entraîne le modèle uniquement sur les données d'entraînement
+                # model.fit(X_train, y_train)
+                # self.trained_models[model_name] = model
                 
             except Exception as e:
                 print(f"Erreur avec le modèle {model_name} : {e}")
