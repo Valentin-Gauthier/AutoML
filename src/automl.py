@@ -1,101 +1,76 @@
 import pandas as pd
 import numpy as np
+from scipy.sparse import coo_matrix
 import os
-# Models
-from sklearn.linear_model import LogisticRegression, LinearRegression
-from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
-from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
-from sklearn.multioutput import MultiOutputClassifier
+import tqdm
+import yaml
+from .models import MODELS_CONFIG
 
 # Normaliser des données
 from sklearn.preprocessing import StandardScaler
 # Remplacer les valeurs manquantes
 from sklearn.impute import SimpleImputer
-
+# One Hot Encoder poour les données 
 from sklearn.preprocessing import OneHotEncoder
-
+# division des données en données d'entrainement et de tests
 from sklearn.model_selection import train_test_split
 # Evaluer les models
-from sklearn.metrics import accuracy_score, mean_squared_error, f1_score
-
+from sklearn.metrics import accuracy_score, mean_squared_error, f1_score, make_scorer
 # Optimiser les hyperparametres
 from sklearn.model_selection import GridSearchCV
 
 class AutoML:
 
     def __init__(self):
-        self.models = {
-            'regression': [
-                ('Linear Regression', LinearRegression()),
-                ('Random Forest Regressor', RandomForestRegressor(random_state=42)),
-                ('K-Neighbors Regressor', KNeighborsRegressor())
-            ],
-            'binary_classification': [
-                ('Logistic Regression', LogisticRegression(random_state=42, max_iter=1000)),
-                ('Random Forest Classifier', RandomForestClassifier(random_state=42)),
-                ('K-Neighbors Classifier', KNeighborsClassifier())
-            ],
-            'multiclass_classification': [
-                ('Logistic Regression', LogisticRegression(random_state=42, max_iter=1000)),
-                ('Random Forest Classifier', RandomForestClassifier(random_state=42)),
-                ('K-Neighbors Classifier', KNeighborsClassifier())
-            ],
-            'multilabel_classification': [
-                ('Random Forest Multi-label', MultiOutputClassifier(RandomForestClassifier(random_state=42))),
-                ('K-Neighbors Multi-label', MultiOutputClassifier(KNeighborsClassifier()))
-            ]
-        }
-
-        self.param_grids = {
-            # Grilles pour la Régression 
-            'Random Forest Regressor': {
-                'n_estimators': [50, 100, 200],
-                'max_depth': [None, 10, 20],
-                'max_features': ['sqrt', 'log2', 1.0]
-            },
-            'K-Neighbors Regressor': {
-                'n_neighbors': [3, 5, 9],
-                'weights': ['uniform', 'distance'],
-                'p': [1, 2]
-            },
+        # models
+        self.models = MODELS_CONFIG
+        # config des hyperparametres
+        with open("src/models_config.yaml", 'r') as f:
+            self.param_grids = yaml.safe_load(f)
         
-            # Grilles pour la Classification (Binaire / Multi-classe) 
-            'Logistic Regression': {
-                'C': [0.1, 1, 10],
-                'solver': ['liblinear', 'saga']
-            },
-            'Random Forest Classifier': {
-                'n_estimators': [50, 100, 200],
-                'max_depth': [None, 10, 20],
-                'min_samples_leaf': [1, 2, 4]
-            },
-            'K-Neighbors Classifier': {
-                'n_neighbors': [3, 5, 9],
-                'weights': ['uniform', 'distance']
-            },
-        
-            # Grilles pour la Classification Multi-label
-            # N'oublie pas le préfixe 'estimator__' car le modèle est dans un MultiOutputClassifier
-            'Random Forest Multi-label': {
-                'estimator__n_estimators': [50, 100],
-                'estimator__max_depth': [None, 10]
-            },
-            'K-Neighbors Multi-label': {
-                'estimator__n_neighbors': [3, 5, 9],
-                'estimator__weights': ['uniform', 'distance']
-            }
-        }
         self.trained_models = {}
         self.scores = {}
-        self.problem_type = None
+        self.task_type = None
         self.X_test = None
         self.y_test = None
         self.best_model = None
+        self.best_params = {}
 
+    @staticmethod
+    def load_sparce_matrix(data_path:str):
+        """Charger une matrice creuse"""
+        rows = []
+        cols = []
+        data = []
+
+        with open(data_path, 'r') as f:
+            for row_idx, line in enumerate(f):
+                elements = line.strip().split()
+
+                for item in elements: # 24:1
+                    idx_str, val_str = item.split(":")
+                    col_idx = int(idx_str)
+                    val = float(val_str)
+
+                    rows.append(row_index)
+                    cols.append(col_idx)
+                    data.append(val)
+                    
+        rows = np.array(rows)
+        cols = np.array(cols)
+        data = np.array(data)
+
+        sparse_mat = coo_matrix((data, (rows, cols)))
+
+        return sparse_mat
+                    
+        
+        
+    
     @staticmethod
     def load_dataset(folder_path: str):
         basename = os.path.basename(folder_path)
-        data = pd.read_csv(f"{folder_path}/{basename}.data", sep="\s+", header=None, na_values='NaN', engine='python')
+        data = pd.read_csv(f"{folder_path}/{basename}.data", sep=r"\s+", header=None, na_values='NaN', engine='python')
         data.columns = [f'feature_{i}' for i in range(data.shape[1])]
         
         solution = np.loadtxt(f"{folder_path}/{basename}.solution")
@@ -105,6 +80,17 @@ class AutoML:
         types = np.array(ntypes)      
         return data, solution, types
 
+    def get_scoring_metric(self, task_type: str):
+        if task_type == "binary_classification":
+            return "roc_auc" # ou 'accuracy'
+        elif task_type == "multiclass_classification":
+            return "f1_weighted" # Mieux que accuracy si classes déséquilibrées
+        elif task_type == "multilabel_classification":
+            return make_scorer(f1_score, average='samples', zero_division=0)
+        elif task_type == "regression":
+            return "r2" # ou 'neg_root_mean_squared_error'
+        else:
+            return "accuracy"
 
     @staticmethod
     def detect_task_type(solution:np.array) -> str:
@@ -137,49 +123,53 @@ class AutoML:
             
         return None
 
-    def fit(self, folder:str):
-
-        # --- 1) CHARGEMENT DES DONNEES ET IDENTIFICATION DU PROBLEME -----
-        # Charger les données
+    def fit(self, folder:str, test_size:float=0.2, verbose:bool=False):
+        """
+        Charger les données, trouver le type de problème, preparer les données et tester les différents modèle de sklearn associé.
+        
+        Args:
+            - folder (str): Chemin vers le dossier du dataset.
+            - test_size (float): Taille du batch de test ]0, 1[
+            - verbose (bool): Active certain log
+        """
+        # 1) Charger le dataset
         data, solution, types = self.load_dataset(folder)
-        # Trouver le type de probleme
-        self.problem_type = self.detect_task_type(solution)
+        
+        # 2) identifier le type de problème (classification/regression etc)
+        self.task_type = self.detect_task_type(solution)
+        if verbose:
+            print(f"-> Tache de type {self.task_type} detecté.")
 
-        if self.problem_type is None:
-            raise ValueError(f"Le problème n'a pas été identifié !")
-        print(f"Probleme de type : {self.problem_type}")
-
-        # --- 2) SEPARATION DES DONNEES (!! AVANT NETOYAGE DES DONNEES !!)-----
-        # On separe les données en 80% entrainement et 20 restant pour les tests
-        # random_state=42 permet de garantir que la séparation est toujours la même
+        # 3) Preparation des données
+        # - a) separation des données en train/test
         X_train, self.X_test, y_train, self.y_test = train_test_split(
-            data, solution, test_size=0.2, random_state=42
+            data, solution, test_size=test_size, random_state=42
         )
-        # -- 3) PRETRAITEMENT DES DONN2ES --
-        # Recuperer les colonnes correspondent au differents type 
+        # - b) Recuperer le type de données associé a chaque colonne
         cat_cols = [f"feature_{i}" for i, t in enumerate(types) if t == "Categorical"]
         num_cols = [f"feature_{i}" for i, t in enumerate(types) if t == "Numerical"]
         bin_cols = [f"feature_{i}" for i, t in enumerate(types) if t == "Binary"]
-        # print(f"num_cols :{cat_cols}")
-        if num_cols:
-            # Imputation (Remplacement des données manquantes)
-            num_imputer = SimpleImputer(strategy="median")
-            # Calcule est remplace les valeurs manquante par la mediane
-            X_train[num_cols] = num_imputer.fit_transform(X_train[num_cols])
-            # remplace les valeurs manquante par la mediane sans re calculer !
-            self.X_test[num_cols] = num_imputer.transform(self.X_test[num_cols])
+        # - c) traiter chaque features en fonction de leur type
 
-             # Normalisation
+        # Données de type numerique
+        if num_cols:
+            # 1) imputation
+            num_imputer = SimpleImputer(strategy="median")
+            X_train[num_cols] = num_imputer.fit_transform(X_train[num_cols])
+            self.X_test[num_cols] = num_imputer.transform(self.X_test[num_cols])
+            # 2) Normalisation
             scaler = StandardScaler()
             X_train[num_cols] = scaler.fit_transform(X_train[num_cols])
             self.X_test[num_cols] = scaler.transform(self.X_test[num_cols])
-            
+
+        # Données de type binaire
         if bin_cols:
-            # imputation
+            # 1) imputation
             bin_imputer = SimpleImputer(strategy="most_frequent")
             X_train[bin_cols] = bin_imputer.fit_transform(X_train[bin_cols])
             self.X_test[bin_cols] = bin_imputer.transform(self.X_test[bin_cols])
 
+        # Données de type catégorielle
         if cat_cols:
             cat_imputer = SimpleImputer(strategy="most_frequent")
             X_train[cat_cols] = cat_imputer.fit_transform(X_train[cat_cols])
@@ -205,23 +195,22 @@ class AutoML:
             X_train = pd.concat([X_train, X_train_encoded_df], axis=1)
             self.X_test = pd.concat([self.X_test, X_test_encoded_df], axis=1)
 
+        # 4) Analyse des données ???
 
-        # --- 4) ENTRAÎNEMENT DES MODÈLES ---
-        models_to_test = self.models[self.problem_type]
-        print("\n--- Début de l'entraînement des modèles ---")
-    
+        # 5) Entrainement des models correspondant
+        models_to_test = self.models[self.task_type]
+        if verbose:
+            print("\n-> Choix des models pertinant : \n")
+            models_name = [name for name, model in models_to_test]
+            for i in range(len(models_name)):
+                print(f"{i+1} - {models_name[i]}")
+
         for model_name, model in models_to_test:
             try:
-                print(f"Optimisation du modèle : {model_name}")
+                if verbose:
+                    print(f"\n Optimisation du modèle : {model_name}")
                 if model_name in self.param_grids:
 
-                    if self.problem_type == 'regression':
-                        scoring_metric = 'neg_mean_squared_error'
-                    elif self.problem_type == 'multilabel_classification':
-                        scoring_metric = 'f1_samples'
-                    else:
-                        scoring_metric = 'accuracy'
-                        
                     # Créer l'objet GridSearchCV
                     # cv=3 signifie 3-fold cross-validation
                     # n_jobs=-1 utilise tous les cœurs CPU disponibles sur le cluster Skinner
@@ -229,7 +218,7 @@ class AutoML:
                         model, 
                         self.param_grids[model_name], 
                         cv=3, 
-                        scoring=scoring_metric, 
+                        scoring=self.get_scoring_metric(self.task_type), 
                         n_jobs=-1
                     )
                     
@@ -238,27 +227,24 @@ class AutoML:
                     print(f"   => Meilleurs paramètres trouvés : {grid_search.best_params_}")
                     # Le meilleur modèle est maintenant l'attribut best_estimator_
                     self.trained_models[model_name] = grid_search.best_estimator_
+                    self.best_params[model_name] = grid_search.best_params_
                 else:
                     # Si pas de grille définie, on fait un entraînement simple
                     model.fit(X_train, y_train)
                     self.trained_models[model_name] = model
-                    
-                
-                # # On entraîne le modèle uniquement sur les données d'entraînement
-                # model.fit(X_train, y_train)
-                # self.trained_models[model_name] = model
+                    self.best_params[model_name] = "N/A (Paramètres par défaut)"
                 
             except Exception as e:
                 print(f"Erreur avec le modèle {model_name} : {e}")
-        
-        print("--- Entraînement terminé ! ---")
+    
 
 
     def eval(self):
         if not self.trained_models:
             print(f"Aucun model n'a ete entrainé")
             return None
-        
+
+        print("\n -> Résultats : \n")
         for model_name, model in self.trained_models.items():
             # Prédiction sur les données de test
             y_pred = model.predict(self.X_test)
@@ -266,10 +252,10 @@ class AutoML:
             score = 0
             metric = ""
             # Choisir une meilleure métrique pour chaque type de problème
-            if self.problem_type == "regression":
+            if self.task_type == "regression":
                 score = mean_squared_error(self.y_test, y_pred)
                 metric = "MSE"
-            elif self.problem_type == "multilabel_classification":
+            elif self.task_type == "multilabel_classification":
                 # Ajoutez zero_division=0.0 pour dire à la fonction de mettre 0 sans afficher d'avertissement.
                 score = f1_score(self.y_test, y_pred, average='samples', zero_division=0.0)
                 metric = "F1-Score (samples)"
@@ -278,11 +264,11 @@ class AutoML:
                 metric = "Accuracy"
             
             self.scores[model_name] = score
-            print(f"Model: {model_name} et Score ({metric}): {score:.4f}")
+            print(f"Model: {model_name} et Score {metric}: {score:.4f}")
 
         # Trouver le meilleur model
         if self.scores:
-            if self.problem_type == "regression":
+            if self.task_type == "regression":
                 # Pour la régression, on cherche le score le plus bas 
                 best_model_name = min(self.scores, key=self.scores.get)
             else:
@@ -290,8 +276,17 @@ class AutoML:
                 best_model_name = max(self.scores, key=self.scores.get)
             
             self.best_model = self.trained_models[best_model_name]
-            print(f"\n------------------------------------------------\n")
-            print(f"Meilleur modèle : {best_model_name} (Score: {self.scores[best_model_name]:.4f})")
+            best_model_score = self.scores[best_model_name]
+            best_model_params = self.best_params[best_model_name]
+            
+            # --- Votre nouveau bloc de récapitulatif ---
+            print(f"\n------------------------------------------------")
+            print(f" RÉCAPITULATIF DU MEILLEUR MODÈLE ")
+            print(f"------------------------------------------------")
+            print(f"Modèle         : {best_model_name}")
+            print(f"Score ({metric}): {best_model_score:.4f}")
+            print(f"Hyperparamètres : {best_model_params}")
+            print(f"------------------------------------------------")
 
 
 
