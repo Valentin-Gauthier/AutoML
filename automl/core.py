@@ -116,7 +116,8 @@ class AutoML:
                         self.param_grids[model_name], 
                         cv=3, 
                         scoring=scoring_metric, 
-                        n_jobs=-1
+                        n_jobs=-1,
+                        verbose=3
                     )
                     grid_search.fit(X_train, y_train)
                     

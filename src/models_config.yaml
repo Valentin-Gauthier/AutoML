@@ -1,91 +1,98 @@
 # ==========================================================
-# Grilles d'hyperparamètres pour les modèles de Régression
+# Grilles d'hyperparamètres OPTIMISÉES - Régression
 # ==========================================================
 
 Ridge:
-  # alpha: Force de la régularisation (L2). Plus alpha est élevé, plus la régularisation est forte.
-  alpha: [0.1, 1.0, 10.0]
+  # alpha: Test sur une échelle logarithmique. 
+  # Petit (0.01) = proche de la régression linéaire standard. 
+  # Grand (100) = forte contrainte (bon si beaucoup de bruit).
+  alpha: [0.01, 0.1, 1.0, 10.0, 100.0]
 
 K-Neighbors Regressor:
-  # n_neighbors: Nombre de voisins 'k' à considérer.
-  n_neighbors: [3, 5, 9]
-  # weights: 'uniform' (tous les voisins ont le même poids), 'distance' (les voisins proches ont plus d'impact).
+  # n_neighbors: On teste plus large pour capter des tendances globales (20) ou locales (3).
+  n_neighbors: [3, 5, 9, 15, 20]
   weights: ['uniform', 'distance']
+  # p: 1 = Distance de Manhattan (souvent meilleure en haute dimension), 2 = Euclidienne.
+  p: [1, 2]
 
 SVR:
-  # C: Paramètre de régularisation. Inverse de la force de régularisation (plus C est grand, moins on régularise).
-  C: [0.1, 1, 10]
-  # kernel: Type de noyau pour gérer la non-linéarité. 'rbf' est le plus courant.
-  kernel: ['linear', 'rbf']
+  # C: Compromis marge/erreur. Échelle logarithmique indispensable ici.
+  C: [0.1, 1, 10, 100, 1000]
+  # gamma: Définit la portée d'influence d'un point. 
+  # Crucial pour le noyau RBF. Si 'scale' ne marche pas, 0.1 ou 0.01 peuvent débloquer.
+  gamma: ['scale', 0.1, 0.01, 0.001]
+  kernel: ['rbf', 'linear']
 
 Random Forest Regressor:
-  # n_estimators: Nombre d'arbres dans la forêt.
-  n_estimators: [100, 200]
-  # max_depth: Profondeur maximale de chaque arbre. 'null' signifie pas de limite.
-  max_depth: [null, 10]
+  # n_estimators: Plus il y en a, plus le modèle est stable (mais lent).
+  n_estimators: [100, 300, 500]
+  # max_depth: Limiter la profondeur évite d'apprendre le bruit par cœur.
+  max_depth: [null, 10, 20, 30]
+  # min_samples_leaf: Le paramètre le plus efficace contre le surapprentissage.
+  # Empêche de créer une feuille pour une seule donnée isolée.
+  min_samples_leaf: [1, 2, 4]
+  # max_features: Nombre de variables testées à chaque embranchement.
+  max_features: ['sqrt', 'log2', null]
 
 Gradient Boosting Regressor:
-  # n_estimators: Nombre d'étapes de boosting (nombre d'arbres).
-  n_estimators: [100, 200]
-  # learning_rate: Taux d'apprentissage (réduit la contribution de chaque arbre).
-  learning_rate: [0.1]
-  # max_depth: Profondeur de chaque arbre. Généralement faible pour le boosting.
-  max_depth: [3, 5]
+  # Stratégie : Learning rate faible + beaucoup d'arbres = meilleure performance généralement.
+  n_estimators: [100, 500, 1000]
+  learning_rate: [0.01, 0.05, 0.1]
+  # max_depth: Doit rester faible pour le boosting (contrairement aux Random Forests).
+  max_depth: [3, 5, 7]
+  # subsample: Si < 1.0, on fait du "Stochastic" Gradient Boosting (réduit la variance).
+  subsample: [0.8, 1.0]
 
 # ===================================================================
-# Grilles d'hyperparamètres pour les modèles de Classification
-# (Binaire et Multi-classe)
+# Grilles d'hyperparamètres OPTIMISÉES - Classification
 # ===================================================================
 
 Logistic Regression:
-  # C: Inverse de la force de régularisation.
-  C: [0.1, 1, 10]
-  # solver: Algorithme à utiliser pour l'optimisation. 'liblinear' est bon pour les petits datasets.
+  # C: Inverse de la régularisation (100 = peu de régularisation).
+  C: [0.01, 0.1, 1, 10, 100]
+  # solver: 'liblinear' est robuste pour les petits datasets et gère bien L1 et L2.
   solver: ['liblinear']
+  # penalty: l1 (Lasso, peut annuler des variables), l2 (Ridge, garde tout).
+  penalty: ['l2', 'l1']
 
 K-Neighbors Classifier:
-  # n_neighbors: Nombre de voisins 'k' à considérer.
-  n_neighbors: [3, 5, 9]
-  # weights: 'uniform' (vote à la majorité), 'distance' (les voisins proches ont plus de poids).
+  n_neighbors: [3, 5, 9, 15, 20]
   weights: ['uniform', 'distance']
+  p: [1, 2]
 
 SVC:
-  # C: Paramètre de régularisation.
-  C: [0.1, 1, 10]
-  # kernel: Type de noyau.
-  kernel: ['linear', 'rbf']
+  # probability: True est requis si vous voulez utiliser predict_proba plus tard (attention c'est lent).
+  # Note: C et Gamma sont les clés du succès ici.
+  C: [0.1, 1, 10, 100, 1000]
+  gamma: ['scale', 0.1, 0.01, 0.001]
+  kernel: ['rbf', 'linear']
 
 Random Forest Classifier:
-  # n_estimators: Nombre d'arbres dans la forêt.
-  n_estimators: [100, 200]
-  # max_depth: Profondeur maximale de chaque arbre.
-  max_depth: [null, 10]
+  n_estimators: [100, 300, 500]
+  max_depth: [null, 10, 20, 30]
+  min_samples_leaf: [1, 2, 4]
+  max_features: ['sqrt', 'log2']
 
 Gradient Boosting Classifier:
-  # n_estimators: Nombre d'étapes de boosting.
-  n_estimators: [100, 200]
-  # learning_rate: Taux d'apprentissage.
-  learning_rate: [0.1]
-  # max_depth: Profondeur de chaque arbre.
-  max_depth: [3, 5]
+  n_estimators: [100, 500, 1000]
+  learning_rate: [0.01, 0.05, 0.1]
+  max_depth: [3, 5, 7]
+  subsample: [0.8, 1.0]
 
 # ===================================================================
-# Grilles d'hyperparamètres pour les modèles Multi-label
-# ATTENTION: Le préfixe 'estimator__' est obligatoire !
+# Grilles d'hyperparamètres OPTIMISÉES - Multi-label
 # ===================================================================
 
 RF Multi-label:
-  # estimator__n_estimators: Nombre d'arbres (passé au RandomForest *dans* le MultiOutput).
-  estimator__n_estimators: [100]
-  # estimator__max_depth: Profondeur maximale.
-  estimator__max_depth: [null, 10]
+  estimator__n_estimators: [100, 300]
+  estimator__min_samples_leaf: [1, 2, 4]
+  estimator__max_depth: [null, 20]
 
 KN Multi-label:
-  # estimator__n_neighbors: Nombre de voisins.
-  estimator__n_neighbors: [3, 5, 9]
+  estimator__n_neighbors: [3, 5, 9, 15]
+  estimator__weights: ['uniform', 'distance']
 
 GB Multi-label:
-  # estimator__n_estimators: Nombre d'arbres.
-  estimator__n_estimators: [100, 200]
-  # estimator__max_depth: Profondeur maximale.
+  estimator__n_estimators: [100, 300]
+  estimator__learning_rate: [0.05, 0.1]
   estimator__max_depth: [3, 5]
