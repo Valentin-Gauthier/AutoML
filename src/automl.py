@@ -4,7 +4,7 @@ from scipy.sparse import coo_matrix
 import os
 import tqdm
 import yaml
-from .models import MODELS_CONFIG
+from ..automl.models import MODELS_CONFIG
 
 # Normaliser des données
 from sklearn.preprocessing import StandardScaler
