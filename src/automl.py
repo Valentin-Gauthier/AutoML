@@ -1,13 +1,13 @@
 import pandas as pd
 import numpy as np
-from scipy.sparse import coo_matrix
+from scipy.sparse import coo_matrix, issparse, csr_matrix
 import os
 import tqdm
 import yaml
 from .models import MODELS_CONFIG
 
 # Normaliser des données
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, MaxAbsScaler
 # Remplacer les valeurs manquantes
 from sklearn.impute import SimpleImputer
 # One Hot Encoder poour les données 
@@ -37,7 +37,7 @@ class AutoML:
         self.best_params = {}
 
     @staticmethod
-    def load_sparce_matrix(data_path:str):
+    def load_sparse_matrix(data_path:str):
         """Charger une matrice creuse"""
         rows = []
         cols = []
@@ -49,37 +49,51 @@ class AutoML:
 
                 for item in elements: # 24:1
                     idx_str, val_str = item.split(":")
-                    col_idx = int(idx_str)
-                    val = float(val_str)
-
-                    rows.append(row_index)
-                    cols.append(col_idx)
-                    data.append(val)
-                    
-        rows = np.array(rows)
-        cols = np.array(cols)
-        data = np.array(data)
-
-        sparse_mat = coo_matrix((data, (rows, cols)))
-
-        return sparse_mat
+                    rows.append(row_idx)
+                    cols.append(int(idx_str))
+                    data.append(float(val_str))
+        
+        return coo_matrix((data, (rows, cols))).tocsr()
                     
         
-        
-    
-    @staticmethod
-    def load_dataset(folder_path: str):
+    def load_dataset(self, folder_path:str):
+        """
+        Charger les trois fichiers du dataset comprenant :
+            - data_X.data -> les données
+            - data_X.solution -> les résultats
+            - data_X.type -> les types des colonnes 
+
+        Args:
+            - folder_path (str): Chemin du dossier du dataset.
+        """
         basename = os.path.basename(folder_path)
-        data = pd.read_csv(f"{folder_path}/{basename}.data", sep=r"\s+", header=None, na_values='NaN', engine='python')
-        data.columns = [f'feature_{i}' for i in range(data.shape[1])]
+        data_path = f"{folder_path}/{basename}.data"
+
+        try:
+            # Lire la premiere ligne et lire le format
+            with open(data_path, 'r') as f:
+                first_line = f.readline()
+
+                if ":" in first_line:
+                    # Format Sparse
+                    data = self.load_sparse_matrix(data_path)
+                    types = None # dans les matrices sparces il y a que des valeurs numériques
+                else:
+                    # Format Dense
+                    data = pd.read_csv(data_path, sep=r"\s+", header=None, na_values="NaN", engine="python")
+                    data.columns = [f"feature_{i}" for i in range(data.shape[1])]
+                     
+                    with open(f"{folder_path}/{basename}.type", 'r', encoding="utf-8") as f:
+                        types = np.array([line.strip() for line in f.readlines()])
+        except Exception as e:
+            print(f"Erreur de chargement des données : {e}")
+            return None, None, None
         
+        # Charge les solutions
         solution = np.loadtxt(f"{folder_path}/{basename}.solution")
-        
-        with open(f"{folder_path}/{basename}.type", "r", encoding="utf-8") as f:
-            ntypes = [line.strip() for line in f.readlines()]
-        types = np.array(ntypes)      
         return data, solution, types
 
+    
     def get_scoring_metric(self, task_type: str):
         if task_type == "binary_classification":
             return "roc_auc" # ou 'accuracy'
@@ -132,69 +146,90 @@ class AutoML:
             - test_size (float): Taille du batch de test ]0, 1[
             - verbose (bool): Active certain log
         """
-        # 1) Charger le dataset
+        # Charger le dataset
         data, solution, types = self.load_dataset(folder)
-        
-        # 2) identifier le type de problème (classification/regression etc)
+
+        # Identifier le type de probleme
         self.task_type = self.detect_task_type(solution)
         if verbose:
             print(f"-> Tache de type {self.task_type} detecté.")
 
-        # 3) Preparation des données
-        # - a) separation des données en train/test
+        if self.task_type == "multiclass_classification" and solution.ndim > 1:
+            if verbose: 
+                print("-> Conversion de la cible y : One-Hot (2D) vers Labels (1D)")
+            # np.argmax renvoie l'index de la valeur max (le 1) pour chaque ligne
+            solution = np.argmax(solution, axis=1)
+
+        # --- Préparation des données ---
+        # Split des données
         X_train, self.X_test, y_train, self.y_test = train_test_split(
             data, solution, test_size=test_size, random_state=42
         )
-        # - b) Recuperer le type de données associé a chaque colonne
-        cat_cols = [f"feature_{i}" for i, t in enumerate(types) if t == "Categorical"]
-        num_cols = [f"feature_{i}" for i, t in enumerate(types) if t == "Numerical"]
-        bin_cols = [f"feature_{i}" for i, t in enumerate(types) if t == "Binary"]
-        # - c) traiter chaque features en fonction de leur type
+        # Traitement des données
+        if issparse(X_train):
+            if verbose:
+                print("-> Prétraitement mode SPARSE")
 
-        # Données de type numerique
-        if num_cols:
-            # 1) imputation
-            num_imputer = SimpleImputer(strategy="median")
-            X_train[num_cols] = num_imputer.fit_transform(X_train[num_cols])
-            self.X_test[num_cols] = num_imputer.transform(self.X_test[num_cols])
-            # 2) Normalisation
-            scaler = StandardScaler()
-            X_train[num_cols] = scaler.fit_transform(X_train[num_cols])
-            self.X_test[num_cols] = scaler.transform(self.X_test[num_cols])
+            # on ne centre pas les données sinon cela tranformerait tous les 0 -> explosion taille mémoire
+            scaler = MaxAbsScaler()
 
-        # Données de type binaire
-        if bin_cols:
-            # 1) imputation
-            bin_imputer = SimpleImputer(strategy="most_frequent")
-            X_train[bin_cols] = bin_imputer.fit_transform(X_train[bin_cols])
-            self.X_test[bin_cols] = bin_imputer.transform(self.X_test[bin_cols])
+            X_train = scaler.fit_transform(X_train)
+            self.X_test = scaler.transform(self.X_test)
+            # Pas besoin d'imputer ni de gerer des données catégoriques etc
 
-        # Données de type catégorielle
-        if cat_cols:
-            cat_imputer = SimpleImputer(strategy="most_frequent")
-            X_train[cat_cols] = cat_imputer.fit_transform(X_train[cat_cols])
-            self.X_test[cat_cols] = cat_imputer.transform(self.X_test[cat_cols])
-        
-            # Encodage One-Hot
-            ohe = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
-            # On apprend les catégories sur X_train et on le transforme
-            X_train_encoded = ohe.fit_transform(X_train[cat_cols])
-            X_test_encoded = ohe.transform(self.X_test[cat_cols])
+        else:
+            if verbose:
+                print("-> Prétraitement mode DENSE")
 
-            # On récupère les nouveaux noms de colonnes créés par l'encodeur
-            encoded_cols = ohe.get_feature_names_out(cat_cols)
-            # On crée des DataFrames avec les données encodées et les bons noms de colonnes
-            X_train_encoded_df = pd.DataFrame(X_train_encoded, index=X_train.index, columns=encoded_cols)
-            X_test_encoded_df = pd.DataFrame(X_test_encoded, index=self.X_test.index, columns=encoded_cols)
-        
-            # On supprime les colonnes catégorielles originales
-            X_train = X_train.drop(cat_cols, axis=1)
-            self.X_test = self.X_test.drop(cat_cols, axis=1)
-        
-            # On fusionne les DataFrames originaux avec les nouvelles colonnes encodées
-            X_train = pd.concat([X_train, X_train_encoded_df], axis=1)
-            self.X_test = pd.concat([self.X_test, X_test_encoded_df], axis=1)
+            cat_cols = [f"feature_{i}" for i, t in enumerate(types) if t == "Categorical"]
+            num_cols = [f"feature_{i}" for i, t in enumerate(types) if t == "Numerical"]
+            bin_cols = [f"feature_{i}" for i, t in enumerate(types) if t == "Binary"]
 
+            # Données de type numerique
+            if num_cols:
+                # 1) imputation
+                num_imputer = SimpleImputer(strategy="median")
+                X_train[num_cols] = num_imputer.fit_transform(X_train[num_cols])
+                self.X_test[num_cols] = num_imputer.transform(self.X_test[num_cols])
+                # 2) Normalisation
+                scaler = StandardScaler()
+                X_train[num_cols] = scaler.fit_transform(X_train[num_cols])
+                self.X_test[num_cols] = scaler.transform(self.X_test[num_cols])
+
+            # Données de type binaire
+            if bin_cols:
+                # 1) imputation
+                bin_imputer = SimpleImputer(strategy="most_frequent")
+                X_train[bin_cols] = bin_imputer.fit_transform(X_train[bin_cols])
+                self.X_test[bin_cols] = bin_imputer.transform(self.X_test[bin_cols])
+
+            # Données de type catégorielle
+            if cat_cols:
+                cat_imputer = SimpleImputer(strategy="most_frequent")
+                X_train[cat_cols] = cat_imputer.fit_transform(X_train[cat_cols])
+                self.X_test[cat_cols] = cat_imputer.transform(self.X_test[cat_cols])
+            
+                # Encodage One-Hot
+                ohe = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
+                # On apprend les catégories sur X_train et on le transforme
+                X_train_encoded = ohe.fit_transform(X_train[cat_cols])
+                X_test_encoded = ohe.transform(self.X_test[cat_cols])
+
+                # On récupère les nouveaux noms de colonnes créés par l'encodeur
+                encoded_cols = ohe.get_feature_names_out(cat_cols)
+                # On crée des DataFrames avec les données encodées et les bons noms de colonnes
+                X_train_encoded_df = pd.DataFrame(X_train_encoded, index=X_train.index, columns=encoded_cols)
+                X_test_encoded_df = pd.DataFrame(X_test_encoded, index=self.X_test.index, columns=encoded_cols)
+            
+                # On supprime les colonnes catégorielles originales
+                X_train = X_train.drop(cat_cols, axis=1)
+                self.X_test = self.X_test.drop(cat_cols, axis=1)
+            
+                # On fusionne les DataFrames originaux avec les nouvelles colonnes encodées
+                X_train = pd.concat([X_train, X_train_encoded_df], axis=1)
+                self.X_test = pd.concat([self.X_test, X_test_encoded_df], axis=1)
+
+                
         # 4) Analyse des données ???
 
         # 5) Entrainement des models correspondant
@@ -219,7 +254,8 @@ class AutoML:
                         self.param_grids[model_name], 
                         cv=3, 
                         scoring=self.get_scoring_metric(self.task_type), 
-                        n_jobs=-1
+                        n_jobs=-1,
+                        verbose=3
                     )
                     
                     # Lancer la recherche

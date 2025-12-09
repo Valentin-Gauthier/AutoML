@@ -23,7 +23,7 @@ MODELS_CONFIG = {
         ('Gradient Boosting Classifier', GradientBoostingClassifier(random_state=42))
     ],
     'multiclass_classification': [
-        ('Logistic Regression', LogisticRegression(random_state=42, max_iter=1000, multi_class='multinomial')),
+        ('Logistic Regression', LogisticRegression(random_state=42, max_iter=1000)),
         ('K-Neighbors Classifier', KNeighborsClassifier()),
         ('Gaussian Naive Bayes', GaussianNB()),
         ('SVC', SVC(random_state=42, probability=True)),
@@ -31,8 +31,8 @@ MODELS_CONFIG = {
         ('Gradient Boosting Classifier', GradientBoostingClassifier(random_state=42))
     ],
     'multilabel_classification': [
-        ('RF Multi-label', MultiOutputClassifier(RandomForestClassifier(random_state=42))),
-        ('KN Multi-label', MultiOutputClassifier(KNeighborsClassifier())),
-        ('GB Multi-label', MultiOutputClassifier(GradientBoostingClassifier(random_state=42)))
+        ('Random Forest Classifier Multi-label', MultiOutputClassifier(RandomForestClassifier(random_state=42))),
+        ('K-Neighbors Classifier Multi-label', MultiOutputClassifier(KNeighborsClassifier())),
+        ('Gradient Boosting Classifier Multi-label', MultiOutputClassifier(GradientBoostingClassifier(random_state=42)))
     ]
 }
