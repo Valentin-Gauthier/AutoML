@@ -1,0 +1,49 @@
+-> Tache de type multiclass_classification detecté.
+
+--- Analyse de la distribution du dataset complet (10000 lignes) ---
+ -> Classe 0 : 1988 exemples (19.88%)
+ -> Classe 1 : 2049 exemples (20.49%)
+ -> Classe 2 : 1913 exemples (19.13%)
+ -> Classe 3 : 2046 exemples (20.46%)
+ -> Classe 4 : 2004 exemples (20.04%)
+-> Conversion de la cible y : One-Hot (2D) vers Labels (1D)
+-> Prétraitement mode DENSE
+
+-> Choix des models pertinant : 
+
+1 - Logistic Regression
+2 - Hist Gradient Boosting
+3 - K-Neighbors Classifier
+4 - Gaussian Naive Bayes
+5 - Bernoulli Naive Bayes
+6 - Random Forest Classifier
+7 - Gradient Boosting Classifier
+
+ Optimisation du modèle : Logistic Regression
+Fitting 3 folds for each of 5 candidates, totalling 15 fits
+   => Meilleurs paramètres trouvés : {'C': 0.01, 'max_iter': 2000, 'solver': 'lbfgs'}
+
+ Optimisation du modèle : Hist Gradient Boosting
+Fitting 3 folds for each of 8 candidates, totalling 24 fits
+[CV 1/3] END C=0.1, max_iter=2000, solver=lbfgs;, score=0.927 total time=  17.1s
+[CV 3/3] END learning_rate=0.1, max_depth=None, max_iter=100, min_samples_leaf=20;, score=0.981 total time= 4.9min
+   => Meilleurs paramètres trouvés : {'learning_rate': 0.1, 'max_depth': 10, 'max_iter': 200, 'min_samples_leaf': 20}
+
+ Optimisation du modèle : K-Neighbors Classifier
+Fitting 3 folds for each of 8 candidates, totalling 24 fits
+   => Meilleurs paramètres trouvés : {'n_jobs': 1, 'n_neighbors': 3, 'weights': 'distance'}
+
+ Optimisation du modèle : Gaussian Naive Bayes
+Fitting 3 folds for each of 4 candidates, totalling 12 fits
+   => Meilleurs paramètres trouvés : {'var_smoothing': 1e-09}
+
+ Optimisation du modèle : Bernoulli Naive Bayes
+Fitting 3 folds for each of 6 candidates, totalling 18 fits
+   => Meilleurs paramètres trouvés : {'alpha': 0.1, 'binarize': 0.5}
+
+ Optimisation du modèle : Random Forest Classifier
+Fitting 3 folds for each of 8 candidates, totalling 24 fits
+   => Meilleurs paramètres trouvés : {'max_depth': None, 'min_samples_split': 2, 'n_estimators': 200, 'n_jobs': 1}
+
+ Optimisation du modèle : Gradient Boosting Classifier
+Fitting 3 folds for each of 12 candidates, totalling 36 fits

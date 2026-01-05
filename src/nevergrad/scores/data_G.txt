@@ -1,0 +1,195 @@
+[load dataset] Loading Dense dataset: data_G
+[fit] binary_classification task detected.
+
+    Dataset Target Analysis (5124 samples)
+ Type: Binary Classification [Balanced]
+  -> Class 0  : 2562   samples (50.00%)
+  -> Class 1  : 2562   samples (50.00%)
+
+
+
+[fit] Candidate models loaded for task 'binary_classification':
+   1. Logistic Regression
+   2. Hist Gradient Boosting
+   3. K-Neighbors Classifier
+   4. Gaussian Naive Bayes
+   5. SVC
+   6. Random Forest Classifier
+   7. Bernoulli Naive Bayes
+   8. Gradient Boosting Classifier
+   9. MLP Classifier
+
+ [filter models] Dynamic Model Filtering ---
+ Dataset Info: 4099 rows, 20 cols, Sparse=False
+ -> Models selected: 9 / 9
+
+[CLUSTER] Optimizing: Logistic Regression...
+[CLUSTER] Success. Best params: {'C': 8.612344729499885, 'solver': 'lbfgs', 'max_iter': 5000}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: Hist Gradient Boosting...
+[CLUSTER] Success. Best params: {'learning_rate': 0.05593757794411989, 'max_iter': 188, 'max_depth': 10, 'l2_regularization': 0.6499599378280784}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: K-Neighbors Classifier...
+[CLUSTER] Success. Best params: {'n_neighbors': 5, 'weights': 'distance', 'p': 2, 'n_jobs': 1}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: Gaussian Naive Bayes...
+[CLUSTER] Success. Best params: {'var_smoothing': 1.2251105187183718e-06}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: SVC...
+[CLUSTER] Success. Best params: {'C': 0.13007690575481365, 'kernel': 'sigmoid', 'gamma': 'auto', 'probability': True, 'max_iter': 10000}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: Random Forest Classifier...
+[CLUSTER] Success. Best params: {'n_estimators': 339, 'max_depth': 50, 'min_samples_split': 8, 'min_samples_leaf': 4, 'class_weight': None, 'n_jobs': 1}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: Bernoulli Naive Bayes...
+[CLUSTER] Success. Best params: {'alpha': 0.14628743976628253, 'binarize': 0.1917460887627706}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: Gradient Boosting Classifier...
+[CLUSTER] Success. Best params: {'n_estimators': 228, 'learning_rate': 0.010059191872277011, 'max_depth': 7, 'subsample': 0.9545688333998661}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: MLP Classifier...
+[CLUSTER] Success. Best params: {'hidden_layer_sizes': [100, 100], 'activation': 'relu', 'alpha': 0.0012432709438203954, 'learning_rate_init': 0.0022485025530571356, 'max_iter': 1000}
+[fit] Retraining final model on full data...
+
+[eval] --- Detailed Results on Test Set (1025 samples) ---
+
+ > Model: Logistic Regression
+   - Accuracy : 0.9171
+   - F1 Macro : 0.9168 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.94      0.89      0.91       497
+         1.0       0.90      0.95      0.92       528
+
+    accuracy                           0.92      1025
+   macro avg       0.92      0.92      0.92      1025
+weighted avg       0.92      0.92      0.92      1025
+
+
+ > Model: Hist Gradient Boosting
+   - Accuracy : 0.9483
+   - F1 Macro : 0.9481 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.98      0.91      0.94       497
+         1.0       0.92      0.99      0.95       528
+
+    accuracy                           0.95      1025
+   macro avg       0.95      0.95      0.95      1025
+weighted avg       0.95      0.95      0.95      1025
+
+
+ > Model: K-Neighbors Classifier
+   - Accuracy : 0.8283
+   - F1 Macro : 0.8258 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.90      0.73      0.80       497
+         1.0       0.78      0.92      0.85       528
+
+    accuracy                           0.83      1025
+   macro avg       0.84      0.83      0.83      1025
+weighted avg       0.84      0.83      0.83      1025
+
+
+ > Model: Gaussian Naive Bayes
+   - Accuracy : 0.8917
+   - F1 Macro : 0.8911 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.93      0.84      0.88       497
+         1.0       0.86      0.94      0.90       528
+
+    accuracy                           0.89      1025
+   macro avg       0.90      0.89      0.89      1025
+weighted avg       0.89      0.89      0.89      1025
+
+
+ > Model: SVC
+   - Accuracy : 0.8868
+   - F1 Macro : 0.8858 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.94      0.81      0.87       497
+         1.0       0.85      0.95      0.90       528
+
+    accuracy                           0.89      1025
+   macro avg       0.89      0.88      0.89      1025
+weighted avg       0.89      0.89      0.89      1025
+
+
+ > Model: Random Forest Classifier
+   - Accuracy : 0.9327
+   - F1 Macro : 0.9324 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.96      0.90      0.93       497
+         1.0       0.91      0.97      0.94       528
+
+    accuracy                           0.93      1025
+   macro avg       0.94      0.93      0.93      1025
+weighted avg       0.93      0.93      0.93      1025
+
+
+ > Model: Bernoulli Naive Bayes
+   - Accuracy : 0.9034
+   - F1 Macro : 0.9026 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.96      0.84      0.89       497
+         1.0       0.86      0.97      0.91       528
+
+    accuracy                           0.90      1025
+   macro avg       0.91      0.90      0.90      1025
+weighted avg       0.91      0.90      0.90      1025
+
+
+ > Model: Gradient Boosting Classifier
+   - Accuracy : 0.9366
+   - F1 Macro : 0.9363 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.97      0.90      0.93       497
+         1.0       0.91      0.97      0.94       528
+
+    accuracy                           0.94      1025
+   macro avg       0.94      0.94      0.94      1025
+weighted avg       0.94      0.94      0.94      1025
+
+
+ > Model: MLP Classifier
+   - Accuracy : 0.9190
+   - F1 Macro : 0.9188 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.94      0.89      0.91       497
+         1.0       0.90      0.95      0.92       528
+
+    accuracy                           0.92      1025
+   macro avg       0.92      0.92      0.92      1025
+weighted avg       0.92      0.92      0.92      1025
+
+
+==================================================
+ BEST MODEL : Hist Gradient Boosting
+ Score      : 0.9481
+ Params     : {'learning_rate': 0.05593757794411989, 'max_iter': 188, 'max_depth': 10, 'l2_regularization': 0.6499599378280784}
+==================================================

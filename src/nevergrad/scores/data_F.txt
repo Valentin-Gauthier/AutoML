@@ -1,0 +1,198 @@
+[load dataset] Loading Sparse dataset: data_F
+[fit] multiclass_classification task detected.
+
+    Dataset Target Analysis (13142 samples)
+ Type: Multiclass Classification [Balanced]
+  -> Class 0  : 558    samples (4.25%)
+  -> Class 1  : 656    samples (4.99%)
+  -> Class 2  : 666    samples (5.07%)
+  -> Class 3  : 687    samples (5.23%)
+  -> Class 4  : 671    samples (5.11%)
+  -> Class 5  : 685    samples (5.21%)
+  -> Class 6  : 663    samples (5.04%)
+  -> Class 7  : 676    samples (5.14%)
+  -> Class 8  : 696    samples (5.30%)
+  -> Class 9  : 677    samples (5.15%)
+  -> Class 10 : 726    samples (5.52%)
+  -> Class 11 : 667    samples (5.08%)
+  -> Class 12 : 677    samples (5.15%)
+  -> Class 13 : 689    samples (5.24%)
+  -> Class 14 : 702    samples (5.34%)
+  -> Class 15 : 705    samples (5.36%)
+  -> Class 16 : 660    samples (5.02%)
+  -> Class 17 : 677    samples (5.15%)
+  -> Class 18 : 570    samples (4.34%)
+  -> Class 19 : 434    samples (3.30%)
+
+
+
+[fit] Candidate models loaded for task 'multiclass_classification':
+   1. Logistic Regression
+   2. Hist Gradient Boosting
+   3. K-Neighbors Classifier
+   4. Gaussian Naive Bayes
+   5. Bernoulli Naive Bayes
+   6. SVC
+   7. Random Forest Classifier
+   8. Gradient Boosting Classifier
+
+ [filter models] Dynamic Model Filtering ---
+ Dataset Info: 10513 rows, 61189 cols, Sparse=True
+ [EXCLUDED] Hist Gradient Boosting............. : Incompatible with Sparse data
+ [EXCLUDED] K-Neighbors Classifier............. : Ineffective in high dimensions (61189 cols)
+ [EXCLUDED] Gaussian Naive Bayes............... : Incompatible with Sparse data
+ [EXCLUDED] SVC................................ : Too slow for 10513 rows (Cubic Complexity)
+ -> Models selected: 4 / 8
+
+[CLUSTER] Optimizing: Logistic Regression...
+[CLUSTER] Success. Best params: {'C': 0.014601083751841692, 'solver': 'lbfgs', 'max_iter': 5000}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: Bernoulli Naive Bayes...
+[CLUSTER] Success. Best params: {'alpha': 1.4843144196362699, 'binarize': 0.23852585694987236}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: Random Forest Classifier...
+[CLUSTER] Success. Best params: {'n_estimators': 416, 'max_depth': 50, 'min_samples_split': 8, 'min_samples_leaf': 2, 'class_weight': 'balanced', 'n_jobs': 1}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: Gradient Boosting Classifier...
+[CLUSTER] Success. Best params: {'n_estimators': 166, 'learning_rate': 0.21626678173939, 'max_depth': 4, 'subsample': 0.9995541590013317}
+[fit] Retraining final model on full data...
+
+[eval] --- Detailed Results on Test Set (2629 samples) ---
+
+ > Model: Logistic Regression
+   - Accuracy : 0.7372
+   - F1 Macro : 0.7365 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.92      0.62      0.74       127
+           1       0.81      0.52      0.63       130
+           2       0.88      0.49      0.63       138
+           3       0.67      0.70      0.68       137
+           4       0.78      0.73      0.76       132
+           5       0.34      0.90      0.50       122
+           6       0.41      0.94      0.57       139
+           7       0.94      0.63      0.75       150
+           8       0.72      0.88      0.79       112
+           9       0.86      0.83      0.84       124
+          10       0.92      0.93      0.93       149
+          11       0.97      0.77      0.86       159
+          12       0.84      0.66      0.74       131
+          13       0.92      0.70      0.79       141
+          14       0.87      0.79      0.83       155
+          15       0.78      0.87      0.82       150
+          16       0.85      0.76      0.81       122
+          17       0.97      0.89      0.93       131
+          18       0.90      0.70      0.78        99
+          19       1.00      0.21      0.35        81
+
+    accuracy                           0.74      2629
+   macro avg       0.82      0.73      0.74      2629
+weighted avg       0.82      0.74      0.75      2629
+
+
+ > Model: Bernoulli Naive Bayes
+   - Accuracy : 0.4888
+   - F1 Macro : 0.4990 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.75      0.07      0.13       127
+           1       1.00      0.19      0.32       130
+           2       0.90      0.28      0.42       138
+           3       0.21      0.81      0.33       137
+           4       0.32      0.80      0.46       132
+           5       0.78      0.67      0.72       122
+           6       0.89      0.45      0.59       139
+           7       0.98      0.36      0.53       150
+           8       0.16      0.96      0.28       112
+           9       0.89      0.78      0.83       124
+          10       0.95      0.84      0.89       149
+          11       0.98      0.28      0.44       159
+          12       0.83      0.56      0.67       131
+          13       0.95      0.37      0.53       141
+          14       0.94      0.47      0.63       155
+          15       0.69      0.55      0.61       150
+          16       0.86      0.50      0.63       122
+          17       0.99      0.50      0.67       131
+          18       0.67      0.14      0.23        99
+          19       0.60      0.04      0.07        81
+
+    accuracy                           0.49      2629
+   macro avg       0.77      0.48      0.50      2629
+weighted avg       0.78      0.49      0.51      2629
+
+
+ > Model: Random Forest Classifier
+   - Accuracy : 0.7794
+   - F1 Macro : 0.7658 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.86      0.75      0.80       127
+           1       0.61      0.70      0.65       130
+           2       0.75      0.75      0.75       138
+           3       0.71      0.61      0.65       137
+           4       0.85      0.78      0.81       132
+           5       0.80      0.80      0.80       122
+           6       0.49      0.90      0.63       139
+           7       0.84      0.73      0.78       150
+           8       0.86      0.88      0.87       112
+           9       0.83      0.85      0.84       124
+          10       0.90      0.97      0.94       149
+          11       0.93      0.93      0.93       159
+          12       0.65      0.46      0.54       131
+          13       0.87      0.76      0.81       141
+          14       0.80      0.84      0.82       155
+          15       0.78      0.90      0.84       150
+          16       0.80      0.86      0.83       122
+          17       0.93      0.92      0.93       131
+          18       0.84      0.70      0.76        99
+          19       0.63      0.23      0.34        81
+
+    accuracy                           0.78      2629
+   macro avg       0.79      0.77      0.77      2629
+weighted avg       0.79      0.78      0.78      2629
+
+
+ > Model: Gradient Boosting Classifier
+   - Accuracy : 0.7824
+   - F1 Macro : 0.7904 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.88      0.74      0.80       127
+           1       0.71      0.75      0.73       130
+           2       0.77      0.72      0.74       138
+           3       0.72      0.64      0.68       137
+           4       0.85      0.80      0.83       132
+           5       0.88      0.82      0.85       122
+           6       0.79      0.78      0.79       139
+           7       0.84      0.73      0.78       150
+           8       0.90      0.88      0.89       112
+           9       0.93      0.80      0.86       124
+          10       0.91      0.90      0.91       149
+          11       0.97      0.85      0.91       159
+          12       0.31      0.76      0.44       131
+          13       0.86      0.74      0.80       141
+          14       0.87      0.80      0.84       155
+          15       0.85      0.89      0.87       150
+          16       0.84      0.82      0.83       122
+          17       0.92      0.87      0.89       131
+          18       0.83      0.71      0.77        99
+          19       0.78      0.52      0.62        81
+
+    accuracy                           0.78      2629
+   macro avg       0.82      0.78      0.79      2629
+weighted avg       0.82      0.78      0.80      2629
+
+
+==================================================
+ BEST MODEL : Gradient Boosting Classifier
+ Score      : 0.7904
+ Params     : {'n_estimators': 166, 'learning_rate': 0.21626678173939, 'max_depth': 4, 'subsample': 0.9995541590013317}
+==================================================

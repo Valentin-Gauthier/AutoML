@@ -1,0 +1,225 @@
+-> Tache de type multiclass_classification detecté.
+
+--- Analyse de la distribution du dataset complet (13142 lignes) ---
+ -> Classe 0 : 558 exemples (4.25%)
+ -> Classe 1 : 656 exemples (4.99%)
+ -> Classe 2 : 666 exemples (5.07%)
+ -> Classe 3 : 687 exemples (5.23%)
+ -> Classe 4 : 671 exemples (5.11%)
+ -> Classe 5 : 685 exemples (5.21%)
+ -> Classe 6 : 663 exemples (5.04%)
+ -> Classe 7 : 676 exemples (5.14%)
+ -> Classe 8 : 696 exemples (5.30%)
+ -> Classe 9 : 677 exemples (5.15%)
+ -> Classe 10 : 726 exemples (5.52%)
+ -> Classe 11 : 667 exemples (5.08%)
+ -> Classe 12 : 677 exemples (5.15%)
+ -> Classe 13 : 689 exemples (5.24%)
+ -> Classe 14 : 702 exemples (5.34%)
+ -> Classe 15 : 705 exemples (5.36%)
+ -> Classe 16 : 660 exemples (5.02%)
+ -> Classe 17 : 677 exemples (5.15%)
+ -> Classe 18 : 570 exemples (4.34%)
+ -> Classe 19 : 434 exemples (3.30%)
+-> Conversion de la cible y : One-Hot (2D) vers Labels (1D)
+-> Prétraitement mode SPARSE
+
+-> Choix des models pertinant : 
+
+1 - Logistic Regression
+2 - Hist Gradient Boosting
+3 - K-Neighbors Classifier
+4 - Gaussian Naive Bayes
+5 - Bernoulli Naive Bayes
+6 - Random Forest Classifier
+7 - Gradient Boosting Classifier
+
+ Optimisation du modèle : Logistic Regression
+Fitting 3 folds for each of 5 candidates, totalling 15 fits
+   => Meilleurs paramètres trouvés : {'C': 1, 'max_iter': 2000, 'solver': 'lbfgs'}
+
+ Optimisation du modèle : Hist Gradient Boosting
+   -> PASSÉ : Hist Gradient Boosting ne supporte pas le format Sparse (Conversion impossible : RAM insuffisante).
+
+ Optimisation du modèle : K-Neighbors Classifier
+Fitting 3 folds for each of 8 candidates, totalling 24 fits
+   => Meilleurs paramètres trouvés : {'n_jobs': 1, 'n_neighbors': 3, 'weights': 'distance'}
+
+ Optimisation du modèle : Gaussian Naive Bayes
+   -> PASSÉ : Gaussian Naive Bayes ne supporte pas le format Sparse (Conversion impossible : RAM insuffisante).
+
+ Optimisation du modèle : Bernoulli Naive Bayes
+Fitting 3 folds for each of 6 candidates, totalling 18 fits
+   => Meilleurs paramètres trouvés : {'alpha': 0.1, 'binarize': 0.0}
+
+ Optimisation du modèle : Random Forest Classifier
+Fitting 3 folds for each of 8 candidates, totalling 24 fits
+   => Meilleurs paramètres trouvés : {'max_depth': None, 'min_samples_split': 2, 'n_estimators': 200, 'n_jobs': 1}
+
+ Optimisation du modèle : Gradient Boosting Classifier
+Fitting 3 folds for each of 12 candidates, totalling 36 fits
+   => Meilleurs paramètres trouvés : {'learning_rate': 0.1, 'max_depth': 5, 'n_estimators': 200}
+
+ -> Résultats détaillés : 
+
+--- Rapport pour : Logistic Regression ---
+Accuracy: 0.8258
+F1-Score (Weighted): 0.8309 (Biaisé vers la majorité)
+F1-Score (Macro)   : 0.8290 (Équitable)
+              precision    recall  f1-score   support
+
+           0       0.92      0.86      0.89       127
+           1       0.50      0.79      0.62       130
+           2       0.75      0.67      0.70       138
+           3       0.70      0.69      0.70       137
+           4       0.81      0.81      0.81       132
+           5       0.70      0.81      0.75       122
+           6       0.59      0.89      0.71       139
+           7       0.88      0.79      0.83       150
+           8       0.95      0.90      0.93       112
+           9       0.93      0.91      0.92       124
+          10       0.95      0.91      0.93       149
+          11       0.96      0.86      0.91       159
+          12       0.87      0.77      0.82       131
+          13       0.90      0.77      0.83       141
+          14       0.92      0.85      0.88       155
+          15       0.95      0.89      0.92       150
+          16       0.89      0.84      0.87       122
+          17       0.97      0.94      0.95       131
+          18       0.87      0.85      0.86        99
+          19       0.91      0.64      0.75        81
+
+    accuracy                           0.83      2629
+   macro avg       0.85      0.82      0.83      2629
+weighted avg       0.85      0.83      0.83      2629
+
+--- Rapport pour : K-Neighbors Classifier ---
+Accuracy: 0.4652
+F1-Score (Weighted): 0.4882 (Biaisé vers la majorité)
+F1-Score (Macro)   : 0.4916 (Équitable)
+              precision    recall  f1-score   support
+
+           0       0.80      0.46      0.59       127
+           1       0.38      0.42      0.40       130
+           2       0.57      0.38      0.46       138
+           3       0.54      0.33      0.41       137
+           4       0.53      0.40      0.46       132
+           5       0.65      0.40      0.50       122
+           6       0.29      0.51      0.37       139
+           7       0.66      0.49      0.56       150
+           8       0.93      0.57      0.71       112
+           9       0.48      0.46      0.47       124
+          10       0.53      0.62      0.57       149
+          11       0.71      0.52      0.60       159
+          12       0.47      0.37      0.42       131
+          13       0.15      0.53      0.24       141
+          14       0.61      0.45      0.51       155
+          15       0.36      0.38      0.37       150
+          16       0.85      0.46      0.60       122
+          17       0.54      0.58      0.56       131
+          18       0.48      0.49      0.49        99
+          19       0.68      0.48      0.57        81
+
+    accuracy                           0.47      2629
+   macro avg       0.56      0.47      0.49      2629
+weighted avg       0.55      0.47      0.49      2629
+
+--- Rapport pour : Bernoulli Naive Bayes ---
+Accuracy: 0.7961
+F1-Score (Weighted): 0.8097 (Biaisé vers la majorité)
+F1-Score (Macro)   : 0.8060 (Équitable)
+              precision    recall  f1-score   support
+
+           0       0.91      0.79      0.84       127
+           1       0.70      0.73      0.71       130
+           2       0.78      0.75      0.76       138
+           3       0.76      0.66      0.71       137
+           4       0.58      0.84      0.69       132
+           5       0.92      0.81      0.86       122
+           6       0.37      0.91      0.52       139
+           7       0.93      0.81      0.86       150
+           8       0.88      0.89      0.89       112
+           9       0.93      0.87      0.90       124
+          10       0.97      0.93      0.95       149
+          11       0.94      0.82      0.88       159
+          12       0.85      0.76      0.80       131
+          13       0.98      0.75      0.85       141
+          14       0.96      0.79      0.87       155
+          15       0.90      0.80      0.85       150
+          16       0.89      0.81      0.85       122
+          17       0.96      0.79      0.87       131
+          18       0.81      0.72      0.76        99
+          19       0.87      0.57      0.69        81
+
+    accuracy                           0.80      2629
+   macro avg       0.84      0.79      0.81      2629
+weighted avg       0.85      0.80      0.81      2629
+
+--- Rapport pour : Random Forest Classifier ---
+Accuracy: 0.7992
+F1-Score (Weighted): 0.7935 (Biaisé vers la majorité)
+F1-Score (Macro)   : 0.7828 (Équitable)
+              precision    recall  f1-score   support
+
+           0       0.87      0.72      0.79       127
+           1       0.60      0.73      0.66       130
+           2       0.74      0.76      0.75       138
+           3       0.72      0.63      0.67       137
+           4       0.82      0.84      0.83       132
+           5       0.79      0.84      0.82       122
+           6       0.67      0.85      0.75       139
+           7       0.81      0.78      0.80       150
+           8       0.88      0.89      0.89       112
+           9       0.76      0.87      0.81       124
+          10       0.92      0.97      0.94       149
+          11       0.96      0.89      0.93       159
+          12       0.74      0.60      0.66       131
+          13       0.84      0.77      0.80       141
+          14       0.82      0.88      0.85       155
+          15       0.74      0.94      0.83       150
+          16       0.79      0.89      0.83       122
+          17       0.95      0.94      0.94       131
+          18       0.89      0.66      0.76        99
+          19       0.86      0.22      0.35        81
+
+    accuracy                           0.80      2629
+   macro avg       0.81      0.78      0.78      2629
+weighted avg       0.81      0.80      0.79      2629
+
+--- Rapport pour : Gradient Boosting Classifier ---
+Accuracy: 0.8022
+F1-Score (Weighted): 0.8137 (Biaisé vers la majorité)
+F1-Score (Macro)   : 0.8086 (Équitable)
+              precision    recall  f1-score   support
+
+           0       0.90      0.78      0.84       127
+           1       0.72      0.69      0.71       130
+           2       0.84      0.74      0.78       138
+           3       0.73      0.69      0.71       137
+           4       0.87      0.80      0.83       132
+           5       0.87      0.84      0.85       122
+           6       0.80      0.82      0.81       139
+           7       0.87      0.76      0.81       150
+           8       0.93      0.88      0.91       112
+           9       0.91      0.81      0.85       124
+          10       0.92      0.91      0.92       149
+          11       0.98      0.88      0.93       159
+          12       0.33      0.80      0.47       131
+          13       0.86      0.79      0.82       141
+          14       0.89      0.81      0.85       155
+          15       0.87      0.89      0.88       150
+          16       0.84      0.84      0.84       122
+          17       0.95      0.90      0.93       131
+          18       0.82      0.77      0.79        99
+          19       0.82      0.52      0.64        81
+
+    accuracy                           0.80      2629
+   macro avg       0.84      0.80      0.81      2629
+weighted avg       0.84      0.80      0.81      2629
+
+
+================================================
+ MEILLEUR MODÈLE : Logistic Regression
+ Score retenu    : 0.8290
+ Hyperparamètres : {'C': 1, 'max_iter': 2000, 'solver': 'lbfgs'}
+================================================

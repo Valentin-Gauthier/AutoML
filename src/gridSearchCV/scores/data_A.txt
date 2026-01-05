@@ -1,0 +1,205 @@
+-> Tache de type multilabel_classification detecté.
+
+--- Analyse de la distribution du dataset complet (34190 lignes) ---
+Nombre de labels : 3
+ -> Label 0 : 29207 exemples (85.43%)
+ -> Label 1 : 22847 exemples (66.82%)
+ -> Label 2 : 26013 exemples (76.08%)
+
+-> Choix des models correspondant : 
+
+1 - Random Forest Classifier Multi-label
+2 - K-Neighbors Classifier Multi-label
+3 - Gradient Boosting Classifier Multi-label
+4 - Hist Gradient Boosting Multi-label
+5 - MLP Multi-label
+6 - Ridge Classifier
+
+--- Filtrage dynamique des modèles ---
+Dataset : 27352 lignes, 215 colonnes, Sparse=False
+Labels cibles : 3
+Modèles retenus : 6 / 6
+
+-> Choix des models pertinant : 
+
+1 - Random Forest Classifier Multi-label
+2 - K-Neighbors Classifier Multi-label
+3 - Gradient Boosting Classifier Multi-label
+4 - Hist Gradient Boosting Multi-label
+5 - MLP Multi-label
+6 - Ridge Classifier
+
+ Optimisation du modèle : Random Forest Classifier Multi-label
+Fitting 3 folds for each of 4 candidates, totalling 12 fits
+[CV 1/3] END estimator__max_depth=10, estimator__n_estimators=50, estimator__n_jobs=1;, score=0.893 total time=   2.1s
+[CV 2/3] END estimator__max_depth=10, estimator__n_estimators=50, estimator__n_jobs=1;, score=0.893 total time=   2.0s
+[CV 3/3] END estimator__max_depth=10, estimator__n_estimators=50, estimator__n_jobs=1;, score=0.891 total time=   2.0s
+[CV 1/3] END estimator__max_depth=10, estimator__n_estimators=100, estimator__n_jobs=1;, score=0.893 total time=   3.9s
+[CV 2/3] END estimator__max_depth=10, estimator__n_estimators=100, estimator__n_jobs=1;, score=0.895 total time=   4.0s
+[CV 3/3] END estimator__max_depth=10, estimator__n_estimators=100, estimator__n_jobs=1;, score=0.893 total time=   3.9s
+[CV 1/3] END estimator__max_depth=20, estimator__n_estimators=50, estimator__n_jobs=1;, score=0.897 total time=   3.5s
+[CV 2/3] END estimator__max_depth=20, estimator__n_estimators=50, estimator__n_jobs=1;, score=0.898 total time=   3.3s
+[CV 3/3] END estimator__max_depth=20, estimator__n_estimators=50, estimator__n_jobs=1;, score=0.896 total time=   3.3s
+[CV 1/3] END estimator__max_depth=20, estimator__n_estimators=100, estimator__n_jobs=1;, score=0.897 total time=   6.8s
+[CV 2/3] END estimator__max_depth=20, estimator__n_estimators=100, estimator__n_jobs=1;, score=0.898 total time=   6.8s
+[CV 3/3] END estimator__max_depth=20, estimator__n_estimators=100, estimator__n_jobs=1;, score=0.896 total time=   6.5s
+   => Meilleurs paramètres trouvés : {'estimator__max_depth': 20, 'estimator__n_estimators': 50, 'estimator__n_jobs': 1}
+
+ Optimisation du modèle : K-Neighbors Classifier Multi-label
+Fitting 3 folds for each of 2 candidates, totalling 6 fits
+[CV 1/3] END estimator__n_jobs=1, estimator__n_neighbors=5;, score=0.863 total time=   6.6s
+[CV 2/3] END estimator__n_jobs=1, estimator__n_neighbors=5;, score=0.864 total time=   6.5s
+[CV 3/3] END estimator__n_jobs=1, estimator__n_neighbors=5;, score=0.862 total time=   6.6s
+[CV 1/3] END estimator__n_jobs=1, estimator__n_neighbors=9;, score=0.868 total time=   6.5s
+[CV 2/3] END estimator__n_jobs=1, estimator__n_neighbors=9;, score=0.870 total time=   6.6s
+[CV 3/3] END estimator__n_jobs=1, estimator__n_neighbors=9;, score=0.868 total time=   6.5s
+   => Meilleurs paramètres trouvés : {'estimator__n_jobs': 1, 'estimator__n_neighbors': 9}
+
+ Optimisation du modèle : Gradient Boosting Classifier Multi-label
+Fitting 3 folds for each of 4 candidates, totalling 12 fits
+[CV 1/3] END estimator__max_depth=3, estimator__n_estimators=100;, score=0.899 total time=  18.1s
+[CV 2/3] END estimator__max_depth=3, estimator__n_estimators=100;, score=0.900 total time=  18.2s
+[CV 3/3] END estimator__max_depth=3, estimator__n_estimators=100;, score=0.897 total time=  17.9s
+[CV 1/3] END estimator__max_depth=3, estimator__n_estimators=200;, score=0.900 total time=  36.2s
+[CV 2/3] END estimator__max_depth=3, estimator__n_estimators=200;, score=0.901 total time=  36.1s
+[CV 3/3] END estimator__max_depth=3, estimator__n_estimators=200;, score=0.898 total time=  36.4s
+[CV 1/3] END estimator__max_depth=5, estimator__n_estimators=100;, score=0.899 total time=  29.5s
+[CV 2/3] END estimator__max_depth=5, estimator__n_estimators=100;, score=0.902 total time=  29.0s
+[CV 3/3] END estimator__max_depth=5, estimator__n_estimators=100;, score=0.898 total time=  28.7s
+[CV 1/3] END estimator__max_depth=5, estimator__n_estimators=200;, score=0.899 total time=  58.1s
+[CV 2/3] END estimator__max_depth=5, estimator__n_estimators=200;, score=0.901 total time=  58.2s
+[CV 3/3] END estimator__max_depth=5, estimator__n_estimators=200;, score=0.899 total time=  58.1s
+   => Meilleurs paramètres trouvés : {'estimator__max_depth': 5, 'estimator__n_estimators': 200}
+
+ Optimisation du modèle : Hist Gradient Boosting Multi-label
+Fitting 3 folds for each of 8 candidates, totalling 24 fits
+[CV 1/3] END estimator__learning_rate=0.05, estimator__max_depth=None, estimator__max_iter=100, estimator__min_samples_leaf=20;, score=0.900 total time=  10.1s
+[CV 2/3] END estimator__learning_rate=0.05, estimator__max_depth=None, estimator__max_iter=100, estimator__min_samples_leaf=20;, score=0.901 total time=  10.0s
+[CV 3/3] END estimator__learning_rate=0.05, estimator__max_depth=None, estimator__max_iter=100, estimator__min_samples_leaf=20;, score=0.899 total time=   9.7s
+[CV 1/3] END estimator__learning_rate=0.05, estimator__max_depth=None, estimator__max_iter=200, estimator__min_samples_leaf=20;, score=0.899 total time=  12.7s
+[CV 2/3] END estimator__learning_rate=0.05, estimator__max_depth=None, estimator__max_iter=200, estimator__min_samples_leaf=20;, score=0.901 total time=  10.9s
+[CV 3/3] END estimator__learning_rate=0.05, estimator__max_depth=None, estimator__max_iter=200, estimator__min_samples_leaf=20;, score=0.899 total time=  11.5s
+[CV 1/3] END estimator__learning_rate=0.05, estimator__max_depth=10, estimator__max_iter=100, estimator__min_samples_leaf=20;, score=0.900 total time=   9.4s
+[CV 2/3] END estimator__learning_rate=0.05, estimator__max_depth=10, estimator__max_iter=100, estimator__min_samples_leaf=20;, score=0.900 total time=   9.5s
+[CV 3/3] END estimator__learning_rate=0.05, estimator__max_depth=10, estimator__max_iter=100, estimator__min_samples_leaf=20;, score=0.899 total time=   9.4s
+[CV 1/3] END estimator__learning_rate=0.05, estimator__max_depth=10, estimator__max_iter=200, estimator__min_samples_leaf=20;, score=0.900 total time=  12.3s
+[CV 2/3] END estimator__learning_rate=0.05, estimator__max_depth=10, estimator__max_iter=200, estimator__min_samples_leaf=20;, score=0.900 total time=  12.8s
+[CV 3/3] END estimator__learning_rate=0.05, estimator__max_depth=10, estimator__max_iter=200, estimator__min_samples_leaf=20;, score=0.899 total time=  12.7s
+[CV 1/3] END estimator__learning_rate=0.1, estimator__max_depth=None, estimator__max_iter=100, estimator__min_samples_leaf=20;, score=0.899 total time=   8.6s
+[CV 2/3] END estimator__learning_rate=0.1, estimator__max_depth=None, estimator__max_iter=100, estimator__min_samples_leaf=20;, score=0.901 total time=   6.6s
+[CV 3/3] END estimator__learning_rate=0.1, estimator__max_depth=None, estimator__max_iter=100, estimator__min_samples_leaf=20;, score=0.899 total time=   6.9s
+[CV 1/3] END estimator__learning_rate=0.1, estimator__max_depth=None, estimator__max_iter=200, estimator__min_samples_leaf=20;, score=0.899 total time=   8.6s
+[CV 2/3] END estimator__learning_rate=0.1, estimator__max_depth=None, estimator__max_iter=200, estimator__min_samples_leaf=20;, score=0.901 total time=   6.6s
+[CV 3/3] END estimator__learning_rate=0.1, estimator__max_depth=None, estimator__max_iter=200, estimator__min_samples_leaf=20;, score=0.899 total time=   6.9s
+[CV 1/3] END estimator__learning_rate=0.1, estimator__max_depth=10, estimator__max_iter=100, estimator__min_samples_leaf=20;, score=0.900 total time=   6.6s
+[CV 2/3] END estimator__learning_rate=0.1, estimator__max_depth=10, estimator__max_iter=100, estimator__min_samples_leaf=20;, score=0.901 total time=   6.9s
+[CV 3/3] END estimator__learning_rate=0.1, estimator__max_depth=10, estimator__max_iter=100, estimator__min_samples_leaf=20;, score=0.899 total time=   7.2s
+[CV 1/3] END estimator__learning_rate=0.1, estimator__max_depth=10, estimator__max_iter=200, estimator__min_samples_leaf=20;, score=0.900 total time=   6.6s
+[CV 2/3] END estimator__learning_rate=0.1, estimator__max_depth=10, estimator__max_iter=200, estimator__min_samples_leaf=20;, score=0.901 total time=   6.9s
+[CV 3/3] END estimator__learning_rate=0.1, estimator__max_depth=10, estimator__max_iter=200, estimator__min_samples_leaf=20;, score=0.899 total time=   7.2s
+   => Meilleurs paramètres trouvés : {'estimator__learning_rate': 0.1, 'estimator__max_depth': 10, 'estimator__max_iter': 100, 'estimator__min_samples_leaf': 20}
+
+ Optimisation du modèle : MLP Multi-label
+Fitting 3 folds for each of 2 candidates, totalling 6 fits
+[CV 1/3] END activation=relu, alpha=0.0001, hidden_layer_sizes=[100], max_iter=1000;, score=0.851 total time= 1.7min
+[CV 2/3] END activation=relu, alpha=0.0001, hidden_layer_sizes=[100], max_iter=1000;, score=0.850 total time= 2.1min
+[CV 3/3] END activation=relu, alpha=0.0001, hidden_layer_sizes=[100], max_iter=1000;, score=0.846 total time= 2.0min
+[CV 1/3] END activation=relu, alpha=0.0001, hidden_layer_sizes=[100, 50], max_iter=1000;, score=0.850 total time= 1.1min
+[CV 2/3] END activation=relu, alpha=0.0001, hidden_layer_sizes=[100, 50], max_iter=1000;, score=0.843 total time= 1.3min
+[CV 3/3] END activation=relu, alpha=0.0001, hidden_layer_sizes=[100, 50], max_iter=1000;, score=0.849 total time= 1.1min
+   => Meilleurs paramètres trouvés : {'activation': 'relu', 'alpha': 0.0001, 'hidden_layer_sizes': [100], 'max_iter': 1000}
+
+ Optimisation du modèle : Ridge Classifier
+
+ -> Résultats détaillés : 
+
+--- Rapport pour : Random Forest Classifier Multi-label ---
+F1-Score (Samples) : 0.8968 (Qualité par ligne)
+F1-Score (Macro)   : 0.9087 (Qualité moyenne des labels)
+              precision    recall  f1-score   support
+
+           0       0.87      1.00      0.93      5828
+           1       0.89      0.88      0.89      4560
+           2       0.87      0.95      0.91      5233
+
+   micro avg       0.88      0.95      0.91     15621
+   macro avg       0.88      0.94      0.91     15621
+weighted avg       0.88      0.95      0.91     15621
+ samples avg       0.88      0.95      0.90     15621
+
+--- Rapport pour : K-Neighbors Classifier Multi-label ---
+F1-Score (Samples) : 0.8701 (Qualité par ligne)
+F1-Score (Macro)   : 0.8817 (Qualité moyenne des labels)
+              precision    recall  f1-score   support
+
+           0       0.85      0.99      0.92      5828
+           1       0.82      0.86      0.84      4560
+           2       0.86      0.91      0.89      5233
+
+   micro avg       0.85      0.93      0.89     15621
+   macro avg       0.85      0.92      0.88     15621
+weighted avg       0.85      0.93      0.88     15621
+ samples avg       0.85      0.93      0.87     15621
+
+--- Rapport pour : Gradient Boosting Classifier Multi-label ---
+F1-Score (Samples) : 0.9003 (Qualité par ligne)
+F1-Score (Macro)   : 0.9121 (Qualité moyenne des labels)
+              precision    recall  f1-score   support
+
+           0       0.88      0.99      0.93      5828
+           1       0.90      0.88      0.89      4560
+           2       0.89      0.94      0.91      5233
+
+   micro avg       0.89      0.94      0.91     15621
+   macro avg       0.89      0.94      0.91     15621
+weighted avg       0.89      0.94      0.91     15621
+ samples avg       0.89      0.95      0.90     15621
+
+--- Rapport pour : Hist Gradient Boosting Multi-label ---
+F1-Score (Samples) : 0.8984 (Qualité par ligne)
+F1-Score (Macro)   : 0.9100 (Qualité moyenne des labels)
+              precision    recall  f1-score   support
+
+           0       0.87      1.00      0.93      5828
+           1       0.90      0.87      0.88      4560
+           2       0.89      0.94      0.91      5233
+
+   micro avg       0.89      0.94      0.91     15621
+   macro avg       0.89      0.94      0.91     15621
+weighted avg       0.89      0.94      0.91     15621
+ samples avg       0.89      0.94      0.90     15621
+
+--- Rapport pour : MLP Multi-label ---
+F1-Score (Samples) : 0.8619 (Qualité par ligne)
+F1-Score (Macro)   : 0.8790 (Qualité moyenne des labels)
+              precision    recall  f1-score   support
+
+           0       0.88      0.92      0.90      5828
+           1       0.85      0.87      0.86      4560
+           2       0.88      0.86      0.87      5233
+
+   micro avg       0.87      0.89      0.88     15621
+   macro avg       0.87      0.89      0.88     15621
+weighted avg       0.87      0.89      0.88     15621
+ samples avg       0.88      0.89      0.86     15621
+
+--- Rapport pour : Ridge Classifier ---
+F1-Score (Samples) : 0.8917 (Qualité par ligne)
+F1-Score (Macro)   : 0.9039 (Qualité moyenne des labels)
+              precision    recall  f1-score   support
+
+           0       0.87      1.00      0.93      5828
+           1       0.88      0.88      0.88      4560
+           2       0.86      0.95      0.90      5233
+
+   micro avg       0.87      0.95      0.91     15621
+   macro avg       0.87      0.94      0.90     15621
+weighted avg       0.87      0.95      0.91     15621
+ samples avg       0.87      0.95      0.89     15621
+
+
+================================================
+ MEILLEUR MODÈLE : Gradient Boosting Classifier Multi-label
+ Score retenu    : 0.9003
+ Hyperparamètres : {'estimator__max_depth': 5, 'estimator__n_estimators': 200}
+================================================

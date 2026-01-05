@@ -1,0 +1,83 @@
+[load dataset] Loading Dense dataset: data_B
+[fit] regression task detected.
+
+    Dataset Target Analysis (5000 samples)
+ Type: Regression
+  - Min:    14999.0000
+  - Max:    500001.0000
+  - Mean:   207568.8056
+  - Median: 179500.0000
+  - StdDev: 115383.4602
+
+
+
+[fit] Candidate models loaded for task 'regression':
+   1. Linear Regression
+   2. Ridge
+   3. K-Neighbors Regressor
+   4. SVR
+   5. Random Forest Regressor
+   6. Gradient Boosting Regressor
+   7. MLP Regressor
+   8. Hist Gradient Boosting
+
+ [filter models] Dynamic Model Filtering ---
+ Dataset Info: 4000 rows, 16 cols, Sparse=False
+ -> Models selected: 8 / 8
+
+[CLUSTER] Optimizing: Linear Regression...
+[CLUSTER] Success. Best params: {'fit_intercept': True}
+[CLUSTER] Optimizing: Ridge...
+[CLUSTER] Success. Best params: {'alpha': 0.014152327896774685}
+[CLUSTER] Optimizing: K-Neighbors Regressor...
+[CLUSTER] Success. Best params: {'n_neighbors': 16, 'weights': 'distance', 'p': 2, 'n_jobs': 1}
+[CLUSTER] Optimizing: SVR...
+[CLUSTER] Success. Best params: {'C': 271.6664097253663, 'kernel': 'linear', 'gamma': 'scale', 'epsilon': 0.1497987492731127, 'max_iter': 20000}
+[CLUSTER] Optimizing: Random Forest Regressor...
+[CLUSTER] Success. Best params: {'n_estimators': 239, 'max_depth': 10, 'min_samples_split': 5, 'min_samples_leaf': 2, 'n_jobs': 1}
+[CLUSTER] Optimizing: Gradient Boosting Regressor...
+[CLUSTER] Success. Best params: {'n_estimators': 155, 'learning_rate': 0.014576909836066897, 'max_depth': 3, 'subsample': 0.943774263396606}
+[CLUSTER] Optimizing: MLP Regressor...
+[CLUSTER] Success. Best params: {'regressor__hidden_layer_sizes': [100], 'regressor__activation': 'relu', 'regressor__alpha': 0.000305224010324179, 'regressor__learning_rate_init': 0.003068191169036536, 'regressor__max_iter': 1000}
+[CLUSTER] Optimizing: Hist Gradient Boosting...
+[CLUSTER] Success. Best params: {'learning_rate': 0.05202970451424487, 'max_iter': 650, 'max_depth': 10, 'l2_regularization': 0.9719611313186536}
+
+[eval] --- Detailed Results on Test Set (1000 samples) ---
+
+ > Model: Linear Regression
+   - MSE: 4749054027.8971
+   - R2 : 0.6342
+
+ > Model: Ridge
+   - MSE: 4749071604.3371
+   - R2 : 0.6342
+
+ > Model: K-Neighbors Regressor
+   - MSE: 7633999123.6500
+   - R2 : 0.4120
+
+ > Model: SVR
+   - MSE: 5779764808.7556
+   - R2 : 0.5548
+
+ > Model: Random Forest Regressor
+   - MSE: 3655900932.7071
+   - R2 : 0.7184
+
+ > Model: Gradient Boosting Regressor
+   - MSE: 5973711758.5648
+   - R2 : 0.5399
+
+ > Model: MLP Regressor
+   - MSE: 4786464774.8763
+   - R2 : 0.6313
+
+ > Model: Hist Gradient Boosting
+   - MSE: 2758661761.4024
+   - R2 : 0.7875
+
+==================================================
+ BEST MODEL : Hist Gradient Boosting
+ Score      : 0.7875
+ Params     : {'learning_rate': 0.05202970451424487, 'max_iter': 650, 'max_depth': 10, 'l2_regularization': 0.9719611313186536}
+==================================================
