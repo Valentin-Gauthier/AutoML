@@ -4,7 +4,7 @@
 #SBATCH --gres=gpu:0
 #SBATCH --cpus-per-task=20
 #SBATCH --mem=20G
-#SBATCH --time=3-00:00:00
+#SBATCH --time=1-00:00:00
 #SBATCH --output=log_%j.txt
 
 # commande srun equivalente :

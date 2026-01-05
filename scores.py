@@ -1,16 +1,20 @@
-from src import automl
-import importlib
-importlib.reload(automl)
-from src.automl import AutoML
+from src.nevergrad.automl import AutoML
 
 
 base_path = "/info/corpus/ChallengeMachineLearning/data_"
-datasets_letters = "ABCDEFGHIJK"
+datasets_letters = "HK"
 
 for letter in datasets_letters:
+    
     current_data_dest = f"{base_path}{letter}"
     
     print(f"############################################### Traitement du dataset : data_{letter} #############################################")
-    model = AutoML()
-    model.fit(current_data_dest, verbose=True)
-    model.eval()
+    automl = AutoML(
+        budget=500,
+        num_workers=20,
+        mem_gb=8,
+        cpus_per_task=1,
+        verbose=True
+    )
+    automl.fit(current_data_dest)
+    automl.eval()
