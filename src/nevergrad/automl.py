@@ -13,7 +13,7 @@ from sklearn.preprocessing import StandardScaler, MaxAbsScaler, OneHotEncoder
 from sklearn.impute import SimpleImputer
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, mean_squared_error, f1_score, make_scorer, classification_report, r2_score
-from sklearn.feature_selection import SelectKBest, f_classif, f_regression
+from sklearn.feature_selection import SelectKBest, f_classif, f_regression, chi2
 from sklearn.base import clone
 
 
@@ -498,7 +498,7 @@ class AutoML:
         2.  **Preprocessing**: Applies specific transformations:
             - Sparse: MaxAbsScaler.
             - Dense: Imputation (Median/Freq), Scaling (Standard), and One-Hot Encoding.
-        3.  **Feature Selection**: Reduces dimensionality using statistical tests (SelectKBest) 
+        3.  **Feature Selection**: Reduces dimensionality using statistical tests
             if the number of features exceeds `self.feature_selection_threshold`.
         4.  **Dynamic Filtering**: Excludes models incompatible with the dataset (size, sparsity, etc.).
         5.  **Hyperparameter Optimization**: Launches distributed search using Nevergrad & Submitit.
@@ -527,66 +527,85 @@ class AutoML:
             data, solution, test_size=self.test_size, random_state=self.random_state
         )
 
+        self.num_imputer = None
+        self.cat_imputer = None
+        self.scaler = None
+        self.bin_imputer = None
+        self.ohe = None
+        self.selector = None
+
+        self.cat_cols = None
+        self.num_cols = None
+        self.bin_cols = None
+
+
         if issparse(X_train):
-            scaler = MaxAbsScaler()
-            X_train = scaler.fit_transform(X_train)
-            self.X_test = scaler.transform(self.X_test)
+            self.scaler = MaxAbsScaler()
+            X_train = self.scaler.fit_transform(X_train)
+            self.X_test = self.scaler.transform(self.X_test)
         else:
-            cat_cols = [f"feature_{i}" for i, t in enumerate(types) if t == "Categorical"]
-            num_cols = [f"feature_{i}" for i, t in enumerate(types) if t == "Numerical"]
-            bin_cols = [f"feature_{i}" for i, t in enumerate(types) if t == "Binary"]
+            self.cat_cols = [f"feature_{i}" for i, t in enumerate(types) if t == "Categorical"]
+            self.num_cols = [f"feature_{i}" for i, t in enumerate(types) if t == "Numerical"]
+            self.bin_cols = [f"feature_{i}" for i, t in enumerate(types) if t == "Binary"]
 
-            if num_cols:
-                num_imputer = SimpleImputer(strategy="median")
-                X_train[num_cols] = num_imputer.fit_transform(X_train[num_cols])
-                self.X_test[num_cols] = num_imputer.transform(self.X_test[num_cols])
+            if self.num_cols:
+                self.num_imputer = SimpleImputer(strategy="median")
+                X_train[self.num_cols] = self.num_imputer.fit_transform(X_train[self.num_cols])
+                self.X_test[self.num_cols] = self.num_imputer.transform(self.X_test[self.num_cols])
 
-                scaler = StandardScaler()
-                X_train[num_cols] = scaler.fit_transform(X_train[num_cols])
-                self.X_test[num_cols] = scaler.transform(self.X_test[num_cols])
+                self.scaler = StandardScaler()
+                X_train[self.num_cols] = self.scaler.fit_transform(X_train[self.num_cols])
+                self.X_test[self.num_cols] = self.scaler.transform(self.X_test[self.num_cols])
 
-            if bin_cols:
-                bin_imputer = SimpleImputer(strategy="most_frequent")
-                X_train[bin_cols] = bin_imputer.fit_transform(X_train[bin_cols])
-                self.X_test[bin_cols] = bin_imputer.transform(self.X_test[bin_cols])
+            if self.bin_cols:
+                self.bin_imputer = SimpleImputer(strategy="most_frequent")
+                X_train[self.bin_cols] = self.bin_imputer.fit_transform(X_train[self.in_cols])
+                self.X_test[self.bin_cols] = self.bin_imputer.transform(self.X_test[self.bin_cols])
 
-            if cat_cols:
-                cat_imputer = SimpleImputer(strategy="most_frequent")
-                X_train[cat_cols] = cat_imputer.fit_transform(X_train[cat_cols])
-                self.X_test[cat_cols] = cat_imputer.transform(self.X_test[cat_cols])
+            if self.cat_cols:
+                self.cat_imputer = SimpleImputer(strategy="most_frequent")
+                X_train[self.cat_cols] = self.cat_imputer.fit_transform(X_train[self.cat_cols])
+                self.X_test[self.cat_cols] = self.cat_imputer.transform(self.X_test[self.cat_cols])
             
                 # Encodage One-Hot
-                ohe = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
-                X_train_encoded = ohe.fit_transform(X_train[cat_cols])
-                X_test_encoded = ohe.transform(self.X_test[cat_cols])
+                self.ohe = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
+                X_train_encoded = self.ohe.fit_transform(X_train[self.cat_cols])
+                X_test_encoded = self.ohe.transform(self.X_test[self.cat_cols])
 
-                encoded_cols = ohe.get_feature_names_out(cat_cols)
+                encoded_cols = self.ohe.get_feature_names_out(self.cat_cols)
                 X_train_encoded_df = pd.DataFrame(X_train_encoded, index=X_train.index, columns=encoded_cols)
                 X_test_encoded_df = pd.DataFrame(X_test_encoded, index=self.X_test.index, columns=encoded_cols)
             
-                X_train = X_train.drop(cat_cols, axis=1)
-                self.X_test = self.X_test.drop(cat_cols, axis=1)
+                X_train = X_train.drop(self.cat_cols, axis=1)
+                self.X_test = self.X_test.drop(self.cat_cols, axis=1)
             
                 X_train = pd.concat([X_train, X_train_encoded_df], axis=1)
                 self.X_test = pd.concat([self.X_test, X_test_encoded_df], axis=1)
 
         # data analysis
-        n_cols = X_train.shape[1]
-        if n_cols > self.feature_selection_threshold and not issparse(X_train):
-            if self.verbose:
-                print(f"[fit] Dense features threshold exceeded ({n_cols} > {self.feature_selection_threshold}).")
-                print(f"[fit] Reducing to the top {self.feature_selection_threshold} features...")
+        n_rows, n_cols = X_train.shape
 
+        if n_cols > self.feature_selection_threshold:
+            if self.verbose:
+                print(f"[fit] Features threshold exceeded ({n_cols} > {self.feature_selection_threshold}).")
+                print(f"[fit] Reducing to the top {self.feature_selection_threshold} features...")
+    
             if self.task_type == "regression":
                 score_func = f_regression
             else:
-                score_func = f_classif
+                if issparse(X_train):
+                    score_func = chi2
+                else:
+                    score_func = f_classif
+            
             selector = SelectKBest(score_func=score_func, k=self.feature_selection_threshold)
             try:
                 X_train_reduced = selector.fit_transform(X_train, y_train)
                 self.X_test = selector.transform(self.X_test)
-
+    
                 X_train = X_train_reduced
+                if self.verbose:
+                         print(f"[fit] Reduction done. New shape: {X_train.shape}")
             except Exception as e:
                 print(f"[fit] Warning: Feature selection failed: {e}. Keeping original features.")
 
@@ -631,6 +650,16 @@ class AutoML:
                     
                 final_model = clone(model_instance)
                 final_model.set_params(**best_params)
+
+                # modele direct (ex: Random Forest)
+                if hasattr(final_model, 'n_jobs'):
+                    final_model.set_params(n_jobs=-1)
+                    
+                #  Wrapper (ex: OneVsRest ou MultiOutputClassifier)
+                if hasattr(final_model, 'estimator'):
+                    if hasattr(final_model.estimator, 'n_jobs'):
+                        final_model.estimator.set_params(n_jobs=-1)
+                        
                 final_model.fit(X_train, y_train)
 
                 self.trained_models[model_name] = final_model
@@ -737,6 +766,60 @@ class AutoML:
 
 
 
+
+    def predict(self, dataset_folder:str) -> np.ndarray:
+        """
+        """
+        if self.best_model is None:
+            raise ValueError("[predict] You must call fit() before predict().")
+
+        if self.verbose:
+            print(f"[predict] Loading data from {dataset_folder}...")
+
+        X_test, _, _ = self.load_dataset(dataset_folder)
+
+        if issparse(X_test):
+            if self.scaler:
+                X_test = self.scaler.transform(X_test)
+        else:
+            if not isinstance(X_test, pd.DataFrame):
+               X_test = pd.DataFrame(X_test, columns=[f"feature_{i}" for i in range(X_test.shape[1])])
+
+            if self.num_cols and self.num_imputer:
+                X_test[self.num_cols] = self.num_imputer.transform(X_test[self.num_cols])
+                X_test[self.num_cols] = self.scaler.transform(X_test[self.num_cols])
+            
+            if self.bin_cols and self.bin_imputer:
+                X_test[self.bin_cols] = self.bin_imputer.transform(X_test[self.bin_cols])
+                
+            if self.cat_cols and self.cat_imputer:
+                X_test[self.cat_cols] = self.cat_imputer.transform(X_test[self.cat_cols])
+                
+                if self.ohe:
+                    X_encoded = self.ohe.transform(X_test[self.cat_cols])
+                    encoded_cols = self.ohe.get_feature_names_out(self.cat_cols)
+                    X_encoded_df = pd.DataFrame(X_encoded, index=X_test.index, columns=encoded_cols)
+                    
+                    X_test = X_test.drop(self.cat_cols, axis=1)
+                    X_test = pd.concat([X_test, X_encoded_df], axis=1)
+            
+
+        if self.selector:
+            print(f"[predict] Applying feature selection...")
+            X_test = self.selector.transform(X_test)
+
+        
+            
+        if self.verbose:
+            model_name = type(self.best_model).__name__
+            if hasattr(self.best_model, "estimator"):
+                inner_name = type(self.best_model.estimator).__name__
+                model_name = f"{inner_name} (wrapped in {model_name})"
+            print(f"[predict] Predicting using {model_name}...")
+            
+        predictions = self.best_model.predict(X_test)
+        
+        return predictions
 
 
 

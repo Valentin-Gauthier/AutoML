@@ -224,7 +224,7 @@ Gradient Boosting Classifier Multi-label:
   estimator__n_estimators: 
     type: int
     min: 500
-    max: 2000  
+    max: 1000  
   estimator__learning_rate: 
     type: log
     min: 0.005
@@ -255,7 +255,7 @@ Hist Gradient Boosting Multi-label:
 
 # MLP Multi-label est NATIF (pas de wrapper), donc PAS de préfixe estimator__
 MLP Multi-label:
-  hidden_layer_sizes: [[100], [100, 100], [200, 100], [300, 150], [50, 50, 50]]
+  hidden_layer_sizes: [[100], [100, 50],[200, 100], [300, 150], [50, 50, 50]]
   activation: ['relu', 'tanh']
   alpha: 
     type: log
@@ -266,6 +266,8 @@ MLP Multi-label:
     min: 0.001
     max: 0.01
   max_iter: 1000
+  early_stopping: True
+  n_iter_no_change: 10
 
 # Ridge Classifier est dans MultiOutputClassifier -> préfixe estimator__
 Ridge Classifier:

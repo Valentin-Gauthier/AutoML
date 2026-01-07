@@ -1,0 +1,201 @@
+[load dataset] Loading Sparse dataset: data_K
+[fit] multilabel_classification task detected.
+
+    Dataset Target Analysis (54491 samples)
+   Type: Multi-label (18 labels)
+ - Average labels per sample: 1.09
+ -> Label 12 : 7774   (14.27%)
+ -> Label 11 : 7740   (14.20%)
+ -> Label 17 : 6058   (11.12%)
+ -> Label 8  : 6014   (11.04%)
+ -> Label 7  : 5231   (9.60%)
+ -> Label 3  : 3636   (6.67%)
+ -> Label 13 : 3596   (6.60%)
+ -> Label 14 : 3474   (6.38%)
+ -> Label 0  : 3043   (5.58%)
+ -> Label 1  : 2138   (3.92%)
+ -> Label 4  : 1987   (3.65%)
+ -> Label 9  : 1680   (3.08%)
+ -> Label 6  : 1171   (2.15%)
+ -> Label 10 : 1145   (2.10%)
+ -> Label 16 : 1137   (2.09%)
+ -> Label 5  : 1110   (2.04%)
+ -> Label 2  : 1107   (2.03%)
+ -> Label 15 : 1096   (2.01%)
+
+
+[fit] Features threshold exceeded (5001 > 500).
+[fit] Reducing to the top 500 features...
+[fit] Reduction done. New shape: (43592, 500)
+
+[fit] Candidate models loaded for task 'multilabel_classification':
+   1. Random Forest Classifier Multi-label
+   2. K-Neighbors Classifier Multi-label
+   3. Gradient Boosting Classifier Multi-label
+   4. Hist Gradient Boosting Multi-label
+   5. MLP Multi-label
+   6. Ridge Classifier
+
+ [filter models] Dynamic Model Filtering ---
+ Dataset Info: 43592 rows, 500 cols, Sparse=True
+ Target Info : 18 labels (Multi-label)
+ [EXCLUDED] Hist Gradient Boosting Multi-label. : Incompatible with Sparse data
+ -> Models selected: 5 / 6
+
+[CLUSTER] Optimizing: Random Forest Classifier Multi-label...
+[CLUSTER] Success. Best params: {'estimator__n_estimators': 82, 'estimator__max_depth': None, 'estimator__min_samples_leaf': 4, 'estimator__n_jobs': 1}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: K-Neighbors Classifier Multi-label...
+[CLUSTER] Success. Best params: {'estimator__n_neighbors': 4, 'estimator__weights': 'distance', 'estimator__n_jobs': 1}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: Gradient Boosting Classifier Multi-label...
+[CLUSTER] Success. Best params: {'estimator__n_estimators': 1854, 'estimator__learning_rate': 0.027614366736586668, 'estimator__max_depth': 3, 'estimator__subsample': 0.8720708448236063}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: MLP Multi-label...
+[CLUSTER] Success. Best params: {'hidden_layer_sizes': [100, 50], 'activation': 'relu', 'alpha': 0.001207390933488133, 'learning_rate_init': 0.004292188973914906, 'max_iter': 1000, 'early_stopping': True, 'n_iter_no_change': 10}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: Ridge Classifier...
+[CLUSTER] Success. Best params: {'estimator__alpha': 3.5774799597541524}
+[fit] Retraining final model on full data...
+
+[eval] --- Detailed Results on Test Set (10899 samples) ---
+
+ > Model: Random Forest Classifier Multi-label
+   - F1 (Samples): 0.0619 (Quality per instance)
+   - F1 (Macro)  : 0.1844 (Quality per label)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00       624
+           1       0.00      0.00      0.00       425
+           2       0.97      0.61      0.75       226
+           3       0.00      0.00      0.00       758
+           4       0.00      0.00      0.00       382
+           5       0.95      0.44      0.60       228
+           6       0.00      0.00      0.00       274
+           7       0.83      0.14      0.24      1022
+           8       0.00      0.00      0.00      1145
+           9       0.00      0.00      0.00       314
+          10       0.75      0.20      0.32       255
+          11       0.00      0.00      0.00      1564
+          12       0.00      0.00      0.00      1535
+          13       0.00      0.00      0.00       719
+          14       0.00      0.00      0.00       708
+          15       0.95      0.68      0.79       201
+          16       0.88      0.48      0.62       225
+          17       0.00      0.00      0.00      1216
+
+   micro avg       0.90      0.06      0.11     11821
+   macro avg       0.30      0.14      0.18     11821
+weighted avg       0.16      0.06      0.08     11821
+ samples avg       0.06      0.06      0.06     11821
+
+
+ > Model: K-Neighbors Classifier Multi-label
+[eval] Prediction failed for K-Neighbors Classifier Multi-label: A worker process managed by the executor was unexpectedly terminated. This could be caused by a segmentation fault while calling the function or by an excessive memory usage causing the Operating System to kill the worker.
+
+The exit codes of the workers are {SIGKILL(-9)}
+Detailed tracebacks of the workers should have been printed to stderr in the executor process if faulthandler was not disabled.
+
+ > Model: Gradient Boosting Classifier Multi-label
+   - F1 (Samples): 0.1027 (Quality per instance)
+   - F1 (Macro)  : 0.2342 (Quality per label)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00       624
+           1       0.00      0.00      0.00       425
+           2       0.96      0.67      0.79       226
+           3       0.20      0.00      0.00       758
+           4       0.34      0.03      0.05       382
+           5       0.92      0.50      0.65       228
+           6       0.44      0.03      0.05       274
+           7       0.75      0.34      0.47      1022
+           8       0.00      0.00      0.00      1145
+           9       0.00      0.00      0.00       314
+          10       0.72      0.30      0.42       255
+          11       0.00      0.00      0.00      1564
+          12       0.55      0.07      0.12      1535
+          13       0.00      0.00      0.00       719
+          14       0.48      0.10      0.16       708
+          15       0.95      0.77      0.85       201
+          16       0.88      0.50      0.64       225
+          17       0.55      0.00      0.01      1216
+
+   micro avg       0.74      0.10      0.17     11821
+   macro avg       0.43      0.18      0.23     11821
+weighted avg       0.34      0.10      0.13     11821
+ samples avg       0.10      0.10      0.10     11821
+
+
+ > Model: MLP Multi-label
+   - F1 (Samples): 0.1271 (Quality per instance)
+   - F1 (Macro)  : 0.2611 (Quality per label)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.16      0.00      0.01       624
+           1       0.19      0.01      0.02       425
+           2       0.91      0.72      0.80       226
+           3       0.19      0.01      0.02       758
+           4       0.22      0.08      0.11       382
+           5       0.92      0.54      0.68       228
+           6       0.55      0.09      0.16       274
+           7       0.64      0.36      0.46      1022
+           8       0.21      0.02      0.04      1145
+           9       0.00      0.00      0.00       314
+          10       0.68      0.31      0.42       255
+          11       0.25      0.01      0.02      1564
+          12       0.43      0.12      0.19      1535
+          13       0.10      0.01      0.02       719
+          14       0.34      0.13      0.18       708
+          15       0.92      0.82      0.87       201
+          16       0.87      0.51      0.64       225
+          17       0.19      0.02      0.04      1216
+
+   micro avg       0.54      0.12      0.20     11821
+   macro avg       0.43      0.21      0.26     11821
+weighted avg       0.34      0.12      0.16     11821
+ samples avg       0.13      0.13      0.13     11821
+
+
+ > Model: Ridge Classifier
+   - F1 (Samples): 0.0661 (Quality per instance)
+   - F1 (Macro)  : 0.1741 (Quality per label)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00       624
+           1       0.00      0.00      0.00       425
+           2       0.97      0.48      0.64       226
+           3       0.00      0.00      0.00       758
+           4       0.40      0.01      0.01       382
+           5       1.00      0.29      0.44       228
+           6       0.00      0.00      0.00       274
+           7       0.80      0.25      0.38      1022
+           8       0.00      0.00      0.00      1145
+           9       0.00      0.00      0.00       314
+          10       0.86      0.13      0.22       255
+          11       0.00      0.00      0.00      1564
+          12       0.49      0.03      0.05      1535
+          13       0.00      0.00      0.00       719
+          14       0.43      0.04      0.08       708
+          15       0.98      0.61      0.75       201
+          16       0.95      0.40      0.56       225
+          17       0.00      0.00      0.00      1216
+
+   micro avg       0.82      0.06      0.12     11821
+   macro avg       0.38      0.12      0.17     11821
+weighted avg       0.26      0.06      0.09     11821
+ samples avg       0.07      0.07      0.07     11821
+
+
+==================================================
+ BEST MODEL : MLP Multi-label
+ Score      : 0.1271
+ Params     : {'hidden_layer_sizes': [100, 50], 'activation': 'relu', 'alpha': 0.001207390933488133, 'learning_rate_init': 0.004292188973914906, 'max_iter': 1000, 'early_stopping': True, 'n_iter_no_change': 10}
+==================================================
