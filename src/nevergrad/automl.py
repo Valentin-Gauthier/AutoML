@@ -29,7 +29,7 @@ class AutoML:
     """Defines parameters for AutoML using submitit & nevergrad.
 
     Example:
-        >>> from AutoML.src.nevergrad import AutoML
+        >>> from AutoML.src.nevergrad.automl import AutoML
         >>> automl = AutoML()
 
     Args:
@@ -50,11 +50,11 @@ class AutoML:
             Path of the models configuration YAML file.
         budget (int):
             Total budget for the nevergrad optimization (total iterations).
-            Default to 100.
+            Default to 20.
         num_workers (int):
-            Number of parallel workers (jobs) launching with submitit. Default to 10.
+            Number of parallel workers (jobs) launching with submitit. Default to 5.
         timeout_min (int):
-            Maximum duration in minutes allowed for each job (before killed). Default to 60.
+            Maximum duration in minutes allowed for each job (before killed). Default to 10.
         mem_gb (int):
             RAM requested per job in Gigabytes. Default to 4.
         cpus_per_task (int):
@@ -74,9 +74,9 @@ class AutoML:
                  n_folds: int = 3,
                  feature_selection_threshold: int = 500,
                  models_config_path: str = "src/nevergrad/models_config.yaml",
-                 budget: int = 100,
-                 num_workers: int = 10,
-                 timeout_min: int = 60,
+                 budget: int = 20,
+                 num_workers: int = 5,
+                 timeout_min: int = 10,
                  mem_gb: int = 4,
                  cpus_per_task: int = 1,
                  submitit_log_folder: str = "automl_logs",
@@ -404,6 +404,12 @@ class AutoML:
         
         n_rows, n_cols = X.shape
         is_data_sparse = issparse(X)
+
+        # Vérification rapide si données négatives (pour Naive Bayes)
+        has_negative_values = False
+        if not is_data_sparse and hasattr(X, 'min'):
+             if X.min().min() < 0:
+                 has_negative_values = True
         
         n_labels = 1
         if self.task_type == "multilabel_classification" and y is not None:
@@ -418,20 +424,30 @@ class AutoML:
 
         for name, model in all_models:
             reason = None
-            
+
+            # Compatibilité Sparse
             if is_data_sparse and name in ["Gaussian Naive Bayes", "Hist Gradient Boosting", "Hist Gradient Boosting Multi-label"]:
                 reason = "Incompatible with Sparse data"
 
+            # Compatibilité Données Négatives
+            elif has_negative_values and "Naive Bayes" in name:
+                 reason = "Incompatible with negative values (StandardScaler)"
+                
+            # Complexité Cubique (Seulement SVC/SVR classiques, pas les Linear)
             elif n_rows > 10_000 and name in ["SVC", "SVR"]:
                 reason = f"Too slow for {n_rows} rows (Cubic Complexity)"
 
+            # Haute Dimension (Distance based)
             elif n_cols > 500 and "Neighbors" in name:
                 reason = f"Ineffective in high dimensions ({n_cols} cols)"
 
+            # Multi-label Massif (>20 labels)
             elif self.task_type == "multilabel_classification" and n_labels > 20:
-                is_native_multioutput = any(native in name for native in ["MLP", "Ridge", "Random Forest"])
-
-                if not is_native_multioutput:
+                
+                fast_multioutput = ["MLP", "Ridge", "Random Forest", "Extra Trees", "Linear SVC"]
+                is_fast = any(fast in name for fast in fast_multioutput)
+                
+                if not is_fast:
                       reason = f"Too heavy for {n_labels} labels (requires {n_labels} models)"
 
             if reason:

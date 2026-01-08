@@ -1,5 +1,5 @@
 # ==========================================================
-# CONFIGURATION NEVERGRAD
+# CONFIGURATION NEVERGRAD (OPTIMISÉE VITESSE)
 # ==========================================================
 
 # ----------------------------------------------------------
@@ -19,9 +19,9 @@ K-Neighbors Regressor:
   n_neighbors: 
     type: int
     min: 3
-    max: 30
+    max: 20 
   weights: ['distance', 'uniform']
-  p: [1, 2] # 1=Manhattan, 2=Euclidean
+  p: [1, 2] 
   n_jobs: 1
 
 SVR:
@@ -30,19 +30,19 @@ SVR:
     min: 0.1
     max: 1000.0
   kernel: ['rbf', 'linear'] 
-  gamma: ['scale', 'auto', 0.1, 0.01]
+  gamma: ['scale', 'auto', 0.1]
   epsilon: 
     type: float
     min: 0.01
     max: 0.5
-  max_iter: 20000
+  max_iter: 5000 
 
 Random Forest Regressor:
   n_estimators: 
     type: int
     min: 50
-    max: 500
-  max_depth: [10, 20, 30, 50, 80, null]
+    max: 200 
+  max_depth: [10, 20, 30, null]
   min_samples_split: 
     type: int
     min: 2
@@ -56,34 +56,39 @@ Random Forest Regressor:
 Gradient Boosting Regressor:
   n_estimators: 
     type: int
-    min: 100
-    max: 500
+    min: 50
+    max: 200
   learning_rate: 
     type: log
-    min: 0.01
+    min: 0.05
     max: 0.2
   max_depth: 
     type: int
     min: 3
-    max: 8
+    max: 5
   subsample: 
     type: float
     min: 0.8
     max: 1.0
+  # --- EARLY STOPPING ---
+  n_iter_no_change: 10
+  validation_fraction: 0.1
 
-# Attention: encapsulé dans TransformedTargetRegressor -> préfixe 'regressor__'
 MLP Regressor:
-  regressor__hidden_layer_sizes: [[50], [100], [100, 50], [100, 100], [200, 100]]
+  regressor__hidden_layer_sizes: [[50], [100], [100, 50]]
   regressor__activation: ['relu', 'tanh']
   regressor__alpha: 
     type: log
-    min: 0.00001
+    min: 0.0001
     max: 0.01
   regressor__learning_rate_init: 
     type: log
     min: 0.001
     max: 0.01
-  regressor__max_iter: 1000
+  regressor__max_iter: 500
+  # --- EARLY STOPPING ---
+  regressor__early_stopping: True
+  regressor__n_iter_no_change: 10
 
 Hist Gradient Boosting:
   learning_rate: 
@@ -93,12 +98,43 @@ Hist Gradient Boosting:
   max_iter: 
     type: int
     min: 100
-    max: 1000
-  max_depth: [null, 10, 20, 50]
+    max: 500
+  max_depth: [null, 10, 20]
   l2_regularization: 
     type: float
     min: 0.0
     max: 1.0
+  # --- EARLY STOPPING ---
+  early_stopping: True
+  n_iter_no_change: 10
+
+
+ElasticNet:
+  alpha: 
+    type: log
+    min: 0.01
+    max: 100.0
+  l1_ratio: [0.1, 0.5, 0.9] # 0.1=proche Ridge, 0.9=proche Lasso
+
+Linear SVR:
+  C: 
+    type: log
+    min: 0.01
+    max: 100.0
+  epsilon: [0.0, 0.1, 0.5]
+  max_iter: 2000
+
+Extra Trees Regressor:
+  n_estimators: 
+    type: int
+    min: 50
+    max: 200
+  max_depth: [10, 20, 30, null]
+  min_samples_split: 
+    type: int
+    min: 2
+    max: 10
+  n_jobs: 1
 
 # ----------------------------------------------------------
 # 2. BINARY & MULTICLASS CLASSIFICATION
@@ -110,7 +146,7 @@ Logistic Regression:
     min: 0.01
     max: 100.0
   solver: ['lbfgs']
-  max_iter: 5000
+  max_iter: 2000
 
 K-Neighbors Classifier:
   n_neighbors: 
@@ -142,17 +178,17 @@ SVC:
     type: log
     min: 0.1
     max: 1000.0
-  kernel: ['rbf', 'poly', 'sigmoid']
+  kernel: ['rbf', 'poly']
   gamma: ['scale', 'auto']
-  probability: True # Requis par ta config Python
-  max_iter: 10000
+  probability: True 
+  max_iter: 2000 
 
 Random Forest Classifier:
   n_estimators: 
     type: int
     min: 50
-    max: 500
-  max_depth: [10, 20, 30, 50, null]
+    max: 200
+  max_depth: [10, 20, 30, null]
   min_samples_split: 
     type: int
     min: 2
@@ -167,50 +203,77 @@ Random Forest Classifier:
 Gradient Boosting Classifier:
   n_estimators: 
     type: int
-    min: 100
-    max: 500
+    min: 50
+    max: 200
   learning_rate: 
     type: log
-    min: 0.01
+    min: 0.05
     max: 0.3
   max_depth: 
     type: int
     min: 3
-    max: 8
+    max: 6
   subsample: 
     type: float
     min: 0.8
     max: 1.0
+  # --- EARLY STOPPING ---
+  n_iter_no_change: 10
+  validation_fraction: 0.1
 
 MLP Classifier:
-  hidden_layer_sizes: [[50], [100], [100, 50], [100, 100], [200, 100]]
+  hidden_layer_sizes: [[50], [100], [100, 50]]
   activation: ['relu', 'tanh']
   alpha: 
     type: log
-    min: 0.00001
+    min: 0.0001
     max: 0.01
   learning_rate_init: 
     type: log
     min: 0.001
     max: 0.01
-  max_iter: 1000
+  max_iter: 500
+  # --- EARLY STOPPING ---
+  early_stopping: True
+  n_iter_no_change: 10
+  
+Linear SVC:
+  C: 
+    type: log
+    min: 0.01
+    max: 100.0
+  # penalty='l2' est standard, 'l1' sert à la sélection de features
+  penalty: ['l2'] 
+  max_iter: 2000
 
+Extra Trees Classifier:
+  n_estimators: 
+    type: int
+    min: 50
+    max: 200
+  max_depth: [10, 20, 30, null]
+  min_samples_split: 
+    type: int
+    min: 2
+    max: 10
+  n_jobs: 1
 # ----------------------------------------------------------
 # 3. MULTI-LABEL CLASSIFICATION
-# Note: Préfixe 'estimator__' requis car MultiOutputClassifier
 # ----------------------------------------------------------
 
 Random Forest Classifier Multi-label:
   estimator__n_estimators: 
     type: int
     min: 50
-    max: 500
-  estimator__max_depth: [10, 20, 40, 60, 100, null]
+    max: 150 
+  estimator__max_depth: [10, 20, 30, null] 
   estimator__min_samples_leaf: 
     type: int
     min: 1
     max: 4
   estimator__n_jobs: 1
+  # Ajout vital pour votre score (Rappel) :
+  estimator__class_weight: ["balanced"]
 
 K-Neighbors Classifier Multi-label:
   estimator__n_neighbors: 
@@ -223,20 +286,23 @@ K-Neighbors Classifier Multi-label:
 Gradient Boosting Classifier Multi-label:
   estimator__n_estimators: 
     type: int
-    min: 500
-    max: 1000  
+    min: 50
+    max: 200  
   estimator__learning_rate: 
     type: log
-    min: 0.005
-    max: 0.05
+    min: 0.05 
+    max: 0.2    
   estimator__max_depth: 
     type: int
     min: 3
-    max: 9
+    max: 5
   estimator__subsample: 
     type: float
-    min: 0.7
-    max: 0.95
+    min: 0.8
+    max: 1.0
+  # --- EARLY STOPPING ---
+  estimator__validation_fraction: 0.1
+  estimator__n_iter_no_change: 10
 
 Hist Gradient Boosting Multi-label:
   estimator__learning_rate: 
@@ -246,32 +312,50 @@ Hist Gradient Boosting Multi-label:
   estimator__max_iter: 
     type: int
     min: 100
-    max: 1000
-  estimator__max_depth: [null, 10, 20, 50]
+    max: 500
+  estimator__max_depth: [null, 10, 20]
   estimator__l2_regularization: 
     type: float
     min: 0.0
     max: 1.0
+  # --- EARLY STOPPING ---
+  estimator__early_stopping: True
+  estimator__n_iter_no_change: 10
 
-# MLP Multi-label est NATIF (pas de wrapper), donc PAS de préfixe estimator__
 MLP Multi-label:
-  hidden_layer_sizes: [[100], [100, 50],[200, 100], [300, 150], [50, 50, 50]]
-  activation: ['relu', 'tanh']
+  hidden_layer_sizes: [[100], [100, 50], [200, 100]]
+  activation: ['relu']
   alpha: 
     type: log
-    min: 0.00001
+    min: 0.0001
     max: 0.01
   learning_rate_init: 
     type: log
     min: 0.001
     max: 0.01
-  max_iter: 1000
+  max_iter: 500
+  # --- EARLY STOPPING ---
   early_stopping: True
   n_iter_no_change: 10
 
-# Ridge Classifier est dans MultiOutputClassifier -> préfixe estimator__
 Ridge Classifier:
   estimator__alpha:
     type: log
     min: 0.01
     max: 100.0
+  estimator__class_weight: ["balanced"]
+  
+Linear SVC Multi-label:
+  estimator__C: 
+    type: log
+    min: 0.01
+    max: 100.0
+  estimator__max_iter: 2000
+
+Extra Trees Classifier Multi-label:
+  estimator__n_estimators: 
+    type: int
+    min: 50
+    max: 200
+  estimator__max_depth: [10, 20, 30, null]
+  estimator__n_jobs: 1

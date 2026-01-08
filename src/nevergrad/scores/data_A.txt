@@ -24,130 +24,130 @@
  -> Models selected: 6 / 6
 
 [CLUSTER] Optimizing: Random Forest Classifier Multi-label...
-[CLUSTER] Success. Best params: {'estimator__n_estimators': 407, 'estimator__max_depth': 10, 'estimator__min_samples_leaf': 3, 'estimator__n_jobs': 1}
+[CLUSTER] Success. Best params: {'estimator__n_estimators': 53, 'estimator__max_depth': None, 'estimator__min_samples_leaf': 1, 'estimator__n_jobs': 1, 'estimator__class_weight': 'balanced'}
 [fit] Retraining final model on full data...
 [CLUSTER] Optimizing: K-Neighbors Classifier Multi-label...
-[CLUSTER] Success. Best params: {'estimator__n_neighbors': 7, 'estimator__weights': 'distance', 'estimator__n_jobs': 1}
+[CLUSTER] Success. Best params: {'estimator__n_neighbors': 15, 'estimator__weights': 'distance', 'estimator__n_jobs': 1}
 [fit] Retraining final model on full data...
 [CLUSTER] Optimizing: Gradient Boosting Classifier Multi-label...
-[CLUSTER] Success. Best params: {'estimator__n_estimators': 537, 'estimator__learning_rate': 0.021634600443149115, 'estimator__max_depth': 5, 'estimator__subsample': 0.9479791612117098}
+[CLUSTER] Success. Best params: {'estimator__n_estimators': 184, 'estimator__learning_rate': 0.055035182480081796, 'estimator__max_depth': 4, 'estimator__subsample': 0.9717907892795817, 'estimator__validation_fraction': 0.1, 'estimator__n_iter_no_change': 10}
 [fit] Retraining final model on full data...
 [CLUSTER] Optimizing: Hist Gradient Boosting Multi-label...
-[CLUSTER] Success. Best params: {'estimator__learning_rate': 0.013614512392207198, 'estimator__max_iter': 131, 'estimator__max_depth': 50, 'estimator__l2_regularization': 0.48211063791276226}
+[CLUSTER] Success. Best params: {'estimator__learning_rate': 0.014366932572525457, 'estimator__max_iter': 488, 'estimator__max_depth': 20, 'estimator__l2_regularization': 0.4326619833942287, 'estimator__early_stopping': True, 'estimator__n_iter_no_change': 10}
 [fit] Retraining final model on full data...
 [CLUSTER] Optimizing: MLP Multi-label...
-[CLUSTER] Success. Best params: {'hidden_layer_sizes': [100], 'activation': 'tanh', 'alpha': 0.003650401457442479, 'learning_rate_init': 0.006145013282932588, 'max_iter': 1000, 'early_stopping': True, 'n_iter_no_change': 10}
+[CLUSTER] Success. Best params: {'hidden_layer_sizes': [100, 50], 'activation': 'relu', 'alpha': 0.00019970121702539003, 'learning_rate_init': 0.0023024041191778144, 'max_iter': 500, 'early_stopping': True, 'n_iter_no_change': 10}
 [fit] Retraining final model on full data...
 [CLUSTER] Optimizing: Ridge Classifier...
-[CLUSTER] Success. Best params: {'estimator__alpha': 1.675993815953825}
+[CLUSTER] Success. Best params: {'estimator__alpha': 1.190550484867158, 'estimator__class_weight': 'balanced'}
 [fit] Retraining final model on full data...
 
 [eval] --- Detailed Results on Test Set (6838 samples) ---
 
  > Model: Random Forest Classifier Multi-label
-   - F1 (Samples): 0.8941 (Quality per instance)
-   - F1 (Macro)  : 0.9073 (Quality per label)
+   - F1 (Samples): 0.8965 (Quality per instance)
+   - F1 (Macro)  : 0.9079 (Quality per label)
 
 [Classification Report]
               precision    recall  f1-score   support
 
-           0       0.86      1.00      0.93      5828
-           1       0.87      0.90      0.89      4560
-           2       0.86      0.96      0.91      5233
+           0       0.87      1.00      0.93      5828
+           1       0.89      0.88      0.88      4560
+           2       0.88      0.95      0.91      5233
 
-   micro avg       0.86      0.96      0.91     15621
-   macro avg       0.87      0.95      0.91     15621
-weighted avg       0.86      0.96      0.91     15621
- samples avg       0.87      0.96      0.89     15621
+   micro avg       0.88      0.95      0.91     15621
+   macro avg       0.88      0.94      0.91     15621
+weighted avg       0.88      0.95      0.91     15621
+ samples avg       0.88      0.95      0.90     15621
 
 
  > Model: K-Neighbors Classifier Multi-label
-   - F1 (Samples): 0.8685 (Quality per instance)
-   - F1 (Macro)  : 0.8801 (Quality per label)
+   - F1 (Samples): 0.8724 (Quality per instance)
+   - F1 (Macro)  : 0.8844 (Quality per label)
 
 [Classification Report]
               precision    recall  f1-score   support
 
-           0       0.86      0.99      0.92      5828
-           1       0.82      0.85      0.84      4560
-           2       0.87      0.91      0.89      5233
+           0       0.85      1.00      0.92      5828
+           1       0.82      0.87      0.84      4560
+           2       0.86      0.92      0.89      5233
 
-   micro avg       0.85      0.92      0.88     15621
-   macro avg       0.85      0.92      0.88     15621
-weighted avg       0.85      0.92      0.88     15621
- samples avg       0.86      0.93      0.87     15621
+   micro avg       0.85      0.93      0.89     15621
+   macro avg       0.85      0.93      0.88     15621
+weighted avg       0.85      0.93      0.89     15621
+ samples avg       0.85      0.94      0.87     15621
 
 
  > Model: Gradient Boosting Classifier Multi-label
-   - F1 (Samples): 0.9009 (Quality per instance)
-   - F1 (Macro)  : 0.9124 (Quality per label)
+   - F1 (Samples): 0.8996 (Quality per instance)
+   - F1 (Macro)  : 0.9112 (Quality per label)
 
 [Classification Report]
               precision    recall  f1-score   support
 
            0       0.88      1.00      0.93      5828
-           1       0.90      0.88      0.89      4560
-           2       0.89      0.94      0.92      5233
+           1       0.89      0.88      0.89      4560
+           2       0.88      0.95      0.91      5233
 
-   micro avg       0.89      0.95      0.91     15621
-   macro avg       0.89      0.94      0.91     15621
-weighted avg       0.89      0.95      0.91     15621
+   micro avg       0.88      0.95      0.91     15621
+   macro avg       0.88      0.94      0.91     15621
+weighted avg       0.88      0.95      0.91     15621
  samples avg       0.89      0.95      0.90     15621
 
 
  > Model: Hist Gradient Boosting Multi-label
-   - F1 (Samples): 0.8986 (Quality per instance)
-   - F1 (Macro)  : 0.9106 (Quality per label)
+   - F1 (Samples): 0.8991 (Quality per instance)
+   - F1 (Macro)  : 0.9104 (Quality per label)
 
 [Classification Report]
               precision    recall  f1-score   support
 
            0       0.87      1.00      0.93      5828
-           1       0.89      0.89      0.89      4560
-           2       0.87      0.96      0.91      5233
+           1       0.90      0.87      0.88      4560
+           2       0.89      0.94      0.92      5233
 
-   micro avg       0.87      0.95      0.91     15621
-   macro avg       0.88      0.95      0.91     15621
-weighted avg       0.87      0.95      0.91     15621
- samples avg       0.88      0.96      0.90     15621
+   micro avg       0.89      0.94      0.91     15621
+   macro avg       0.89      0.94      0.91     15621
+weighted avg       0.89      0.94      0.91     15621
+ samples avg       0.89      0.94      0.90     15621
 
 
  > Model: MLP Multi-label
-   - F1 (Samples): 0.8916 (Quality per instance)
-   - F1 (Macro)  : 0.9033 (Quality per label)
+   - F1 (Samples): 0.8912 (Quality per instance)
+   - F1 (Macro)  : 0.9025 (Quality per label)
 
 [Classification Report]
               precision    recall  f1-score   support
 
            0       0.87      1.00      0.93      5828
-           1       0.92      0.83      0.88      4560
-           2       0.86      0.95      0.90      5233
+           1       0.92      0.84      0.87      4560
+           2       0.88      0.92      0.90      5233
 
-   micro avg       0.88      0.93      0.91     15621
-   macro avg       0.89      0.93      0.90     15621
-weighted avg       0.88      0.93      0.91     15621
- samples avg       0.88      0.94      0.89     15621
+   micro avg       0.89      0.92      0.91     15621
+   macro avg       0.89      0.92      0.90     15621
+weighted avg       0.89      0.92      0.90     15621
+ samples avg       0.89      0.93      0.89     15621
 
 
  > Model: Ridge Classifier
-   - F1 (Samples): 0.8917 (Quality per instance)
-   - F1 (Macro)  : 0.9039 (Quality per label)
+   - F1 (Samples): 0.8084 (Quality per instance)
+   - F1 (Macro)  : 0.8324 (Quality per label)
 
 [Classification Report]
               precision    recall  f1-score   support
 
-           0       0.87      1.00      0.93      5828
-           1       0.88      0.88      0.88      4560
-           2       0.86      0.95      0.90      5233
+           0       0.91      0.74      0.82      5828
+           1       0.98      0.74      0.84      4560
+           2       0.94      0.75      0.83      5233
 
-   micro avg       0.87      0.95      0.91     15621
-   macro avg       0.87      0.94      0.90     15621
-weighted avg       0.87      0.95      0.91     15621
- samples avg       0.87      0.95      0.89     15621
+   micro avg       0.94      0.74      0.83     15621
+   macro avg       0.94      0.74      0.83     15621
+weighted avg       0.94      0.74      0.83     15621
+ samples avg       0.93      0.76      0.81     15621
 
 
 ==================================================
  BEST MODEL : Gradient Boosting Classifier Multi-label
- Score      : 0.9009
- Params     : {'estimator__n_estimators': 537, 'estimator__learning_rate': 0.021634600443149115, 'estimator__max_depth': 5, 'estimator__subsample': 0.9479791612117098}
+ Score      : 0.8996
+ Params     : {'estimator__n_estimators': 184, 'estimator__learning_rate': 0.055035182480081796, 'estimator__max_depth': 4, 'estimator__subsample': 0.9717907892795817, 'estimator__validation_fraction': 0.1, 'estimator__n_iter_no_change': 10}
 ==================================================

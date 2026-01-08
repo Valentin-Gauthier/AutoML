@@ -20,4 +20,4 @@ conda activate autoML_env
 # Va dans le dossier du projet ou échoue
 cd /info/etu/m1/s2501728/AutoML || exit
 
-python -u scores.py
+python -u automl_pipeline.py

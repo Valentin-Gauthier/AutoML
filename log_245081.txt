@@ -1,0 +1,35 @@
+############################################### Traitement du dataset : data_A #############################################
+[load dataset] Loading Dense dataset: data_A
+[fit] multilabel_classification task detected.
+
+    Dataset Target Analysis (34190 samples)
+   Type: Multi-label (3 labels)
+ - Average labels per sample: 2.28
+ -> Label 0  : 29207  (85.43%)
+ -> Label 2  : 26013  (76.08%)
+ -> Label 1  : 22847  (66.82%)
+
+
+
+[fit] Candidate models loaded for task 'multilabel_classification':
+   1. Random Forest Classifier Multi-label
+   2. K-Neighbors Classifier Multi-label
+   3. Gradient Boosting Classifier Multi-label
+   4. Hist Gradient Boosting Multi-label
+   5. MLP Multi-label
+   6. Ridge Classifier
+   7. Linear SVC Multi-label
+   8. Extra Trees Classifier Multi-label
+
+ [filter models] Dynamic Model Filtering ---
+ Dataset Info: 27352 rows, 215 cols, Sparse=False
+ Target Info : 3 labels (Multi-label)
+ -> Models selected: 8 / 8
+
+[CLUSTER] Optimizing: Random Forest Classifier Multi-label...
+[CLUSTER] Success. Best params: {'estimator__n_estimators': 95, 'estimator__max_depth': None, 'estimator__min_samples_leaf': 1, 'estimator__n_jobs': 1, 'estimator__class_weight': 'balanced'}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: K-Neighbors Classifier Multi-label...
+[CLUSTER] Success. Best params: {'estimator__n_neighbors': 15, 'estimator__weights': 'distance', 'estimator__n_jobs': 1}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: Gradient Boosting Classifier Multi-label...

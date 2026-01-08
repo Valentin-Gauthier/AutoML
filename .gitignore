@@ -11,3 +11,4 @@ __pycache__/
 # Ignore les fichiers système (macOS, Windows)
 .DS_Store
 Thumbs.db
+automl_logs/

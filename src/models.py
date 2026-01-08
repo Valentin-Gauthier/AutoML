@@ -1,8 +1,8 @@
-from sklearn.linear_model import LogisticRegression, LinearRegression, Ridge, RidgeClassifier
-from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor, GradientBoostingClassifier, GradientBoostingRegressor, HistGradientBoostingClassifier, HistGradientBoostingRegressor
+from sklearn.linear_model import LogisticRegression, LinearRegression, Ridge, RidgeClassifier, ElasticNet
+from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor, GradientBoostingClassifier, GradientBoostingRegressor, HistGradientBoostingClassifier, HistGradientBoostingRegressor, ExtraTreesClassifier, ExtraTreesRegressor
 from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
 from sklearn.multioutput import MultiOutputClassifier
-from sklearn.svm import SVR, SVC
+from sklearn.svm import SVR, SVC, LinearSVC, LinearSVR
 from sklearn.naive_bayes import GaussianNB, BernoulliNB
 from sklearn.neural_network import MLPClassifier, MLPRegressor
 from sklearn.compose import TransformedTargetRegressor
@@ -18,6 +18,9 @@ MODELS_CONFIG = {
         ('Gradient Boosting Regressor', GradientBoostingRegressor(random_state=42)),
         ('MLP Regressor', TransformedTargetRegressor(regressor=MLPRegressor(random_state=42), transformer=StandardScaler())), # On normalise la cible
         ('Hist Gradient Boosting', HistGradientBoostingRegressor(random_state=42)),
+        ('ElasticNet', ElasticNet()), # Ajout : Robuste si bcp de features corrélées
+        ('Linear SVR', LinearSVR(random_state=42, dual='auto')), # Ajout : Ultra rapide pour gros datasets
+        ('Extra Trees Regressor', ExtraTreesRegressor(random_state=42)), # Ajout : Variante rapide de RF
     ],
     'binary_classification': [
         ('Logistic Regression', LogisticRegression(random_state=42)),
@@ -28,7 +31,9 @@ MODELS_CONFIG = {
         ('Random Forest Classifier', RandomForestClassifier(random_state=42)),
         ('Bernoulli Naive Bayes', BernoulliNB()),
         ('Gradient Boosting Classifier', GradientBoostingClassifier(random_state=42)),
-        ('MLP Classifier', MLPClassifier(random_state=42))
+        ('MLP Classifier', MLPClassifier(random_state=42)),
+        ('Linear SVC', LinearSVC(random_state=42, dual='auto')), # Ajout : Le roi des données Sparse/Texte
+        ('Extra Trees Classifier', ExtraTreesClassifier(random_state=42)),
     ],
     'multiclass_classification': [
         ('Logistic Regression', LogisticRegression(random_state=42)),
@@ -39,6 +44,8 @@ MODELS_CONFIG = {
         ('SVC', SVC(random_state=42, probability=True)), # Trop lent est très souvent pas le meilleur
         ('Random Forest Classifier', RandomForestClassifier(random_state=42)),
         ('Gradient Boosting Classifier', GradientBoostingClassifier(random_state=42)), # Hist Gradient Boosting -> bcp plus rapide et aussi/plus performant
+        ('Linear SVC', LinearSVC(random_state=42, dual='auto')), # Bcp plus rapide que SVC
+        ('Extra Trees Classifier', ExtraTreesClassifier(random_state=42)),
     ],
     'multilabel_classification': [
         ('Random Forest Classifier Multi-label', MultiOutputClassifier(RandomForestClassifier(random_state=42))), # tres long
@@ -46,7 +53,9 @@ MODELS_CONFIG = {
         ('Gradient Boosting Classifier Multi-label', MultiOutputClassifier(GradientBoostingClassifier(random_state=42))),
         ('Hist Gradient Boosting Multi-label', MultiOutputClassifier(HistGradientBoostingClassifier(random_state=42))),
         ('MLP Multi-label', MLPClassifier(random_state=42)),
-        ('Ridge Classifier', MultiOutputClassifier(RidgeClassifier()))
+        ('Ridge Classifier', MultiOutputClassifier(RidgeClassifier())),
+        ('Linear SVC Multi-label', MultiOutputClassifier(LinearSVC(random_state=42, dual='auto'))),
+        ('Extra Trees Classifier Multi-label', MultiOutputClassifier(ExtraTreesClassifier(random_state=42))), # Plus rapide que RF
     ]
 }
 
