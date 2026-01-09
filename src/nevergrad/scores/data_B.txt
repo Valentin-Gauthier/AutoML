@@ -20,27 +20,47 @@
    6. Gradient Boosting Regressor
    7. MLP Regressor
    8. Hist Gradient Boosting
+   9. ElasticNet
+   10. Linear SVR
+   11. Extra Trees Regressor
 
  [filter models] Dynamic Model Filtering ---
  Dataset Info: 4000 rows, 16 cols, Sparse=False
- -> Models selected: 8 / 8
+ -> Models selected: 11 / 11
 
 [CLUSTER] Optimizing: Linear Regression...
 [CLUSTER] Success. Best params: {'fit_intercept': True}
+[fit] Retraining final model on full data...
 [CLUSTER] Optimizing: Ridge...
-[CLUSTER] Success. Best params: {'alpha': 0.014152327896774685}
+[CLUSTER] Success. Best params: {'alpha': 3.176975287292848}
+[fit] Retraining final model on full data...
 [CLUSTER] Optimizing: K-Neighbors Regressor...
-[CLUSTER] Success. Best params: {'n_neighbors': 16, 'weights': 'distance', 'p': 2, 'n_jobs': 1}
+[CLUSTER] Success. Best params: {'n_neighbors': 14, 'weights': 'distance', 'p': 1, 'n_jobs': 1}
+[fit] Retraining final model on full data...
 [CLUSTER] Optimizing: SVR...
-[CLUSTER] Success. Best params: {'C': 271.6664097253663, 'kernel': 'linear', 'gamma': 'scale', 'epsilon': 0.1497987492731127, 'max_iter': 20000}
+[CLUSTER] Success. Best params: {'C': 432.7833445206622, 'kernel': 'linear', 'gamma': 'auto', 'epsilon': 0.33303762726055997, 'max_iter': 5000}
+[fit] Retraining final model on full data...
 [CLUSTER] Optimizing: Random Forest Regressor...
-[CLUSTER] Success. Best params: {'n_estimators': 239, 'max_depth': 10, 'min_samples_split': 5, 'min_samples_leaf': 2, 'n_jobs': 1}
+[CLUSTER] Success. Best params: {'n_estimators': 191, 'max_depth': 20, 'min_samples_split': 5, 'min_samples_leaf': 3, 'n_jobs': 1}
+[fit] Retraining final model on full data...
 [CLUSTER] Optimizing: Gradient Boosting Regressor...
-[CLUSTER] Success. Best params: {'n_estimators': 155, 'learning_rate': 0.014576909836066897, 'max_depth': 3, 'subsample': 0.943774263396606}
+[CLUSTER] Success. Best params: {'n_estimators': 189, 'learning_rate': 0.08221399824996434, 'max_depth': 5, 'subsample': 0.9556857313822806, 'n_iter_no_change': 10, 'validation_fraction': 0.1}
+[fit] Retraining final model on full data...
 [CLUSTER] Optimizing: MLP Regressor...
-[CLUSTER] Success. Best params: {'regressor__hidden_layer_sizes': [100], 'regressor__activation': 'relu', 'regressor__alpha': 0.000305224010324179, 'regressor__learning_rate_init': 0.003068191169036536, 'regressor__max_iter': 1000}
+[CLUSTER] Success. Best params: {'regressor__hidden_layer_sizes': [100, 50], 'regressor__activation': 'tanh', 'regressor__alpha': 0.0017949062024165382, 'regressor__learning_rate_init': 0.0019979126312867886, 'regressor__max_iter': 500, 'regressor__early_stopping': True, 'regressor__n_iter_no_change': 10}
+[fit] Retraining final model on full data...
 [CLUSTER] Optimizing: Hist Gradient Boosting...
-[CLUSTER] Success. Best params: {'learning_rate': 0.05202970451424487, 'max_iter': 650, 'max_depth': 10, 'l2_regularization': 0.9719611313186536}
+[CLUSTER] Success. Best params: {'learning_rate': 0.06599775266828956, 'max_iter': 458, 'max_depth': None, 'l2_regularization': 0.7995131072454232, 'early_stopping': True, 'n_iter_no_change': 10}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: ElasticNet...
+[CLUSTER] Success. Best params: {'alpha': 0.012915156108901297, 'l1_ratio': 0.9}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: Linear SVR...
+[CLUSTER] Success. Best params: {'C': 78.8299050874583, 'epsilon': 0.0, 'max_iter': 2000}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: Extra Trees Regressor...
+[CLUSTER] Success. Best params: {'n_estimators': 174, 'max_depth': None, 'min_samples_split': 4, 'n_jobs': 1}
+[fit] Retraining final model on full data...
 
 [eval] --- Detailed Results on Test Set (1000 samples) ---
 
@@ -49,35 +69,47 @@
    - R2 : 0.6342
 
  > Model: Ridge
-   - MSE: 4749071604.3371
-   - R2 : 0.6342
+   - MSE: 4753142204.4475
+   - R2 : 0.6339
 
  > Model: K-Neighbors Regressor
-   - MSE: 7633999123.6500
-   - R2 : 0.4120
+   - MSE: 6851139680.2225
+   - R2 : 0.4723
 
  > Model: SVR
-   - MSE: 5779764808.7556
-   - R2 : 0.5548
+   - MSE: 5528548708.8747
+   - R2 : 0.5742
 
  > Model: Random Forest Regressor
-   - MSE: 3655900932.7071
-   - R2 : 0.7184
+   - MSE: 3460898706.6726
+   - R2 : 0.7334
 
  > Model: Gradient Boosting Regressor
-   - MSE: 5973711758.5648
-   - R2 : 0.5399
+   - MSE: 2849185816.8831
+   - R2 : 0.7805
 
  > Model: MLP Regressor
-   - MSE: 4786464774.8763
-   - R2 : 0.6313
+   - MSE: 3760652041.1491
+   - R2 : 0.7103
 
  > Model: Hist Gradient Boosting
-   - MSE: 2758661761.4024
-   - R2 : 0.7875
+   - MSE: 2740299819.5751
+   - R2 : 0.7889
+
+ > Model: ElasticNet
+   - MSE: 4755843250.3813
+   - R2 : 0.6337
+
+ > Model: Linear SVR
+   - MSE: 10736801225.0363
+   - R2 : 0.1730
+
+ > Model: Extra Trees Regressor
+   - MSE: 3844005587.4628
+   - R2 : 0.7039
 
 ==================================================
  BEST MODEL : Hist Gradient Boosting
- Score      : 0.7875
- Params     : {'learning_rate': 0.05202970451424487, 'max_iter': 650, 'max_depth': 10, 'l2_regularization': 0.9719611313186536}
+ Score      : 0.7889
+ Params     : {'learning_rate': 0.06599775266828956, 'max_iter': 458, 'max_depth': None, 'l2_regularization': 0.7995131072454232, 'early_stopping': True, 'n_iter_no_change': 10}
 ==================================================

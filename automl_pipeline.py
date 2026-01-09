@@ -2,7 +2,7 @@ from src.nevergrad.automl import AutoML
 
 
 base_path = "/info/corpus/ChallengeMachineLearning/data_"
-datasets_letters = "ABCDEFGHIJK"
+datasets_letters = "DEFGHIJK"
 
 for letter in datasets_letters:
     
@@ -11,8 +11,8 @@ for letter in datasets_letters:
     print(f"############################################### Traitement du dataset : data_{letter} #############################################")
     automl = AutoML(
         budget=40,
-        feature_selection_threshold=1000,
-        timeout_min=25,
+        feature_selection_threshold=800,
+        timeout_min=15,
         num_workers=10,
         mem_gb=8,
         verbose=True

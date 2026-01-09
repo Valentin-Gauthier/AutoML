@@ -1,0 +1,598 @@
+############################################### Traitement du dataset : data_A #############################################
+[load dataset] Loading Dense dataset: data_A
+[fit] multilabel_classification task detected.
+
+    Dataset Target Analysis (34190 samples)
+   Type: Multi-label (3 labels)
+ - Average labels per sample: 2.28
+ -> Label 0  : 29207  (85.43%)
+ -> Label 2  : 26013  (76.08%)
+ -> Label 1  : 22847  (66.82%)
+
+
+
+[fit] Candidate models loaded for task 'multilabel_classification':
+   1. Random Forest Classifier Multi-label
+   2. K-Neighbors Classifier Multi-label
+   3. Gradient Boosting Classifier Multi-label
+   4. Hist Gradient Boosting Multi-label
+   5. MLP Multi-label
+   6. Ridge Classifier
+   7. Linear SVC Multi-label
+   8. Extra Trees Classifier Multi-label
+
+ [filter models] Dynamic Model Filtering ---
+ Dataset Info: 27352 rows, 215 cols, Sparse=False
+ Target Info : 3 labels (Multi-label)
+ -> Models selected: 8 / 8
+
+[CLUSTER] Optimizing: Random Forest Classifier Multi-label...
+[CLUSTER] Success. Best params: {'estimator__n_estimators': 95, 'estimator__max_depth': 30, 'estimator__min_samples_leaf': 1, 'estimator__n_jobs': 1, 'estimator__class_weight': 'balanced'}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: K-Neighbors Classifier Multi-label...
+[CLUSTER] Success. Best params: {'estimator__n_neighbors': 15, 'estimator__weights': 'distance', 'estimator__n_jobs': 1}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: Gradient Boosting Classifier Multi-label...
+[CLUSTER] Success. Best params: {'estimator__n_estimators': 154, 'estimator__learning_rate': 0.07134914932200496, 'estimator__max_depth': 4, 'estimator__subsample': 0.9755352939585352, 'estimator__validation_fraction': 0.1, 'estimator__n_iter_no_change': 10}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: Hist Gradient Boosting Multi-label...
+[CLUSTER] Success. Best params: {'estimator__learning_rate': 0.0578186908849085, 'estimator__max_iter': 458, 'estimator__max_depth': 20, 'estimator__l2_regularization': 0.9869316506287463, 'estimator__early_stopping': True, 'estimator__n_iter_no_change': 10}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: MLP Multi-label...
+[CLUSTER] Success. Best params: {'hidden_layer_sizes': [100], 'activation': 'relu', 'alpha': 0.0093225292521913, 'learning_rate_init': 0.004581527654020135, 'max_iter': 500, 'early_stopping': True, 'n_iter_no_change': 10}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: Ridge Classifier...
+[CLUSTER] Success. Best params: {'estimator__alpha': 1.5943400017592828, 'estimator__class_weight': 'balanced'}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: Linear SVC Multi-label...
+[CLUSTER] Success. Best params: {'estimator__C': 0.046983672849300745, 'estimator__max_iter': 2000}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: Extra Trees Classifier Multi-label...
+[CLUSTER] Success. Best params: {'estimator__n_estimators': 195, 'estimator__max_depth': 30, 'estimator__n_jobs': 1}
+[fit] Retraining final model on full data...
+
+[eval] --- Detailed Results on Test Set (6838 samples) ---
+
+ > Model: Random Forest Classifier Multi-label
+   - F1 (Samples): 0.8932 (Quality per instance)
+   - F1 (Macro)  : 0.9028 (Quality per label)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.88      0.99      0.93      5828
+           1       0.93      0.83      0.88      4560
+           2       0.91      0.90      0.90      5233
+
+   micro avg       0.90      0.91      0.91     15621
+   macro avg       0.90      0.91      0.90     15621
+weighted avg       0.90      0.91      0.90     15621
+ samples avg       0.90      0.92      0.89     15621
+
+
+ > Model: K-Neighbors Classifier Multi-label
+   - F1 (Samples): 0.8724 (Quality per instance)
+   - F1 (Macro)  : 0.8844 (Quality per label)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.85      1.00      0.92      5828
+           1       0.82      0.87      0.84      4560
+           2       0.86      0.92      0.89      5233
+
+   micro avg       0.85      0.93      0.89     15621
+   macro avg       0.85      0.93      0.88     15621
+weighted avg       0.85      0.93      0.89     15621
+ samples avg       0.85      0.94      0.87     15621
+
+
+ > Model: Gradient Boosting Classifier Multi-label
+   - F1 (Samples): 0.9000 (Quality per instance)
+   - F1 (Macro)  : 0.9116 (Quality per label)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.88      1.00      0.93      5828
+           1       0.89      0.88      0.89      4560
+           2       0.89      0.95      0.92      5233
+
+   micro avg       0.88      0.95      0.91     15621
+   macro avg       0.88      0.94      0.91     15621
+weighted avg       0.88      0.95      0.91     15621
+ samples avg       0.89      0.95      0.90     15621
+
+
+ > Model: Hist Gradient Boosting Multi-label
+   - F1 (Samples): 0.8996 (Quality per instance)
+   - F1 (Macro)  : 0.9113 (Quality per label)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.87      1.00      0.93      5828
+           1       0.90      0.87      0.89      4560
+           2       0.89      0.94      0.92      5233
+
+   micro avg       0.89      0.94      0.91     15621
+   macro avg       0.89      0.94      0.91     15621
+weighted avg       0.89      0.94      0.91     15621
+ samples avg       0.89      0.94      0.90     15621
+
+
+ > Model: MLP Multi-label
+   - F1 (Samples): 0.8879 (Quality per instance)
+   - F1 (Macro)  : 0.8975 (Quality per label)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.87      0.99      0.93      5828
+           1       0.96      0.78      0.86      4560
+           2       0.87      0.94      0.91      5233
+
+   micro avg       0.89      0.91      0.90     15621
+   macro avg       0.90      0.90      0.90     15621
+weighted avg       0.90      0.91      0.90     15621
+ samples avg       0.89      0.92      0.89     15621
+
+
+ > Model: Ridge Classifier
+   - F1 (Samples): 0.8085 (Quality per instance)
+   - F1 (Macro)  : 0.8324 (Quality per label)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.91      0.74      0.82      5828
+           1       0.98      0.74      0.84      4560
+           2       0.94      0.75      0.83      5233
+
+   micro avg       0.94      0.74      0.83     15621
+   macro avg       0.94      0.74      0.83     15621
+weighted avg       0.94      0.74      0.83     15621
+ samples avg       0.93      0.76      0.81     15621
+
+
+ > Model: Linear SVC Multi-label
+   - F1 (Samples): 0.8934 (Quality per instance)
+   - F1 (Macro)  : 0.9046 (Quality per label)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.87      1.00      0.93      5828
+           1       0.91      0.85      0.88      4560
+           2       0.87      0.94      0.90      5233
+
+   micro avg       0.88      0.94      0.91     15621
+   macro avg       0.88      0.93      0.90     15621
+weighted avg       0.88      0.94      0.91     15621
+ samples avg       0.89      0.94      0.89     15621
+
+
+ > Model: Extra Trees Classifier Multi-label
+   - F1 (Samples): 0.8933 (Quality per instance)
+   - F1 (Macro)  : 0.9046 (Quality per label)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.87      1.00      0.93      5828
+           1       0.89      0.87      0.88      4560
+           2       0.87      0.94      0.90      5233
+
+   micro avg       0.88      0.94      0.91     15621
+   macro avg       0.88      0.94      0.90     15621
+weighted avg       0.88      0.94      0.91     15621
+ samples avg       0.88      0.94      0.89     15621
+
+
+==================================================
+ BEST MODEL : Gradient Boosting Classifier Multi-label
+ Score      : 0.9000
+ Params     : {'estimator__n_estimators': 154, 'estimator__learning_rate': 0.07134914932200496, 'estimator__max_depth': 4, 'estimator__subsample': 0.9755352939585352, 'estimator__validation_fraction': 0.1, 'estimator__n_iter_no_change': 10}
+==================================================
+
+############################################### Traitement du dataset : data_B #############################################
+[load dataset] Loading Dense dataset: data_B
+[fit] regression task detected.
+
+    Dataset Target Analysis (5000 samples)
+ Type: Regression
+  - Min:    14999.0000
+  - Max:    500001.0000
+  - Mean:   207568.8056
+  - Median: 179500.0000
+  - StdDev: 115383.4602
+
+
+
+[fit] Candidate models loaded for task 'regression':
+   1. Linear Regression
+   2. Ridge
+   3. K-Neighbors Regressor
+   4. SVR
+   5. Random Forest Regressor
+   6. Gradient Boosting Regressor
+   7. MLP Regressor
+   8. Hist Gradient Boosting
+   9. ElasticNet
+   10. Linear SVR
+   11. Extra Trees Regressor
+
+ [filter models] Dynamic Model Filtering ---
+ Dataset Info: 4000 rows, 16 cols, Sparse=False
+ -> Models selected: 11 / 11
+
+[CLUSTER] Optimizing: Linear Regression...
+[CLUSTER] Success. Best params: {'fit_intercept': True}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: Ridge...
+[CLUSTER] Success. Best params: {'alpha': 3.17638088558716}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: K-Neighbors Regressor...
+[CLUSTER] Success. Best params: {'n_neighbors': 14, 'weights': 'distance', 'p': 1, 'n_jobs': 1}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: SVR...
+[CLUSTER] Success. Best params: {'C': 943.8681917632182, 'kernel': 'linear', 'gamma': 'scale', 'epsilon': 0.3890067732957518, 'max_iter': 5000}
+[fit] Retraining final model on full data...
+/info/etu/m1/s2501728/miniconda3/envs/autoML_env/lib/python3.12/site-packages/sklearn/svm/_base.py:305: ConvergenceWarning: Solver terminated early (max_iter=5000).  Consider pre-processing your data with StandardScaler or MinMaxScaler.
+  warnings.warn(
+[CLUSTER] Optimizing: Random Forest Regressor...
+[CLUSTER] Success. Best params: {'n_estimators': 178, 'max_depth': 30, 'min_samples_split': 7, 'min_samples_leaf': 3, 'n_jobs': 1}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: Gradient Boosting Regressor...
+[CLUSTER] Success. Best params: {'n_estimators': 161, 'learning_rate': 0.07364723727385561, 'max_depth': 4, 'subsample': 0.8608917507774383, 'n_iter_no_change': 10, 'validation_fraction': 0.1}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: MLP Regressor...
+[CLUSTER] Success. Best params: {'regressor__hidden_layer_sizes': [100, 50], 'regressor__activation': 'tanh', 'regressor__alpha': 0.0037904570402533854, 'regressor__learning_rate_init': 0.0021788083480149935, 'regressor__max_iter': 500, 'regressor__early_stopping': True, 'regressor__n_iter_no_change': 10}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: Hist Gradient Boosting...
+[CLUSTER] Success. Best params: {'learning_rate': 0.07861451128501401, 'max_iter': 150, 'max_depth': 20, 'l2_regularization': 0.3051344819471785, 'early_stopping': True, 'n_iter_no_change': 10}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: ElasticNet...
+[CLUSTER] Success. Best params: {'alpha': 0.012634752441092077, 'l1_ratio': 0.9}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: Linear SVR...
+[CLUSTER] Success. Best params: {'C': 95.57746962348538, 'epsilon': 0.5, 'max_iter': 2000}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: Extra Trees Regressor...
+[CLUSTER] Success. Best params: {'n_estimators': 115, 'max_depth': None, 'min_samples_split': 2, 'n_jobs': 1}
+[fit] Retraining final model on full data...
+
+[eval] --- Detailed Results on Test Set (1000 samples) ---
+
+ > Model: Linear Regression
+   - MSE: 4749054027.8971
+   - R2 : 0.6342
+
+ > Model: Ridge
+   - MSE: 4753141413.3772
+   - R2 : 0.6339
+
+ > Model: K-Neighbors Regressor
+   - MSE: 6851139680.2225
+   - R2 : 0.4723
+
+ > Model: SVR
+   - MSE: 5262839629.4977
+   - R2 : 0.5946
+
+ > Model: Random Forest Regressor
+   - MSE: 3477741412.0624
+   - R2 : 0.7321
+
+ > Model: Gradient Boosting Regressor
+   - MSE: 2996158431.8360
+   - R2 : 0.7692
+
+ > Model: MLP Regressor
+   - MSE: 3758678538.7482
+   - R2 : 0.7105
+
+ > Model: Hist Gradient Boosting
+   - MSE: 2776925862.6603
+   - R2 : 0.7861
+
+ > Model: ElasticNet
+   - MSE: 4755688198.2438
+   - R2 : 0.6337
+
+ > Model: Linear SVR
+   - MSE: 9706921131.5859
+   - R2 : 0.2523
+
+ > Model: Extra Trees Regressor
+   - MSE: 3770385125.1380
+   - R2 : 0.7096
+
+==================================================
+ BEST MODEL : Hist Gradient Boosting
+ Score      : 0.7861
+ Params     : {'learning_rate': 0.07861451128501401, 'max_iter': 150, 'max_depth': 20, 'l2_regularization': 0.3051344819471785, 'early_stopping': True, 'n_iter_no_change': 10}
+==================================================
+
+############################################### Traitement du dataset : data_C #############################################
+[load dataset] Loading Dense dataset: data_C
+[fit] multiclass_classification task detected.
+
+    Dataset Target Analysis (15000 samples)
+ Type: Multiclass Classification [Balanced]
+  -> Class 0  : 1493   samples (9.95%)
+  -> Class 1  : 1786   samples (11.91%)
+  -> Class 2  : 1506   samples (10.04%)
+  -> Class 3  : 1461   samples (9.74%)
+  -> Class 4  : 1422   samples (9.48%)
+  -> Class 5  : 1344   samples (8.96%)
+  -> Class 6  : 1442   samples (9.61%)
+  -> Class 7  : 1604   samples (10.69%)
+  -> Class 8  : 1472   samples (9.81%)
+  -> Class 9  : 1470   samples (9.80%)
+
+
+[fit] Features threshold exceeded (1568 > 800).
+[fit] Reducing to the top 800 features...
+[fit] Reduction done. New shape: (12000, 800)
+
+[fit] Candidate models loaded for task 'multiclass_classification':
+   1. Logistic Regression
+   2. Hist Gradient Boosting
+   3. K-Neighbors Classifier
+   4. Gaussian Naive Bayes
+   5. Bernoulli Naive Bayes
+   6. SVC
+   7. Random Forest Classifier
+   8. Gradient Boosting Classifier
+   9. Linear SVC
+   10. Extra Trees Classifier
+
+ [filter models] Dynamic Model Filtering ---
+ Dataset Info: 12000 rows, 800 cols, Sparse=False
+ [EXCLUDED] K-Neighbors Classifier............. : Ineffective in high dimensions (800 cols)
+ [EXCLUDED] Gaussian Naive Bayes............... : Incompatible with negative values (StandardScaler)
+ [EXCLUDED] Bernoulli Naive Bayes.............. : Incompatible with negative values (StandardScaler)
+ [EXCLUDED] SVC................................ : Too slow for 12000 rows (Cubic Complexity)
+ -> Models selected: 6 / 10
+
+[CLUSTER] Optimizing: Logistic Regression...
+[CLUSTER] Success. Best params: {'C': 0.03233663997241124, 'solver': 'lbfgs', 'max_iter': 2000}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: Hist Gradient Boosting...
+/info/etu/m1/s2501728/miniconda3/envs/autoML_env/lib/python3.12/site-packages/nevergrad/optimization/base.py:149: LossTooLargeWarning: Clipping very high value nan in tell (rescale the cost function?).
+  warnings.warn(msg, e)
+[CLUSTER] Error optimizing Hist Gradient Boosting: Job 246849 (task: 0) with path /info/etu/m1/s2501728/AutoML/automl_logs/246849_0_result.pkl
+has not produced any output (state: TIMEOUT)
+Error stream produced:
+----------------------------------------
+submitit WARNING (2026-01-08 23:46:17,335) - Caught signal SIGUSR2 on gpue12: this job is timed-out.
+slurmstepd-gpue12: error: *** JOB 246849 ON gpue12 CANCELLED AT 2026-01-08T23:46:22 DUE TO JOB REQUEUE ***
+slurmstepd-gpue12: error: *** STEP 246849.0 ON gpue12 CANCELLED AT 2026-01-08T23:46:22 DUE TO JOB REQUEUE ***
+submitit WARNING (2026-01-08 23:46:22,678) - Bypassing signal SIGCONT
+submitit WARNING (2026-01-08 23:46:22,680) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 00:01:47,986) - Caught signal SIGUSR2 on gpue12: this job is timed-out.
+slurmstepd-gpue12: error: *** JOB 246849 ON gpue12 CANCELLED AT 2026-01-09T00:01:51 DUE TO JOB REQUEUE ***
+slurmstepd-gpue12: error: *** STEP 246849.1 ON gpue12 CANCELLED AT 2026-01-09T00:01:51 DUE TO JOB REQUEUE ***
+submitit WARNING (2026-01-09 00:01:51,406) - Bypassing signal SIGCONT
+submitit WARNING (2026-01-09 00:01:51,407) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 00:17:17,635) - Caught signal SIGUSR2 on gpue12: this job is timed-out.
+slurmstepd-gpue12: error: *** STEP 246849.2 ON gpue12 CANCELLED AT 2026-01-09T00:17:21 DUE TO JOB REQUEUE ***
+slurmstepd-gpue12: error: *** JOB 246849 ON gpue12 CANCELLED AT 2026-01-09T00:17:21 DUE TO JOB REQUEUE ***
+submitit WARNING (2026-01-09 00:17:21,034) - Bypassing signal SIGCONT
+submitit WARNING (2026-01-09 00:17:21,035) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 00:32:47,285) - Caught signal SIGUSR2 on gpue12: this job is timed-out.
+srun: Job step aborted: Waiting up to 2 seconds for job step to finish.
+slurmstepd-gpue12: error: *** JOB 246849 ON gpue12 CANCELLED AT 2026-01-09T00:34:47 DUE TO TIME LIMIT ***
+slurmstepd-gpue12: error: *** STEP 246849.3 ON gpue12 CANCELLED AT 2026-01-09T00:34:47 DUE TO TIME LIMIT ***
+submitit WARNING (2026-01-09 00:34:47,413) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 00:34:47,428) - Bypassing signal SIGCONT
+submitit WARNING (2026-01-09 00:34:47,442) - Bypassing signal SIGTERM
+
+[LOCAL] Fallback: Training locally with default params.
+[CLUSTER] Optimizing: Random Forest Classifier...
+[CLUSTER] Success. Best params: {'n_estimators': 175, 'max_depth': 20, 'min_samples_split': 4, 'min_samples_leaf': 2, 'class_weight': None, 'n_jobs': 1}
+[fit] Retraining final model on full data...
+[CLUSTER] Optimizing: Gradient Boosting Classifier...
+[CLUSTER] Error optimizing Gradient Boosting Classifier: Job 246914 (task: 0) with path /info/etu/m1/s2501728/AutoML/automl_logs/246914_0_result.pkl
+has not produced any output (state: TIMEOUT)
+Error stream produced:
+----------------------------------------
+submitit WARNING (2026-01-09 01:08:49,162) - Caught signal SIGUSR2 on gpue12: this job is timed-out.
+slurmstepd-gpue12: error: *** JOB 246914 ON gpue12 CANCELLED AT 2026-01-09T01:08:50 DUE TO JOB REQUEUE ***
+slurmstepd-gpue12: error: *** STEP 246914.0 ON gpue12 CANCELLED AT 2026-01-09T01:08:50 DUE TO JOB REQUEUE ***
+submitit WARNING (2026-01-09 01:24:17,776) - Caught signal SIGUSR2 on gpue12: this job is timed-out.
+slurmstepd-gpue12: error: *** STEP 246914.1 ON gpue12 CANCELLED AT 2026-01-09T01:24:19 DUE TO JOB REQUEUE ***
+slurmstepd-gpue12: error: *** JOB 246914 ON gpue12 CANCELLED AT 2026-01-09T01:24:19 DUE TO JOB REQUEUE ***
+submitit WARNING (2026-01-09 01:39:47,322) - Caught signal SIGUSR2 on gpue12: this job is timed-out.
+slurmstepd-gpue12: error: *** STEP 246914.2 ON gpue12 CANCELLED AT 2026-01-09T01:39:48 DUE TO JOB REQUEUE ***
+slurmstepd-gpue12: error: *** JOB 246914 ON gpue12 CANCELLED AT 2026-01-09T01:39:48 DUE TO JOB REQUEUE ***
+submitit WARNING (2026-01-09 01:39:48,121) - Bypassing signal SIGCONT
+submitit WARNING (2026-01-09 01:39:48,127) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 01:55:17,903) - Caught signal SIGUSR2 on gpue12: this job is timed-out.
+srun: Job step aborted: Waiting up to 2 seconds for job step to finish.
+slurmstepd-gpue12: error: *** STEP 246914.3 ON gpue12 CANCELLED AT 2026-01-09T01:57:17 DUE TO TIME LIMIT ***
+slurmstepd-gpue12: error: *** JOB 246914 ON gpue12 CANCELLED AT 2026-01-09T01:57:17 DUE TO TIME LIMIT ***
+submitit WARNING (2026-01-09 01:57:19,465) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 01:57:19,465) - Bypassing signal SIGCONT
+
+[LOCAL] Fallback: Training locally with default params.
+[CLUSTER] Optimizing: Linear SVC...
+[CLUSTER] Error optimizing Linear SVC: Job 246926 (task: 0) with path /info/etu/m1/s2501728/AutoML/automl_logs/246926_0_result.pkl
+has not produced any output (state: TIMEOUT)
+Error stream produced:
+----------------------------------------
+srun: Job step aborted: Waiting up to 2 seconds for job step to finish.
+slurmstepd-gpue09: error: *** STEP 246926.0 ON gpue09 CANCELLED AT 2026-01-09T03:01:17 DUE TO TIME LIMIT ***
+slurmstepd-gpue09: error: *** JOB 246926 ON gpue09 CANCELLED AT 2026-01-09T03:01:17 DUE TO TIME LIMIT ***
+
+[LOCAL] Fallback: Training locally with default params.
+/info/etu/m1/s2501728/miniconda3/envs/autoML_env/lib/python3.12/site-packages/sklearn/svm/_base.py:1250: ConvergenceWarning: Liblinear failed to converge, increase the number of iterations.
+  warnings.warn(
+[CLUSTER] Optimizing: Extra Trees Classifier...
+[CLUSTER] Success. Best params: {'n_estimators': 199, 'max_depth': 20, 'min_samples_split': 5, 'n_jobs': 1}
+[fit] Retraining final model on full data...
+
+[eval] --- Detailed Results on Test Set (3000 samples) ---
+
+ > Model: Logistic Regression
+   - Accuracy : 0.9133
+   - F1 Macro : 0.9125 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.93      0.95      0.94       291
+           1       0.95      0.97      0.96       326
+           2       0.92      0.90      0.91       320
+           3       0.90      0.86      0.88       308
+           4       0.92      0.93      0.92       294
+           5       0.87      0.86      0.87       265
+           6       0.93      0.94      0.93       279
+           7       0.96      0.91      0.93       321
+           8       0.89      0.88      0.88       299
+           9       0.87      0.93      0.90       297
+
+    accuracy                           0.91      3000
+   macro avg       0.91      0.91      0.91      3000
+weighted avg       0.91      0.91      0.91      3000
+
+
+ > Model: Hist Gradient Boosting
+   - Accuracy : 0.9613
+   - F1 Macro : 0.9612 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.97      0.98      0.97       291
+           1       0.99      0.98      0.98       326
+           2       0.94      0.96      0.95       320
+           3       0.95      0.94      0.94       308
+           4       0.97      0.97      0.97       294
+           5       0.94      0.96      0.95       265
+           6       0.98      0.97      0.97       279
+           7       0.98      0.96      0.97       321
+           8       0.94      0.96      0.95       299
+           9       0.96      0.95      0.95       297
+
+    accuracy                           0.96      3000
+   macro avg       0.96      0.96      0.96      3000
+weighted avg       0.96      0.96      0.96      3000
+
+
+ > Model: Random Forest Classifier
+   - Accuracy : 0.9533
+   - F1 Macro : 0.9533 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.98      0.98      0.98       291
+           1       0.98      0.98      0.98       326
+           2       0.94      0.96      0.95       320
+           3       0.93      0.91      0.92       308
+           4       0.95      0.96      0.95       294
+           5       0.96      0.93      0.95       265
+           6       0.96      0.98      0.97       279
+           7       0.97      0.95      0.96       321
+           8       0.92      0.95      0.93       299
+           9       0.93      0.94      0.93       297
+
+    accuracy                           0.95      3000
+   macro avg       0.95      0.95      0.95      3000
+weighted avg       0.95      0.95      0.95      3000
+
+
+ > Model: Gradient Boosting Classifier
+   - Accuracy : 0.9393
+   - F1 Macro : 0.9389 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.97      0.95      0.96       291
+           1       0.97      0.97      0.97       326
+           2       0.94      0.93      0.93       320
+           3       0.91      0.91      0.91       308
+           4       0.97      0.95      0.96       294
+           5       0.91      0.90      0.90       265
+           6       0.94      0.96      0.95       279
+           7       0.97      0.95      0.96       321
+           8       0.91      0.93      0.92       299
+           9       0.91      0.95      0.93       297
+
+    accuracy                           0.94      3000
+   macro avg       0.94      0.94      0.94      3000
+weighted avg       0.94      0.94      0.94      3000
+
+
+ > Model: Linear SVC
+   - Accuracy : 0.9070
+   - F1 Macro : 0.9063 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.92      0.94      0.93       291
+           1       0.93      0.98      0.95       326
+           2       0.90      0.89      0.89       320
+           3       0.89      0.86      0.88       308
+           4       0.95      0.92      0.93       294
+           5       0.87      0.84      0.85       265
+           6       0.94      0.95      0.94       279
+           7       0.91      0.89      0.90       321
+           8       0.88      0.88      0.88       299
+           9       0.88      0.91      0.89       297
+
+    accuracy                           0.91      3000
+   macro avg       0.91      0.91      0.91      3000
+weighted avg       0.91      0.91      0.91      3000
+
+
+ > Model: Extra Trees Classifier
+   - Accuracy : 0.9617
+   - F1 Macro : 0.9616 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.98      0.98      0.98       291
+           1       0.98      0.98      0.98       326
+           2       0.95      0.97      0.96       320
+           3       0.94      0.91      0.93       308
+           4       0.96      0.97      0.96       294
+           5       0.97      0.95      0.96       265
+           6       0.97      0.98      0.97       279
+           7       0.97      0.96      0.97       321
+           8       0.94      0.97      0.96       299
+           9       0.95      0.95      0.95       297
+
+    accuracy                           0.96      3000
+   macro avg       0.96      0.96      0.96      3000
+weighted avg       0.96      0.96      0.96      3000
+
+
+==================================================
+ BEST MODEL : Extra Trees Classifier
+ Score      : 0.9616
+ Params     : {'n_estimators': 199, 'max_depth': 20, 'min_samples_split': 5, 'n_jobs': 1}
+==================================================
+
+############################################### Traitement du dataset : data_D #############################################
+[load dataset] Loading Dense dataset: data_D
+[fit] binary_classification task detected.
+
+    Dataset Target Analysis (2984 samples)
+ Type: Binary Classification [Balanced]
+  -> Class 0  : 1492   samples (50.00%)
+  -> Class 1  : 1492   samples (50.00%)
+
+
+Traceback (most recent call last):
+  File "/info/etu/m1/s2501728/AutoML/automl_pipeline.py", line 20, in <module>
+    automl.fit(current_data_dest)
+  File "/info/etu/m1/s2501728/AutoML/src/nevergrad/automl.py", line 578, in fit
+    X_train[self.bin_cols] = self.bin_imputer.fit_transform(X_train[self.in_cols])
+                                                                    ^^^^^^^^^^^^
+AttributeError: 'AutoML' object has no attribute 'in_cols'. Did you mean: 'bin_cols'?

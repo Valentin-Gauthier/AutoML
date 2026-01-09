@@ -1,0 +1,43 @@
+############################################### Traitement du dataset : data_D #############################################
+[load dataset] Loading Dense dataset: data_D
+[fit] binary_classification task detected.
+
+    Dataset Target Analysis (2984 samples)
+ Type: Binary Classification [Balanced]
+  -> Class 0  : 1492   samples (50.00%)
+  -> Class 1  : 1492   samples (50.00%)
+
+
+
+[fit] Candidate models loaded for task 'binary_classification':
+   1. Logistic Regression
+   2. Hist Gradient Boosting
+   3. K-Neighbors Classifier
+   4. Gaussian Naive Bayes
+   5. SVC
+   6. Random Forest Classifier
+   7. Bernoulli Naive Bayes
+   8. Gradient Boosting Classifier
+   9. MLP Classifier
+   10. Linear SVC
+   11. Extra Trees Classifier
+
+ [filter models] Dynamic Model Filtering ---
+ Dataset Info: 2387 rows, 144 cols, Sparse=False
+ [EXCLUDED] Gaussian Naive Bayes............... : Incompatible with negative values (StandardScaler)
+ [EXCLUDED] Bernoulli Naive Bayes.............. : Incompatible with negative values (StandardScaler)
+ -> Models selected: 9 / 11
+
+[CLUSTER] Optimizing: Logistic Regression...
+[CLUSTER] Success (21.9s). Best params: {'C': 0.06333090701332317, 'solver': 'lbfgs', 'max_iter': 2000}
+[fit] Retraining final model on full data...
+[fit] Final training done in 3.1s.
+[CLUSTER] Optimizing: Hist Gradient Boosting...
+[CLUSTER] Success (90.6s). Best params: {'learning_rate': 0.18097842545387227, 'max_iter': 440, 'max_depth': None, 'l2_regularization': 0.3782055009255566, 'early_stopping': True, 'n_iter_no_change': 10}
+[fit] Retraining final model on full data...
+[fit] Final training done in 1.0s.
+[CLUSTER] Optimizing: K-Neighbors Classifier...
+[CLUSTER] Success (29.5s). Best params: {'n_neighbors': 10, 'weights': 'distance', 'p': 1, 'n_jobs': 1}
+[fit] Retraining final model on full data...
+[fit] Final training done in 0.0s.
+[CLUSTER] Optimizing: SVC...

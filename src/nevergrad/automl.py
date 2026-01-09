@@ -6,6 +6,7 @@ import submitit
 import shutil
 import nevergrad as ng
 import tempfile
+import time
 from scipy.sparse import coo_matrix, issparse, csr_matrix
 from typing import Tuple, Any, Union, Callable, List, Dict
 
@@ -45,18 +46,18 @@ class AutoML:
             Number of folds used for cross-validation. Default to 3.
         feature_selection_threshold (int):
             Threshold of number of features above which Feature Selection (SelectKBest) 
-            is triggered to reduce dimensionality (only for dense data). Default to 500.
+            is triggered to reduce dimensionality (only for dense data). Default to 800.
         models_config_path (str):
             Path of the models configuration YAML file.
         budget (int):
             Total budget for the nevergrad optimization (total iterations).
-            Default to 20.
+            Default to 40.
         num_workers (int):
-            Number of parallel workers (jobs) launching with submitit. Default to 5.
+            Number of parallel workers (jobs) launching with submitit. Default to 10.
         timeout_min (int):
-            Maximum duration in minutes allowed for each job (before killed). Default to 10.
+            Maximum duration in minutes allowed for each job (before killed). Default to 15.
         mem_gb (int):
-            RAM requested per job in Gigabytes. Default to 4.
+            RAM requested per job in Gigabytes. Default to 8.
         cpus_per_task (int):
             CPU cores requested per job. Default to 1.
         submitit_log_folder (str):
@@ -72,12 +73,12 @@ class AutoML:
                  random_state: int = 42,
                  scoring: str = "auto",
                  n_folds: int = 3,
-                 feature_selection_threshold: int = 500,
+                 feature_selection_threshold: int = 800,
                  models_config_path: str = "src/nevergrad/models_config.yaml",
-                 budget: int = 20,
-                 num_workers: int = 5,
-                 timeout_min: int = 10,
-                 mem_gb: int = 4,
+                 budget: int = 40,
+                 num_workers: int = 40,
+                 timeout_min: int = 15,
+                 mem_gb: int = 8,
                  cpus_per_task: int = 1,
                  submitit_log_folder: str = "automl_logs",
                  cluster_partition : str = "gpu",
@@ -426,7 +427,7 @@ class AutoML:
             reason = None
 
             # Compatibilité Sparse
-            if is_data_sparse and name in ["Gaussian Naive Bayes", "Hist Gradient Boosting", "Hist Gradient Boosting Multi-label"]:
+            if is_data_sparse and name in ["Gaussian Naive Bayes"]:
                 reason = "Incompatible with Sparse data"
 
             # Compatibilité Données Négatives
@@ -575,7 +576,7 @@ class AutoML:
 
             if self.bin_cols:
                 self.bin_imputer = SimpleImputer(strategy="most_frequent")
-                X_train[self.bin_cols] = self.bin_imputer.fit_transform(X_train[self.in_cols])
+                X_train[self.bin_cols] = self.bin_imputer.fit_transform(X_train[self.bin_cols])
                 self.X_test[self.bin_cols] = self.bin_imputer.transform(self.X_test[self.bin_cols])
 
             if self.cat_cols:
@@ -658,10 +659,13 @@ class AutoML:
                 )
                 params_space = self._config_to_nevergrad(model_config)
                 optimizer = ng.optimizers.TwoPointsDE(parametrization=params_space, budget=self.budget, num_workers=self.num_workers)
+                start_opt = time.time()
                 recommendation = optimizer.minimize(trainer, executor=self.executor, batch_mode=True)
+                end_opt = time.time()
                 best_params = recommendation.value[1]
                 if self.verbose:
-                    print(f"[CLUSTER] Success. Best params: {best_params}")
+                    duration_opt = end_opt - start_opt
+                    print(f"[CLUSTER] Success ({duration_opt:.1f}s). Best params: {best_params}")
                     print(f"[fit] Retraining final model on full data...")
                     
                 final_model = clone(model_instance)
@@ -676,7 +680,12 @@ class AutoML:
                     if hasattr(final_model.estimator, 'n_jobs'):
                         final_model.estimator.set_params(n_jobs=-1)
                         
+                start_fit = time.time()
                 final_model.fit(X_train, y_train)
+                end_fit = time.time()
+
+                if self.verbose:
+                    print(f"[fit] Final training done in {end_fit - start_fit:.1f}s.")
 
                 self.trained_models[model_name] = final_model
                 self.best_params[model_name] = best_params
