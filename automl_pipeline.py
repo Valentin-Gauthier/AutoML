@@ -1,8 +1,7 @@
 from src.nevergrad.automl import AutoML
 
-
 base_path = "/info/corpus/ChallengeMachineLearning/data_"
-datasets_letters = "DEFGHIJK"
+datasets_letters = "BCDEFGHIJK"
 
 for letter in datasets_letters:
     
@@ -12,7 +11,7 @@ for letter in datasets_letters:
     automl = AutoML(
         budget=40,
         feature_selection_threshold=800,
-        timeout_min=15,
+        timeout_min=10,
         num_workers=10,
         mem_gb=8,
         verbose=True

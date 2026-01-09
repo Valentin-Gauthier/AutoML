@@ -1,3 +1,4 @@
+############################################### Traitement du dataset : data_B #############################################
 [load dataset] Loading Dense dataset: data_B
 [fit] regression task detected.
 
@@ -124,3 +125,48 @@
  Score      : 0.7854
  Params     : {'learning_rate': 0.019334501862478697, 'max_iter': 405, 'max_depth': None, 'l2_regularization': 0.969122548409724, 'early_stopping': True, 'n_iter_no_change': 10}
 ==================================================
+
+############################################### Traitement du dataset : data_C #############################################
+[load dataset] Loading Dense dataset: data_C
+[fit] multiclass_classification task detected.
+
+    Dataset Target Analysis (15000 samples)
+ Type: Multiclass Classification [Balanced]
+  -> Class 0  : 1493   samples (9.95%)
+  -> Class 1  : 1786   samples (11.91%)
+  -> Class 2  : 1506   samples (10.04%)
+  -> Class 3  : 1461   samples (9.74%)
+  -> Class 4  : 1422   samples (9.48%)
+  -> Class 5  : 1344   samples (8.96%)
+  -> Class 6  : 1442   samples (9.61%)
+  -> Class 7  : 1604   samples (10.69%)
+  -> Class 8  : 1472   samples (9.81%)
+  -> Class 9  : 1470   samples (9.80%)
+
+
+[fit] Features threshold exceeded (1568 > 800).
+[fit] Reducing to the top 800 features...
+[fit] Warning: Only kept 51.02% of the features !
+[fit] Reduction done. New shape: (12000, 800)
+
+[fit] Candidate models loaded for task 'multiclass_classification':
+   1. Logistic Regression
+   2. Hist Gradient Boosting
+   3. K-Neighbors Classifier
+   4. Gaussian Naive Bayes
+   5. Bernoulli Naive Bayes
+   6. SVC
+   7. Random Forest Classifier
+   8. Gradient Boosting Classifier
+   9. Linear SVC
+   10. Extra Trees Classifier
+
+ [filter models] Dynamic Model Filtering ---
+ Dataset Info: 12000 rows, 800 cols, Sparse=False
+ [EXCLUDED] K-Neighbors Classifier............. : Ineffective in high dimensions (800 cols)
+ [EXCLUDED] Gaussian Naive Bayes............... : Incompatible with negative values (StandardScaler)
+ [EXCLUDED] Bernoulli Naive Bayes.............. : Incompatible with negative values (StandardScaler)
+ [EXCLUDED] SVC................................ : Too slow for 12000 rows (Cubic Complexity)
+ -> Models selected: 6 / 10
+
+[CLUSTER] Optimizing: Logistic Regression...

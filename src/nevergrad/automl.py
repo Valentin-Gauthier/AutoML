@@ -44,9 +44,9 @@ class AutoML:
             Default to auto.
         n_folds (int):
             Number of folds used for cross-validation. Default to 3.
-        feature_selection_threshold (int):
+        feature_selection_threshold (int or float):
             Threshold of number of features above which Feature Selection (SelectKBest) 
-            is triggered to reduce dimensionality (only for dense data). Default to 800.
+            is triggered to reduce dimensionality. Defaults to infinity (no selection by default).
         models_config_path (str):
             Path of the models configuration YAML file.
         budget (int):
@@ -73,7 +73,7 @@ class AutoML:
                  random_state: int = 42,
                  scoring: str = "auto",
                  n_folds: int = 3,
-                 feature_selection_threshold: int = 800,
+                 feature_selection_threshold: Union[int, float] = float('inf'),
                  models_config_path: str = "src/nevergrad/models_config.yaml",
                  budget: int = 40,
                  num_workers: int = 40,
@@ -427,7 +427,7 @@ class AutoML:
             reason = None
 
             # Compatibilité Sparse
-            if is_data_sparse and name in ["Gaussian Naive Bayes"]:
+            if is_data_sparse and (name in ["Gaussian Naive Bayes"] or "Gradient Boosting" in name):
                 reason = "Incompatible with Sparse data"
 
             # Compatibilité Données Négatives
@@ -606,6 +606,7 @@ class AutoML:
             if self.verbose:
                 print(f"[fit] Features threshold exceeded ({n_cols} > {self.feature_selection_threshold}).")
                 print(f"[fit] Reducing to the top {self.feature_selection_threshold} features...")
+                print(f"[fit] Warning: Only kept {self.feature_selection_threshold / n_cols:.2%} of the features !")
     
             if self.task_type == "regression":
                 score_func = f_regression
@@ -622,7 +623,7 @@ class AutoML:
     
                 X_train = X_train_reduced
                 if self.verbose:
-                         print(f"[fit] Reduction done. New shape: {X_train.shape}")
+                    print(f"[fit] Reduction done. New shape: {X_train.shape}")
             except Exception as e:
                 print(f"[fit] Warning: Feature selection failed: {e}. Keeping original features.")
 
