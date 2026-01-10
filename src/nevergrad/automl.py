@@ -456,7 +456,7 @@ class AutoML:
             # Multi-label Massif (>20 labels)
             elif self.task_type == "multilabel_classification" and n_labels > 5:
                 
-                fast_multioutput = ["MLP", "Ridge", "Random Forest", "Extra Trees", "Linear SVC"]
+                fast_multioutput = ["MLP", "Ridge", "Linear SVC"]
                 is_fast = any(fast in name for fast in fast_multioutput)
                 
                 if not is_fast:
