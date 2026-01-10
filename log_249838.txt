@@ -1,0 +1,1923 @@
+############################################### Traitement du dataset : data_D #############################################
+[load dataset] Loading Dense dataset: data_D
+[fit] binary_classification task detected.
+
+    Dataset Target Analysis (2984 samples)
+ Type: Binary Classification [Balanced]
+  -> Class 0  : 1492   samples (50.00%)
+  -> Class 1  : 1492   samples (50.00%)
+
+
+
+[fit] Candidate models loaded for task 'binary_classification':
+   1. Logistic Regression
+   2. Hist Gradient Boosting
+   3. K-Neighbors Classifier
+   4. Gaussian Naive Bayes
+   5. SVC
+   6. Random Forest Classifier
+   7. Bernoulli Naive Bayes
+   8. Gradient Boosting Classifier
+   9. MLP Classifier
+   10. Linear SVC
+   11. Extra Trees Classifier
+
+ [filter models] Dynamic Model Filtering ---
+ Dataset Info: 2387 rows, 144 cols, Sparse=False
+ [EXCLUDED] Gaussian Naive Bayes............... : Incompatible with negative values (StandardScaler)
+ [EXCLUDED] Bernoulli Naive Bayes.............. : Incompatible with negative values (StandardScaler)
+ -> Models selected: 9 / 11
+
+[CLUSTER] Optimizing: Logistic Regression...
+[CLUSTER] Success (31.1s). Best params: {'C': 0.06193063905956753, 'solver': 'lbfgs', 'max_iter': 2000}
+[fit] Retraining final model on full data...
+[fit] Final training done in 2.9s.
+[CLUSTER] Optimizing: Hist Gradient Boosting...
+[CLUSTER] Success (94.9s). Best params: {'learning_rate': 0.02912766984049612, 'max_iter': 498, 'max_depth': 20, 'l2_regularization': 0.12818581078329494, 'early_stopping': True, 'n_iter_no_change': 10}
+[fit] Retraining final model on full data...
+[fit] Final training done in 2.7s.
+[CLUSTER] Optimizing: K-Neighbors Classifier...
+[CLUSTER] Success (32.0s). Best params: {'n_neighbors': 10, 'weights': 'distance', 'p': 1, 'n_jobs': 1}
+[fit] Retraining final model on full data...
+[fit] Final training done in 0.0s.
+[CLUSTER] Optimizing: SVC...
+[CLUSTER] Success (64.5s). Best params: {'C': 2.114347483199625, 'kernel': 'rbf', 'gamma': 'scale', 'probability': True, 'max_iter': 2000}
+[fit] Retraining final model on full data...
+/info/etu/m1/s2501728/miniconda3/envs/autoML_env/lib/python3.12/site-packages/sklearn/svm/_base.py:305: ConvergenceWarning: Solver terminated early (max_iter=2000).  Consider pre-processing your data with StandardScaler or MinMaxScaler.
+  warnings.warn(
+[fit] Final training done in 3.9s.
+[CLUSTER] Optimizing: Random Forest Classifier...
+[CLUSTER] Success (43.3s). Best params: {'n_estimators': 176, 'max_depth': None, 'min_samples_split': 7, 'min_samples_leaf': 1, 'class_weight': None, 'n_jobs': 1}
+[fit] Retraining final model on full data...
+[fit] Final training done in 0.8s.
+[CLUSTER] Optimizing: Gradient Boosting Classifier...
+[CLUSTER] Success (49.0s). Best params: {'n_estimators': 112, 'learning_rate': 0.07862247252932611, 'max_depth': 6, 'subsample': 0.9138231610509342, 'n_iter_no_change': 10, 'validation_fraction': 0.1}
+[fit] Retraining final model on full data...
+[fit] Final training done in 3.1s.
+[CLUSTER] Optimizing: MLP Classifier...
+[CLUSTER] Success (46.4s). Best params: {'hidden_layer_sizes': [50], 'activation': 'relu', 'alpha': 0.00022462819099762244, 'learning_rate_init': 0.0048110659774006515, 'max_iter': 500, 'early_stopping': True, 'n_iter_no_change': 10}
+[fit] Retraining final model on full data...
+[fit] Final training done in 0.9s.
+[CLUSTER] Optimizing: Linear SVC...
+[CLUSTER] Success (27.9s). Best params: {'C': 0.011981355133276477, 'penalty': 'l2', 'max_iter': 2000}
+[fit] Retraining final model on full data...
+[fit] Final training done in 0.0s.
+[CLUSTER] Optimizing: Extra Trees Classifier...
+[CLUSTER] Success (49.6s). Best params: {'n_estimators': 105, 'max_depth': 20, 'min_samples_split': 10, 'n_jobs': 1}
+[fit] Retraining final model on full data...
+[fit] Final training done in 0.4s.
+
+[eval] --- Detailed Results on Test Set (597 samples) ---
+
+ > Model: Logistic Regression
+   - Accuracy : 0.7437
+   - F1 Macro : 0.7419 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.76      0.68      0.72       288
+         1.0       0.73      0.80      0.76       309
+
+    accuracy                           0.74       597
+   macro avg       0.75      0.74      0.74       597
+weighted avg       0.75      0.74      0.74       597
+
+
+ > Model: Hist Gradient Boosting
+   - Accuracy : 0.7889
+   - F1 Macro : 0.7852 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.85      0.68      0.76       288
+         1.0       0.75      0.89      0.81       309
+
+    accuracy                           0.79       597
+   macro avg       0.80      0.79      0.79       597
+weighted avg       0.80      0.79      0.79       597
+
+
+ > Model: K-Neighbors Classifier
+   - Accuracy : 0.7806
+   - F1 Macro : 0.7764 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.85      0.67      0.75       288
+         1.0       0.74      0.89      0.81       309
+
+    accuracy                           0.78       597
+   macro avg       0.79      0.78      0.78       597
+weighted avg       0.79      0.78      0.78       597
+
+
+ > Model: SVC
+   - Accuracy : 0.7655
+   - F1 Macro : 0.7619 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.81      0.67      0.73       288
+         1.0       0.73      0.86      0.79       309
+
+    accuracy                           0.77       597
+   macro avg       0.77      0.76      0.76       597
+weighted avg       0.77      0.77      0.76       597
+
+
+ > Model: Random Forest Classifier
+   - Accuracy : 0.8023
+   - F1 Macro : 0.7974 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.89      0.67      0.77       288
+         1.0       0.75      0.93      0.83       309
+
+    accuracy                           0.80       597
+   macro avg       0.82      0.80      0.80       597
+weighted avg       0.82      0.80      0.80       597
+
+
+ > Model: Gradient Boosting Classifier
+   - Accuracy : 0.7973
+   - F1 Macro : 0.7943 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.85      0.70      0.77       288
+         1.0       0.76      0.89      0.82       309
+
+    accuracy                           0.80       597
+   macro avg       0.81      0.79      0.79       597
+weighted avg       0.81      0.80      0.80       597
+
+
+ > Model: MLP Classifier
+   - Accuracy : 0.7772
+   - F1 Macro : 0.7756 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.80      0.72      0.76       288
+         1.0       0.76      0.83      0.79       309
+
+    accuracy                           0.78       597
+   macro avg       0.78      0.78      0.78       597
+weighted avg       0.78      0.78      0.78       597
+
+
+ > Model: Linear SVC
+   - Accuracy : 0.7638
+   - F1 Macro : 0.7605 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.81      0.67      0.73       288
+         1.0       0.73      0.85      0.79       309
+
+    accuracy                           0.76       597
+   macro avg       0.77      0.76      0.76       597
+weighted avg       0.77      0.76      0.76       597
+
+
+ > Model: Extra Trees Classifier
+   - Accuracy : 0.8007
+   - F1 Macro : 0.7968 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.87      0.69      0.77       288
+         1.0       0.76      0.91      0.82       309
+
+    accuracy                           0.80       597
+   macro avg       0.81      0.80      0.80       597
+weighted avg       0.81      0.80      0.80       597
+
+
+==================================================
+ BEST MODEL : Random Forest Classifier
+ Score      : 0.7974
+ Params     : {'n_estimators': 176, 'max_depth': None, 'min_samples_split': 7, 'min_samples_leaf': 1, 'class_weight': None, 'n_jobs': 1}
+==================================================
+
+############################################### Traitement du dataset : data_E #############################################
+[load dataset] Loading Dense dataset: data_E
+[fit] binary_classification task detected.
+
+    Dataset Target Analysis (3140 samples)
+ Type: Binary Classification [Balanced]
+  -> Class 0  : 1561   samples (49.71%)
+  -> Class 1  : 1579   samples (50.29%)
+
+
+
+[fit] Candidate models loaded for task 'binary_classification':
+   1. Logistic Regression
+   2. Hist Gradient Boosting
+   3. K-Neighbors Classifier
+   4. Gaussian Naive Bayes
+   5. SVC
+   6. Random Forest Classifier
+   7. Bernoulli Naive Bayes
+   8. Gradient Boosting Classifier
+   9. MLP Classifier
+   10. Linear SVC
+   11. Extra Trees Classifier
+
+ [filter models] Dynamic Model Filtering ---
+ Dataset Info: 2512 rows, 259 cols, Sparse=False
+ [EXCLUDED] Gaussian Naive Bayes............... : Incompatible with negative values (StandardScaler)
+ [EXCLUDED] Bernoulli Naive Bayes.............. : Incompatible with negative values (StandardScaler)
+ -> Models selected: 9 / 11
+
+[CLUSTER] Optimizing: Logistic Regression...
+[CLUSTER] Success (30.1s). Best params: {'C': 0.019019721470844624, 'solver': 'lbfgs', 'max_iter': 2000}
+[fit] Retraining final model on full data...
+[fit] Final training done in 2.9s.
+[CLUSTER] Optimizing: Hist Gradient Boosting...
+[CLUSTER] Success (113.9s). Best params: {'learning_rate': 0.01980356977647784, 'max_iter': 309, 'max_depth': 20, 'l2_regularization': 0.7866342746838411, 'early_stopping': True, 'n_iter_no_change': 10}
+[fit] Retraining final model on full data...
+[fit] Final training done in 3.5s.
+[CLUSTER] Optimizing: K-Neighbors Classifier...
+[CLUSTER] Success (40.8s). Best params: {'n_neighbors': 20, 'weights': 'distance', 'p': 1, 'n_jobs': 1}
+[fit] Retraining final model on full data...
+[fit] Final training done in 0.0s.
+[CLUSTER] Optimizing: SVC...
+[CLUSTER] Success (122.1s). Best params: {'C': 2.285942101288782, 'kernel': 'poly', 'gamma': 'scale', 'probability': True, 'max_iter': 2000}
+[fit] Retraining final model on full data...
+/info/etu/m1/s2501728/miniconda3/envs/autoML_env/lib/python3.12/site-packages/sklearn/svm/_base.py:305: ConvergenceWarning: Solver terminated early (max_iter=2000).  Consider pre-processing your data with StandardScaler or MinMaxScaler.
+  warnings.warn(
+[fit] Final training done in 7.9s.
+[CLUSTER] Optimizing: Random Forest Classifier...
+[CLUSTER] Success (124.5s). Best params: {'n_estimators': 114, 'max_depth': 20, 'min_samples_split': 7, 'min_samples_leaf': 2, 'class_weight': 'balanced', 'n_jobs': 1}
+[fit] Retraining final model on full data...
+[fit] Final training done in 0.8s.
+[CLUSTER] Optimizing: Gradient Boosting Classifier...
+[CLUSTER] Success (258.7s). Best params: {'n_estimators': 130, 'learning_rate': 0.057391985364445855, 'max_depth': 6, 'subsample': 0.8355999918914865, 'n_iter_no_change': 10, 'validation_fraction': 0.1}
+[fit] Retraining final model on full data...
+[fit] Final training done in 41.6s.
+[CLUSTER] Optimizing: MLP Classifier...
+[CLUSTER] Success (50.1s). Best params: {'hidden_layer_sizes': [100, 50], 'activation': 'relu', 'alpha': 0.0008576453367129575, 'learning_rate_init': 0.006745466041775909, 'max_iter': 500, 'early_stopping': True, 'n_iter_no_change': 10}
+[fit] Retraining final model on full data...
+[fit] Final training done in 1.5s.
+[CLUSTER] Optimizing: Linear SVC...
+[CLUSTER] Success (30.7s). Best params: {'C': 0.01636384128868211, 'penalty': 'l2', 'max_iter': 2000}
+[fit] Retraining final model on full data...
+[fit] Final training done in 0.2s.
+[CLUSTER] Optimizing: Extra Trees Classifier...
+[CLUSTER] Success (62.7s). Best params: {'n_estimators': 181, 'max_depth': 20, 'min_samples_split': 7, 'n_jobs': 1}
+[fit] Retraining final model on full data...
+[fit] Final training done in 0.6s.
+
+[eval] --- Detailed Results on Test Set (628 samples) ---
+
+ > Model: Logistic Regression
+   - Accuracy : 0.5876
+   - F1 Macro : 0.5870 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.57      0.57      0.57       302
+         1.0       0.60      0.60      0.60       326
+
+    accuracy                           0.59       628
+   macro avg       0.59      0.59      0.59       628
+weighted avg       0.59      0.59      0.59       628
+
+
+ > Model: Hist Gradient Boosting
+   - Accuracy : 0.8360
+   - F1 Macro : 0.8359 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.82      0.85      0.83       302
+         1.0       0.86      0.82      0.84       326
+
+    accuracy                           0.84       628
+   macro avg       0.84      0.84      0.84       628
+weighted avg       0.84      0.84      0.84       628
+
+
+ > Model: K-Neighbors Classifier
+   - Accuracy : 0.6704
+   - F1 Macro : 0.6704 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.65      0.69      0.67       302
+         1.0       0.70      0.65      0.67       326
+
+    accuracy                           0.67       628
+   macro avg       0.67      0.67      0.67       628
+weighted avg       0.67      0.67      0.67       628
+
+
+ > Model: SVC
+   - Accuracy : 0.6146
+   - F1 Macro : 0.6146 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.59      0.62      0.61       302
+         1.0       0.63      0.61      0.62       326
+
+    accuracy                           0.61       628
+   macro avg       0.61      0.61      0.61       628
+weighted avg       0.62      0.61      0.61       628
+
+
+ > Model: Random Forest Classifier
+   - Accuracy : 0.7866
+   - F1 Macro : 0.7866 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.77      0.80      0.78       302
+         1.0       0.81      0.77      0.79       326
+
+    accuracy                           0.79       628
+   macro avg       0.79      0.79      0.79       628
+weighted avg       0.79      0.79      0.79       628
+
+
+ > Model: Gradient Boosting Classifier
+   - Accuracy : 0.8471
+   - F1 Macro : 0.8470 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.84      0.85      0.84       302
+         1.0       0.86      0.85      0.85       326
+
+    accuracy                           0.85       628
+   macro avg       0.85      0.85      0.85       628
+weighted avg       0.85      0.85      0.85       628
+
+
+ > Model: MLP Classifier
+   - Accuracy : 0.5955
+   - F1 Macro : 0.5939 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.58      0.55      0.57       302
+         1.0       0.61      0.63      0.62       326
+
+    accuracy                           0.60       628
+   macro avg       0.59      0.59      0.59       628
+weighted avg       0.59      0.60      0.59       628
+
+
+ > Model: Linear SVC
+   - Accuracy : 0.5812
+   - F1 Macro : 0.5806 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.56      0.57      0.57       302
+         1.0       0.60      0.60      0.60       326
+
+    accuracy                           0.58       628
+   macro avg       0.58      0.58      0.58       628
+weighted avg       0.58      0.58      0.58       628
+
+
+ > Model: Extra Trees Classifier
+   - Accuracy : 0.7229
+   - F1 Macro : 0.7229 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.70      0.75      0.72       302
+         1.0       0.75      0.69      0.72       326
+
+    accuracy                           0.72       628
+   macro avg       0.72      0.72      0.72       628
+weighted avg       0.73      0.72      0.72       628
+
+
+==================================================
+ BEST MODEL : Gradient Boosting Classifier
+ Score      : 0.8470
+ Params     : {'n_estimators': 130, 'learning_rate': 0.057391985364445855, 'max_depth': 6, 'subsample': 0.8355999918914865, 'n_iter_no_change': 10, 'validation_fraction': 0.1}
+==================================================
+
+############################################### Traitement du dataset : data_F #############################################
+[load dataset] Loading Sparse dataset: data_F
+[fit] multiclass_classification task detected.
+
+    Dataset Target Analysis (13142 samples)
+ Type: Multiclass Classification [Balanced]
+  -> Class 0  : 558    samples (4.25%)
+  -> Class 1  : 656    samples (4.99%)
+  -> Class 2  : 666    samples (5.07%)
+  -> Class 3  : 687    samples (5.23%)
+  -> Class 4  : 671    samples (5.11%)
+  -> Class 5  : 685    samples (5.21%)
+  -> Class 6  : 663    samples (5.04%)
+  -> Class 7  : 676    samples (5.14%)
+  -> Class 8  : 696    samples (5.30%)
+  -> Class 9  : 677    samples (5.15%)
+  -> Class 10 : 726    samples (5.52%)
+  -> Class 11 : 667    samples (5.08%)
+  -> Class 12 : 677    samples (5.15%)
+  -> Class 13 : 689    samples (5.24%)
+  -> Class 14 : 702    samples (5.34%)
+  -> Class 15 : 705    samples (5.36%)
+  -> Class 16 : 660    samples (5.02%)
+  -> Class 17 : 677    samples (5.15%)
+  -> Class 18 : 570    samples (4.34%)
+  -> Class 19 : 434    samples (3.30%)
+
+
+[fit] Features threshold exceeded (61189 > 800).
+[fit] Reducing to the top 800 features...
+[fit] Warning: Only kept 1.31% of the features !
+[fit] Reduction done. New shape: (10513, 800)
+
+[fit] Candidate models loaded for task 'multiclass_classification':
+   1. Logistic Regression
+   2. Hist Gradient Boosting
+   3. K-Neighbors Classifier
+   4. Gaussian Naive Bayes
+   5. Bernoulli Naive Bayes
+   6. SVC
+   7. Random Forest Classifier
+   8. Gradient Boosting Classifier
+   9. Linear SVC
+   10. Extra Trees Classifier
+
+ [filter models] Dynamic Model Filtering ---
+ Dataset Info: 10513 rows, 800 cols, Sparse=True
+ [EXCLUDED] Hist Gradient Boosting............. : Incompatible with Sparse data
+ [EXCLUDED] K-Neighbors Classifier............. : Ineffective in high dimensions (800 cols)
+ [EXCLUDED] Gaussian Naive Bayes............... : Incompatible with Sparse data
+ [EXCLUDED] SVC................................ : Too slow for 10513 rows (Cubic Complexity)
+ [EXCLUDED] Gradient Boosting Classifier....... : Incompatible with Sparse data
+ -> Models selected: 5 / 10
+
+[CLUSTER] Optimizing: Logistic Regression...
+[CLUSTER] Success (92.6s). Best params: {'C': 68.50492772248748, 'solver': 'lbfgs', 'max_iter': 2000}
+[fit] Retraining final model on full data...
+[fit] Final training done in 9.7s.
+[CLUSTER] Optimizing: Bernoulli Naive Bayes...
+[CLUSTER] Success (25.1s). Best params: {'alpha': 0.010572932141556612, 'binarize': 0.014666229528029194}
+[fit] Retraining final model on full data...
+[fit] Final training done in 0.0s.
+[CLUSTER] Optimizing: Random Forest Classifier...
+[CLUSTER] Success (80.8s). Best params: {'n_estimators': 113, 'max_depth': None, 'min_samples_split': 7, 'min_samples_leaf': 1, 'class_weight': 'balanced', 'n_jobs': 1}
+[fit] Retraining final model on full data...
+[fit] Final training done in 1.1s.
+[CLUSTER] Optimizing: Linear SVC...
+[CLUSTER] Success (122.6s). Best params: {'C': 5.370465654798896, 'penalty': 'l2', 'max_iter': 2000}
+[fit] Retraining final model on full data...
+[fit] Final training done in 1.9s.
+[CLUSTER] Optimizing: Extra Trees Classifier...
+[CLUSTER] Success (105.1s). Best params: {'n_estimators': 152, 'max_depth': None, 'min_samples_split': 9, 'n_jobs': 1}
+[fit] Retraining final model on full data...
+[fit] Final training done in 1.5s.
+
+[eval] --- Detailed Results on Test Set (2629 samples) ---
+
+ > Model: Logistic Regression
+   - Accuracy : 0.6360
+   - F1 Macro : 0.6534 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.81      0.69      0.75       127
+           1       0.15      0.68      0.25       130
+           2       0.45      0.21      0.29       138
+           3       0.65      0.41      0.50       137
+           4       0.81      0.71      0.76       132
+           5       0.57      0.35      0.44       122
+           6       0.77      0.68      0.72       139
+           7       0.79      0.72      0.76       150
+           8       0.89      0.83      0.86       112
+           9       0.88      0.85      0.87       124
+          10       0.93      0.92      0.93       149
+          11       0.96      0.82      0.89       159
+          12       0.32      0.21      0.26       131
+          13       0.80      0.54      0.64       141
+          14       0.84      0.67      0.75       155
+          15       0.88      0.75      0.81       150
+          16       0.75      0.67      0.71       122
+          17       0.91      0.84      0.87       131
+          18       0.61      0.63      0.62        99
+          19       0.47      0.38      0.42        81
+
+    accuracy                           0.64      2629
+   macro avg       0.71      0.63      0.65      2629
+weighted avg       0.72      0.64      0.66      2629
+
+
+ > Model: Bernoulli Naive Bayes
+   - Accuracy : 0.6424
+   - F1 Macro : 0.6571 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.81      0.72      0.76       127
+           1       0.15      0.52      0.24       130
+           2       0.23      0.33      0.27       138
+           3       0.61      0.40      0.48       137
+           4       0.76      0.73      0.75       132
+           5       0.53      0.36      0.43       122
+           6       0.77      0.71      0.74       139
+           7       0.80      0.74      0.77       150
+           8       0.90      0.88      0.89       112
+           9       0.88      0.80      0.84       124
+          10       0.95      0.89      0.92       149
+          11       0.98      0.84      0.90       159
+          12       0.40      0.27      0.33       131
+          13       0.84      0.51      0.63       141
+          14       0.88      0.68      0.77       155
+          15       0.78      0.84      0.81       150
+          16       0.71      0.73      0.72       122
+          17       0.98      0.82      0.90       131
+          18       0.74      0.59      0.66        99
+          19       0.61      0.25      0.35        81
+
+    accuracy                           0.64      2629
+   macro avg       0.72      0.63      0.66      2629
+weighted avg       0.72      0.64      0.67      2629
+
+
+ > Model: Random Forest Classifier
+   - Accuracy : 0.6345
+   - F1 Macro : 0.6418 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.79      0.64      0.70       127
+           1       0.16      0.52      0.25       130
+           2       0.40      0.19      0.26       138
+           3       0.66      0.42      0.52       137
+           4       0.75      0.73      0.74       132
+           5       0.71      0.36      0.48       122
+           6       0.76      0.71      0.73       139
+           7       0.75      0.70      0.72       150
+           8       0.86      0.82      0.84       112
+           9       0.78      0.79      0.78       124
+          10       0.88      0.87      0.88       149
+          11       0.94      0.82      0.88       159
+          12       0.24      0.33      0.28       131
+          13       0.80      0.55      0.65       141
+          14       0.78      0.75      0.77       155
+          15       0.79      0.79      0.79       150
+          16       0.69      0.72      0.70       122
+          17       0.90      0.85      0.88       131
+          18       0.69      0.60      0.64        99
+          19       0.39      0.32      0.35        81
+
+    accuracy                           0.63      2629
+   macro avg       0.69      0.62      0.64      2629
+weighted avg       0.70      0.63      0.65      2629
+
+
+ > Model: Linear SVC
+   - Accuracy : 0.6379
+   - F1 Macro : 0.6474 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.81      0.76      0.78       127
+           1       0.16      0.50      0.24       130
+           2       0.53      0.17      0.25       138
+           3       0.63      0.42      0.50       137
+           4       0.76      0.75      0.76       132
+           5       0.54      0.37      0.44       122
+           6       0.73      0.68      0.70       139
+           7       0.79      0.73      0.76       150
+           8       0.86      0.86      0.86       112
+           9       0.89      0.81      0.85       124
+          10       0.85      0.93      0.89       149
+          11       0.93      0.86      0.89       159
+          12       0.20      0.31      0.24       131
+          13       0.80      0.51      0.62       141
+          14       0.81      0.71      0.76       155
+          15       0.81      0.77      0.79       150
+          16       0.76      0.66      0.70       122
+          17       0.92      0.85      0.88       131
+          18       0.60      0.62      0.61        99
+          19       0.55      0.35      0.42        81
+
+    accuracy                           0.64      2629
+   macro avg       0.70      0.63      0.65      2629
+weighted avg       0.71      0.64      0.66      2629
+
+
+ > Model: Extra Trees Classifier
+   - Accuracy : 0.6504
+   - F1 Macro : 0.6540 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.82      0.70      0.75       127
+           1       0.16      0.52      0.25       130
+           2       0.44      0.19      0.26       138
+           3       0.69      0.43      0.53       137
+           4       0.76      0.73      0.74       132
+           5       0.70      0.36      0.48       122
+           6       0.78      0.70      0.73       139
+           7       0.75      0.73      0.74       150
+           8       0.84      0.85      0.84       112
+           9       0.78      0.85      0.81       124
+          10       0.89      0.94      0.91       149
+          11       0.92      0.86      0.89       159
+          12       0.25      0.34      0.29       131
+          13       0.82      0.53      0.64       141
+          14       0.79      0.77      0.78       155
+          15       0.81      0.83      0.82       150
+          16       0.72      0.72      0.72       122
+          17       0.91      0.88      0.89       131
+          18       0.67      0.58      0.62        99
+          19       0.49      0.30      0.37        81
+
+    accuracy                           0.65      2629
+   macro avg       0.70      0.64      0.65      2629
+weighted avg       0.71      0.65      0.66      2629
+
+
+==================================================
+ BEST MODEL : Bernoulli Naive Bayes
+ Score      : 0.6571
+ Params     : {'alpha': 0.010572932141556612, 'binarize': 0.014666229528029194}
+==================================================
+
+############################################### Traitement du dataset : data_G #############################################
+[load dataset] Loading Dense dataset: data_G
+[fit] binary_classification task detected.
+
+    Dataset Target Analysis (5124 samples)
+ Type: Binary Classification [Balanced]
+  -> Class 0  : 2562   samples (50.00%)
+  -> Class 1  : 2562   samples (50.00%)
+
+
+
+[fit] Candidate models loaded for task 'binary_classification':
+   1. Logistic Regression
+   2. Hist Gradient Boosting
+   3. K-Neighbors Classifier
+   4. Gaussian Naive Bayes
+   5. SVC
+   6. Random Forest Classifier
+   7. Bernoulli Naive Bayes
+   8. Gradient Boosting Classifier
+   9. MLP Classifier
+   10. Linear SVC
+   11. Extra Trees Classifier
+
+ [filter models] Dynamic Model Filtering ---
+ Dataset Info: 4099 rows, 20 cols, Sparse=False
+ [EXCLUDED] Gaussian Naive Bayes............... : Incompatible with negative values (StandardScaler)
+ [EXCLUDED] Bernoulli Naive Bayes.............. : Incompatible with negative values (StandardScaler)
+ -> Models selected: 9 / 11
+
+[CLUSTER] Optimizing: Logistic Regression...
+[CLUSTER] Success (25.4s). Best params: {'C': 0.4114690359768339, 'solver': 'lbfgs', 'max_iter': 2000}
+[fit] Retraining final model on full data...
+[fit] Final training done in 2.3s.
+[CLUSTER] Optimizing: Hist Gradient Boosting...
+[CLUSTER] Success (72.4s). Best params: {'learning_rate': 0.16034820509315073, 'max_iter': 144, 'max_depth': 10, 'l2_regularization': 0.1355780450946784, 'early_stopping': True, 'n_iter_no_change': 10}
+[fit] Retraining final model on full data...
+[fit] Final training done in 0.6s.
+[CLUSTER] Optimizing: K-Neighbors Classifier...
+[CLUSTER] Success (28.9s). Best params: {'n_neighbors': 18, 'weights': 'distance', 'p': 1, 'n_jobs': 1}
+[fit] Retraining final model on full data...
+[fit] Final training done in 0.0s.
+[CLUSTER] Optimizing: SVC...
+[CLUSTER] Success (70.9s). Best params: {'C': 3.0877551137568426, 'kernel': 'rbf', 'gamma': 'scale', 'probability': True, 'max_iter': 2000}
+[fit] Retraining final model on full data...
+/info/etu/m1/s2501728/miniconda3/envs/autoML_env/lib/python3.12/site-packages/sklearn/svm/_base.py:305: ConvergenceWarning: Solver terminated early (max_iter=2000).  Consider pre-processing your data with StandardScaler or MinMaxScaler.
+  warnings.warn(
+[fit] Final training done in 3.6s.
+[CLUSTER] Optimizing: Random Forest Classifier...
+[CLUSTER] Success (69.7s). Best params: {'n_estimators': 172, 'max_depth': None, 'min_samples_split': 6, 'min_samples_leaf': 1, 'class_weight': None, 'n_jobs': 1}
+[fit] Retraining final model on full data...
+[fit] Final training done in 0.9s.
+[CLUSTER] Optimizing: Gradient Boosting Classifier...
+[CLUSTER] Success (81.2s). Best params: {'n_estimators': 99, 'learning_rate': 0.16177700655655042, 'max_depth': 6, 'subsample': 0.8380472857922183, 'n_iter_no_change': 10, 'validation_fraction': 0.1}
+[fit] Retraining final model on full data...
+[fit] Final training done in 5.5s.
+[CLUSTER] Optimizing: MLP Classifier...
+[CLUSTER] Success (47.8s). Best params: {'hidden_layer_sizes': [100], 'activation': 'relu', 'alpha': 0.0039041147748871325, 'learning_rate_init': 0.001956226033922906, 'max_iter': 500, 'early_stopping': True, 'n_iter_no_change': 10}
+[fit] Retraining final model on full data...
+[fit] Final training done in 2.5s.
+[CLUSTER] Optimizing: Linear SVC...
+[CLUSTER] Success (26.4s). Best params: {'C': 0.010379708488865904, 'penalty': 'l2', 'max_iter': 2000}
+[fit] Retraining final model on full data...
+[fit] Final training done in 0.0s.
+[CLUSTER] Optimizing: Extra Trees Classifier...
+[CLUSTER] Success (41.4s). Best params: {'n_estimators': 150, 'max_depth': 30, 'min_samples_split': 5, 'n_jobs': 1}
+[fit] Retraining final model on full data...
+[fit] Final training done in 0.6s.
+
+[eval] --- Detailed Results on Test Set (1025 samples) ---
+
+ > Model: Logistic Regression
+   - Accuracy : 0.9141
+   - F1 Macro : 0.9138 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.94      0.88      0.91       497
+         1.0       0.89      0.95      0.92       528
+
+    accuracy                           0.91      1025
+   macro avg       0.92      0.91      0.91      1025
+weighted avg       0.92      0.91      0.91      1025
+
+
+ > Model: Hist Gradient Boosting
+   - Accuracy : 0.9395
+   - F1 Macro : 0.9392 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.97      0.90      0.94       497
+         1.0       0.91      0.98      0.94       528
+
+    accuracy                           0.94      1025
+   macro avg       0.94      0.94      0.94      1025
+weighted avg       0.94      0.94      0.94      1025
+
+
+ > Model: K-Neighbors Classifier
+   - Accuracy : 0.8810
+   - F1 Macro : 0.8793 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.96      0.79      0.87       497
+         1.0       0.83      0.97      0.89       528
+
+    accuracy                           0.88      1025
+   macro avg       0.89      0.88      0.88      1025
+weighted avg       0.89      0.88      0.88      1025
+
+
+ > Model: SVC
+   - Accuracy : 0.9259
+   - F1 Macro : 0.9255 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.96      0.89      0.92       497
+         1.0       0.90      0.96      0.93       528
+
+    accuracy                           0.93      1025
+   macro avg       0.93      0.92      0.93      1025
+weighted avg       0.93      0.93      0.93      1025
+
+
+ > Model: Random Forest Classifier
+   - Accuracy : 0.9366
+   - F1 Macro : 0.9363 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.97      0.90      0.93       497
+         1.0       0.91      0.97      0.94       528
+
+    accuracy                           0.94      1025
+   macro avg       0.94      0.94      0.94      1025
+weighted avg       0.94      0.94      0.94      1025
+
+
+ > Model: Gradient Boosting Classifier
+   - Accuracy : 0.9346
+   - F1 Macro : 0.9343 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.97      0.90      0.93       497
+         1.0       0.91      0.97      0.94       528
+
+    accuracy                           0.93      1025
+   macro avg       0.94      0.93      0.93      1025
+weighted avg       0.94      0.93      0.93      1025
+
+
+ > Model: MLP Classifier
+   - Accuracy : 0.9288
+   - F1 Macro : 0.9286 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.95      0.91      0.92       497
+         1.0       0.91      0.95      0.93       528
+
+    accuracy                           0.93      1025
+   macro avg       0.93      0.93      0.93      1025
+weighted avg       0.93      0.93      0.93      1025
+
+
+ > Model: Linear SVC
+   - Accuracy : 0.9141
+   - F1 Macro : 0.9136 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.96      0.86      0.91       497
+         1.0       0.88      0.97      0.92       528
+
+    accuracy                           0.91      1025
+   macro avg       0.92      0.91      0.91      1025
+weighted avg       0.92      0.91      0.91      1025
+
+
+ > Model: Extra Trees Classifier
+   - Accuracy : 0.9463
+   - F1 Macro : 0.9461 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+         0.0       0.99      0.90      0.94       497
+         1.0       0.91      0.99      0.95       528
+
+    accuracy                           0.95      1025
+   macro avg       0.95      0.95      0.95      1025
+weighted avg       0.95      0.95      0.95      1025
+
+
+==================================================
+ BEST MODEL : Extra Trees Classifier
+ Score      : 0.9461
+ Params     : {'n_estimators': 150, 'max_depth': 30, 'min_samples_split': 5, 'n_jobs': 1}
+==================================================
+
+############################################### Traitement du dataset : data_H #############################################
+[load dataset] Loading Sparse dataset: data_H
+[fit] multilabel_classification task detected.
+
+    Dataset Target Analysis (45400 samples)
+   Type: Multi-label (91 labels)
+ - Average labels per sample: 1.43
+ -> Label 72 : 5353   (11.79%)
+ -> Label 52 : 5183   (11.42%)
+ -> Label 23 : 2862   (6.30%)
+ -> Label 76 : 2803   (6.17%)
+ -> Label 6  : 2338   (5.15%)
+ -> Label 1  : 2223   (4.90%)
+ -> Label 65 : 2199   (4.84%)
+ -> Label 70 : 2134   (4.70%)
+ -> Label 43 : 2068   (4.56%)
+ -> Label 86 : 1741   (3.83%)
+ -> Label 36 : 1703   (3.75%)
+ -> Label 46 : 1479   (3.26%)
+ -> Label 20 : 1438   (3.17%)
+ -> Label 22 : 1363   (3.00%)
+ -> Label 62 : 1289   (2.84%)
+ -> Label 54 : 1163   (2.56%)
+ -> Label 48 : 1133   (2.50%)
+ -> Label 67 : 1102   (2.43%)
+ -> Label 3  : 1082   (2.38%)
+ -> Label 30 : 1041   (2.29%)
+ -> Label 33 : 977    (2.15%)
+ -> Label 59 : 847    (1.87%)
+ -> Label 64 : 845    (1.86%)
+ -> Label 18 : 807    (1.78%)
+ -> Label 8  : 778    (1.71%)
+ -> Label 19 : 757    (1.67%)
+ -> Label 63 : 636    (1.40%)
+ -> Label 24 : 618    (1.36%)
+ -> Label 60 : 617    (1.36%)
+ -> Label 39 : 612    (1.35%)
+ -> Label 7  : 611    (1.35%)
+ -> Label 29 : 608    (1.34%)
+ -> Label 42 : 603    (1.33%)
+ -> Label 27 : 554    (1.22%)
+ -> Label 11 : 548    (1.21%)
+ -> Label 75 : 521    (1.15%)
+ -> Label 71 : 521    (1.15%)
+ -> Label 49 : 514    (1.13%)
+ -> Label 80 : 502    (1.11%)
+ -> Label 21 : 500    (1.10%)
+ -> Label 17 : 464    (1.02%)
+ -> Label 84 : 452    (1.00%)
+ -> Label 9  : 434    (0.96%)
+ -> Label 50 : 422    (0.93%)
+ -> Label 73 : 398    (0.88%)
+ -> Label 57 : 378    (0.83%)
+ -> Label 45 : 359    (0.79%)
+ -> Label 16 : 317    (0.70%)
+ -> Label 68 : 317    (0.70%)
+ -> Label 66 : 302    (0.67%)
+ -> Label 26 : 287    (0.63%)
+ -> Label 88 : 250    (0.55%)
+ -> Label 2  : 250    (0.55%)
+ -> Label 5  : 246    (0.54%)
+ -> Label 89 : 246    (0.54%)
+ -> Label 0  : 242    (0.53%)
+ -> Label 4  : 237    (0.52%)
+ -> Label 58 : 225    (0.50%)
+ -> Label 79 : 217    (0.48%)
+ -> Label 55 : 204    (0.45%)
+ -> Label 38 : 203    (0.45%)
+ -> Label 37 : 202    (0.44%)
+ -> Label 61 : 201    (0.44%)
+ -> Label 44 : 200    (0.44%)
+ -> Label 74 : 195    (0.43%)
+ -> Label 28 : 190    (0.42%)
+ -> Label 47 : 178    (0.39%)
+ -> Label 82 : 164    (0.36%)
+ -> Label 87 : 161    (0.35%)
+ -> Label 10 : 161    (0.35%)
+ -> Label 78 : 157    (0.35%)
+ -> Label 34 : 156    (0.34%)
+ -> Label 15 : 146    (0.32%)
+ -> Label 51 : 129    (0.28%)
+ -> Label 14 : 127    (0.28%)
+ -> Label 83 : 125    (0.28%)
+ -> Label 77 : 124    (0.27%)
+ -> Label 13 : 118    (0.26%)
+ -> Label 90 : 118    (0.26%)
+ -> Label 31 : 112    (0.25%)
+ -> Label 85 : 109    (0.24%)
+ -> Label 32 : 107    (0.24%)
+ -> Label 56 : 104    (0.23%)
+ -> Label 40 : 104    (0.23%)
+ -> Label 53 : 99     (0.22%)
+ -> Label 25 : 87     (0.19%)
+ -> Label 12 : 85     (0.19%)
+ -> Label 41 : 82     (0.18%)
+ -> Label 69 : 73     (0.16%)
+ -> Label 35 : 73     (0.16%)
+ -> Label 81 : 49     (0.11%)
+
+
+[fit] Features threshold exceeded (301562 > 800).
+[fit] Reducing to the top 800 features...
+[fit] Warning: Only kept 0.27% of the features !
+[fit] Reduction done. New shape: (36320, 800)
+
+[fit] Candidate models loaded for task 'multilabel_classification':
+   1. Random Forest Classifier Multi-label
+   2. K-Neighbors Classifier Multi-label
+   3. Gradient Boosting Classifier Multi-label
+   4. Hist Gradient Boosting Multi-label
+   5. MLP Multi-label
+   6. Ridge Classifier
+   7. Linear SVC Multi-label
+   8. Extra Trees Classifier Multi-label
+
+ [filter models] Dynamic Model Filtering ---
+ Dataset Info: 36320 rows, 800 cols, Sparse=True
+ Target Info : 91 labels (Multi-label)
+ [EXCLUDED] K-Neighbors Classifier Multi-label. : Ineffective in high dimensions (800 cols)
+ [EXCLUDED] Gradient Boosting Classifier Multi-label : Incompatible with Sparse data
+ [EXCLUDED] Hist Gradient Boosting Multi-label. : Incompatible with Sparse data
+ -> Models selected: 5 / 8
+
+[CLUSTER] Optimizing: Random Forest Classifier Multi-label...
+/info/etu/m1/s2501728/miniconda3/envs/autoML_env/lib/python3.12/site-packages/nevergrad/optimization/base.py:149: LossTooLargeWarning: Clipping very high value nan in tell (rescale the cost function?).
+  warnings.warn(msg, e)
+[CLUSTER] Error optimizing Random Forest Classifier Multi-label: Job 251121 (task: 0) with path /info/etu/m1/s2501728/AutoML/automl_logs/251121_0_result.pkl
+has not produced any output (state: TIMEOUT)
+Error stream produced:
+----------------------------------------
+submitit WARNING (2026-01-09 15:18:17,876) - Caught signal SIGUSR2 on gpue11: this job is timed-out.
+slurmstepd-gpue11: error: *** STEP 251121.0 ON gpue11 CANCELLED AT 2026-01-09T15:18:18 DUE TO JOB REQUEUE ***
+slurmstepd-gpue11: error: *** JOB 251121 ON gpue11 CANCELLED AT 2026-01-09T15:18:18 DUE TO JOB REQUEUE ***
+submitit WARNING (2026-01-09 15:18:18,470) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 15:18:18,471) - Bypassing signal SIGCONT
+submitit WARNING (2026-01-09 15:28:47,465) - Caught signal SIGUSR2 on gpue11: this job is timed-out.
+slurmstepd-gpue11: error: *** STEP 251121.1 ON gpue11 CANCELLED AT 2026-01-09T15:28:48 DUE TO JOB REQUEUE ***
+slurmstepd-gpue11: error: *** JOB 251121 ON gpue11 CANCELLED AT 2026-01-09T15:28:48 DUE TO JOB REQUEUE ***
+submitit WARNING (2026-01-09 15:28:48,058) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 15:28:48,058) - Bypassing signal SIGCONT
+submitit WARNING (2026-01-09 15:39:48,201) - Caught signal SIGUSR2 on gpue11: this job is timed-out.
+slurmstepd-gpue11: error: *** STEP 251121.2 ON gpue11 CANCELLED AT 2026-01-09T15:39:48 DUE TO JOB REQUEUE ***
+slurmstepd-gpue11: error: *** JOB 251121 ON gpue11 CANCELLED AT 2026-01-09T15:39:48 DUE TO JOB REQUEUE ***
+submitit WARNING (2026-01-09 15:39:48,793) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 15:39:48,794) - Bypassing signal SIGCONT
+submitit WARNING (2026-01-09 15:50:18,615) - Caught signal SIGUSR2 on gpue11: this job is timed-out.
+srun: Job step aborted: Waiting up to 2 seconds for job step to finish.
+slurmstepd-gpue11: error: *** STEP 251121.3 ON gpue11 CANCELLED AT 2026-01-09T15:52:18 DUE TO TIME LIMIT ***
+slurmstepd-gpue11: error: *** JOB 251121 ON gpue11 CANCELLED AT 2026-01-09T15:52:18 DUE TO TIME LIMIT ***
+submitit WARNING (2026-01-09 15:52:18,698) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 15:52:18,699) - Bypassing signal SIGCONT
+
+[LOCAL] Fallback: Training locally with default params.
+[CLUSTER] Optimizing: MLP Multi-label...
+[CLUSTER] Success (1344.8s). Best params: {'hidden_layer_sizes': [200, 100], 'activation': 'relu', 'alpha': 0.002770559616788098, 'learning_rate_init': 0.0038697877342010385, 'max_iter': 500, 'early_stopping': True, 'n_iter_no_change': 10}
+[fit] Retraining final model on full data...
+[fit] Final training done in 92.9s.
+[CLUSTER] Optimizing: Ridge Classifier...
+[CLUSTER] Success (508.2s). Best params: {'estimator__alpha': 33.04756624407774, 'estimator__class_weight': 'balanced'}
+[fit] Retraining final model on full data...
+[fit] Final training done in 5.9s.
+[CLUSTER] Optimizing: Linear SVC Multi-label...
+[CLUSTER] Success (579.3s). Best params: {'estimator__C': 26.892010026746128, 'estimator__max_iter': 2000}
+[fit] Retraining final model on full data...
+[fit] Final training done in 8.8s.
+[CLUSTER] Optimizing: Extra Trees Classifier Multi-label...
+/info/etu/m1/s2501728/miniconda3/envs/autoML_env/lib/python3.12/site-packages/nevergrad/optimization/base.py:149: LossTooLargeWarning: Clipping very high value nan in tell (rescale the cost function?).
+  warnings.warn(msg, e)
+[CLUSTER] Error optimizing Extra Trees Classifier Multi-label: Job 251259 (task: 0) with path /info/etu/m1/s2501728/AutoML/automl_logs/251259_0_result.pkl
+has not produced any output (state: TIMEOUT)
+Error stream produced:
+----------------------------------------
+submitit WARNING (2026-01-09 17:11:22,807) - Caught signal SIGUSR2 on gpue11: this job is timed-out.
+slurmstepd-gpue11: error: *** STEP 251259.0 ON gpue11 CANCELLED AT 2026-01-09T17:11:23 DUE TO JOB REQUEUE ***
+slurmstepd-gpue11: error: *** JOB 251259 ON gpue11 CANCELLED AT 2026-01-09T17:11:23 DUE TO JOB REQUEUE ***
+submitit WARNING (2026-01-09 17:11:23,284) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 17:11:23,285) - Bypassing signal SIGCONT
+submitit WARNING (2026-01-09 17:21:52,233) - Caught signal SIGUSR2 on gpue11: this job is timed-out.
+slurmstepd-gpue11: error: *** STEP 251259.1 ON gpue11 CANCELLED AT 2026-01-09T17:21:52 DUE TO JOB REQUEUE ***
+slurmstepd-gpue11: error: *** JOB 251259 ON gpue11 CANCELLED AT 2026-01-09T17:21:52 DUE TO JOB REQUEUE ***
+submitit WARNING (2026-01-09 17:21:52,715) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 17:21:52,716) - Bypassing signal SIGCONT
+submitit WARNING (2026-01-09 17:32:22,640) - Caught signal SIGUSR2 on gpue11: this job is timed-out.
+slurmstepd-gpue11: error: *** STEP 251259.2 ON gpue11 CANCELLED AT 2026-01-09T17:32:22 DUE TO JOB REQUEUE ***
+slurmstepd-gpue11: error: *** JOB 251259 ON gpue11 CANCELLED AT 2026-01-09T17:32:22 DUE TO JOB REQUEUE ***
+submitit WARNING (2026-01-09 17:32:22,984) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 17:32:22,985) - Bypassing signal SIGCONT
+submitit WARNING (2026-01-09 17:42:52,075) - Caught signal SIGUSR2 on gpue12: this job is timed-out.
+srun: Job step aborted: Waiting up to 2 seconds for job step to finish.
+slurmstepd-gpue12: error: *** JOB 251259 ON gpue12 CANCELLED AT 2026-01-09T17:44:52 DUE TO TIME LIMIT ***
+slurmstepd-gpue12: error: *** STEP 251259.3 ON gpue12 CANCELLED AT 2026-01-09T17:44:52 DUE TO TIME LIMIT ***
+submitit WARNING (2026-01-09 17:44:52,159) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 17:44:52,160) - Bypassing signal SIGCONT
+
+[LOCAL] Fallback: Training locally with default params.
+
+[eval] --- Detailed Results on Test Set (9080 samples) ---
+
+ > Model: Random Forest Classifier Multi-label
+   - F1 (Samples): 0.5715 (Quality per instance)
+   - F1 (Macro)  : 0.5460 (Quality per label)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.44      0.07      0.12        58
+           1       0.79      0.50      0.61       456
+           2       0.50      0.03      0.06        61
+           3       0.94      0.83      0.88       220
+           4       1.00      0.48      0.65        42
+           5       0.73      0.23      0.35        47
+           6       0.91      0.88      0.90       451
+           7       0.17      0.05      0.08       115
+           8       0.88      0.74      0.81       160
+           9       0.29      0.02      0.04        89
+          10       1.00      0.78      0.87        40
+          11       0.67      0.30      0.41        87
+          12       1.00      0.46      0.63        13
+          13       0.85      0.41      0.55        27
+          14       0.67      0.38      0.48        21
+          15       1.00      0.41      0.58        27
+          16       0.76      0.48      0.59        54
+          17       0.53      0.20      0.29        94
+          18       0.91      0.81      0.85       166
+          19       0.79      0.41      0.54       128
+          20       0.91      0.82      0.86       256
+          21       0.79      0.65      0.71        99
+          22       0.84      0.80      0.82       292
+          23       0.30      0.04      0.08       598
+          24       0.88      0.81      0.84       121
+          25       1.00      0.20      0.33        15
+          26       0.97      0.52      0.67        62
+          27       0.93      0.62      0.74       113
+          28       0.00      0.00      0.00        41
+          29       0.77      0.37      0.50       120
+          30       0.83      0.36      0.50       224
+          31       0.67      0.67      0.67        21
+          32       0.89      0.36      0.52        22
+          33       0.72      0.41      0.52       195
+          34       0.97      0.72      0.82        39
+          35       1.00      0.07      0.13        14
+          36       0.79      0.60      0.68       347
+          37       0.67      0.55      0.60        33
+          38       0.94      0.66      0.78        50
+          39       0.84      0.46      0.59       124
+          40       0.79      0.41      0.54        27
+          41       1.00      0.50      0.67        16
+          42       0.84      0.64      0.73       118
+          43       0.83      0.54      0.65       422
+          44       0.00      0.00      0.00        50
+          45       1.00      0.67      0.80        79
+          46       0.91      0.48      0.63       293
+          47       0.71      0.45      0.56        22
+          48       0.74      0.49      0.59       222
+          49       0.67      0.23      0.34        88
+          50       0.67      0.05      0.09        81
+          51       1.00      0.23      0.37        22
+          52       0.93      0.89      0.91      1032
+          53       1.00      0.29      0.45        17
+          54       0.75      0.39      0.51       237
+          55       0.80      0.19      0.30        43
+          56       0.91      0.59      0.71        17
+          57       0.91      0.75      0.82        84
+          58       0.83      0.10      0.18        49
+          59       0.94      0.38      0.54       179
+          60       0.35      0.08      0.13       116
+          61       0.94      0.44      0.60        39
+          62       0.90      0.58      0.71       283
+          63       0.93      0.71      0.81       115
+          64       0.83      0.72      0.77       175
+          65       0.85      0.69      0.76       421
+          66       0.91      0.52      0.66        56
+          67       0.54      0.15      0.23       227
+          68       0.89      0.48      0.62        52
+          69       1.00      0.69      0.81        16
+          70       0.81      0.51      0.63       425
+          71       0.66      0.30      0.41       105
+          72       0.74      0.38      0.51      1081
+          73       0.93      0.71      0.80        75
+          74       1.00      0.49      0.66        45
+          75       0.93      0.47      0.63       118
+          76       0.82      0.60      0.69       563
+          77       0.25      0.04      0.07        26
+          78       1.00      0.76      0.87        34
+          79       0.50      0.04      0.07        50
+          80       0.93      0.45      0.61        93
+          81       0.00      0.00      0.00         8
+          82       0.88      0.68      0.77        34
+          83       1.00      0.25      0.40        16
+          84       0.69      0.09      0.17        96
+          85       0.75      0.12      0.21        24
+          86       0.94      0.83      0.88       328
+          87       0.96      0.71      0.82        35
+          88       1.00      0.79      0.88        43
+          89       0.87      0.51      0.64        51
+          90       0.94      0.67      0.78        24
+
+   micro avg       0.84      0.53      0.65     13014
+   macro avg       0.79      0.45      0.55     13014
+weighted avg       0.79      0.53      0.61     13014
+ samples avg       0.62      0.56      0.57     13014
+
+
+ > Model: MLP Multi-label
+   - F1 (Samples): 0.6086 (Quality per instance)
+   - F1 (Macro)  : 0.6042 (Quality per label)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.22      0.07      0.11        58
+           1       0.71      0.58      0.63       456
+           2       0.60      0.05      0.09        61
+           3       0.92      0.84      0.88       220
+           4       0.79      0.55      0.65        42
+           5       0.62      0.34      0.44        47
+           6       0.90      0.89      0.90       451
+           7       0.83      0.04      0.08       115
+           8       0.87      0.74      0.80       160
+           9       0.38      0.06      0.10        89
+          10       0.88      0.75      0.81        40
+          11       0.56      0.39      0.46        87
+          12       0.89      0.62      0.73        13
+          13       0.70      0.52      0.60        27
+          14       0.89      0.38      0.53        21
+          15       0.82      0.52      0.64        27
+          16       0.67      0.48      0.56        54
+          17       0.62      0.35      0.45        94
+          18       0.90      0.82      0.86       166
+          19       0.68      0.52      0.59       128
+          20       0.82      0.90      0.86       256
+          21       0.66      0.70      0.68        99
+          22       0.76      0.85      0.80       292
+          23       0.50      0.12      0.20       598
+          24       0.89      0.79      0.84       121
+          25       0.53      0.53      0.53        15
+          26       0.77      0.74      0.75        62
+          27       0.91      0.60      0.72       113
+          28       0.50      0.02      0.05        41
+          29       0.73      0.41      0.52       120
+          30       0.68      0.57      0.62       224
+          31       0.74      0.67      0.70        21
+          32       0.80      0.36      0.50        22
+          33       0.74      0.43      0.54       195
+          34       1.00      0.74      0.85        39
+          35       0.42      0.36      0.38        14
+          36       0.70      0.64      0.67       347
+          37       0.87      0.61      0.71        33
+          38       1.00      0.80      0.89        50
+          39       0.88      0.52      0.65       124
+          40       0.82      0.52      0.64        27
+          41       0.75      0.56      0.64        16
+          42       0.86      0.61      0.71       118
+          43       0.76      0.62      0.68       422
+          44       0.00      0.00      0.00        50
+          45       0.98      0.66      0.79        79
+          46       0.88      0.45      0.59       293
+          47       0.74      0.64      0.68        22
+          48       0.83      0.49      0.62       222
+          49       0.56      0.36      0.44        88
+          50       0.37      0.14      0.20        81
+          51       0.82      0.41      0.55        22
+          52       0.94      0.88      0.91      1032
+          53       1.00      0.65      0.79        17
+          54       0.65      0.50      0.56       237
+          55       0.90      0.44      0.59        43
+          56       0.71      0.71      0.71        17
+          57       0.82      0.73      0.77        84
+          58       0.55      0.47      0.51        49
+          59       0.72      0.44      0.54       179
+          60       0.49      0.18      0.26       116
+          61       0.74      0.51      0.61        39
+          62       0.91      0.58      0.71       283
+          63       0.90      0.72      0.80       115
+          64       0.80      0.72      0.76       175
+          65       0.75      0.72      0.74       421
+          66       0.85      0.84      0.85        56
+          67       0.67      0.16      0.26       227
+          68       0.64      0.67      0.65        52
+          69       1.00      0.75      0.86        16
+          70       0.67      0.60      0.63       425
+          71       0.63      0.45      0.52       105
+          72       0.62      0.49      0.55      1081
+          73       0.79      0.71      0.75        75
+          74       0.92      0.49      0.64        45
+          75       0.83      0.53      0.65       118
+          76       0.81      0.64      0.72       563
+          77       0.60      0.12      0.19        26
+          78       1.00      0.79      0.89        34
+          79       0.50      0.12      0.19        50
+          80       0.69      0.57      0.62        93
+          81       0.80      0.50      0.62         8
+          82       0.78      0.74      0.76        34
+          83       0.71      0.31      0.43        16
+          84       0.57      0.39      0.46        96
+          85       0.67      0.42      0.51        24
+          86       0.92      0.81      0.86       328
+          87       0.97      0.80      0.88        35
+          88       1.00      0.86      0.93        43
+          89       0.74      0.61      0.67        51
+          90       0.81      0.71      0.76        24
+
+   micro avg       0.78      0.58      0.66     13014
+   macro avg       0.74      0.53      0.60     13014
+weighted avg       0.75      0.58      0.64     13014
+ samples avg       0.64      0.61      0.61     13014
+
+
+ > Model: Ridge Classifier
+   - F1 (Samples): 0.3522 (Quality per instance)
+   - F1 (Macro)  : 0.2992 (Quality per label)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.03      0.76      0.05        58
+           1       0.41      0.73      0.53       456
+           2       0.02      0.85      0.04        61
+           3       0.56      0.89      0.68       220
+           4       0.12      0.71      0.21        42
+           5       0.07      0.66      0.13        47
+           6       0.69      0.92      0.79       451
+           7       0.03      0.85      0.07       115
+           8       0.57      0.79      0.67       160
+           9       0.03      0.76      0.06        89
+          10       0.21      0.82      0.33        40
+          11       0.12      0.63      0.21        87
+          12       0.04      0.92      0.08        13
+          13       0.11      0.85      0.19        27
+          14       0.09      0.67      0.15        21
+          15       0.04      0.81      0.07        27
+          16       0.14      0.81      0.24        54
+          17       0.09      0.78      0.16        94
+          18       0.45      0.80      0.57       166
+          19       0.19      0.76      0.30       128
+          20       0.55      0.96      0.70       256
+          21       0.29      0.80      0.42        99
+          22       0.67      0.90      0.76       292
+          23       0.16      0.74      0.27       598
+          24       0.29      0.84      0.44       121
+          25       0.09      0.80      0.16        15
+          26       0.24      1.00      0.39        62
+          27       0.31      0.73      0.43       113
+          28       0.03      0.73      0.07        41
+          29       0.14      0.75      0.24       120
+          30       0.31      0.89      0.46       224
+          31       0.21      0.81      0.34        21
+          32       0.04      0.64      0.07        22
+          33       0.19      0.70      0.30       195
+          34       0.19      0.77      0.30        39
+          35       0.06      0.86      0.12        14
+          36       0.46      0.74      0.57       347
+          37       0.07      0.85      0.13        33
+          38       0.46      0.92      0.62        50
+          39       0.16      0.72      0.26       124
+          40       0.08      0.67      0.14        27
+          41       0.08      0.75      0.14        16
+          42       0.18      0.72      0.28       118
+          43       0.40      0.70      0.51       422
+          44       0.02      0.74      0.04        50
+          45       0.18      0.75      0.29        79
+          46       0.19      0.69      0.30       293
+          47       0.10      0.86      0.19        22
+          48       0.11      0.83      0.19       222
+          49       0.13      0.64      0.21        88
+          50       0.04      0.81      0.08        81
+          51       0.06      0.82      0.10        22
+          52       0.86      0.84      0.85      1032
+          53       0.09      0.88      0.16        17
+          54       0.18      0.75      0.29       237
+          55       0.04      0.84      0.08        43
+          56       0.05      0.82      0.09        17
+          57       0.22      0.86      0.35        84
+          58       0.13      0.88      0.22        49
+          59       0.14      0.73      0.23       179
+          60       0.04      0.84      0.08       116
+          61       0.11      0.85      0.20        39
+          62       0.27      0.81      0.40       283
+          63       0.29      0.84      0.43       115
+          64       0.28      0.88      0.42       175
+          65       0.41      0.79      0.54       421
+          66       0.12      0.79      0.20        56
+          67       0.15      0.86      0.26       227
+          68       0.20      0.90      0.32        52
+          69       0.15      0.81      0.25        16
+          70       0.44      0.82      0.58       425
+          71       0.22      0.79      0.34       105
+          72       0.38      0.66      0.48      1081
+          73       0.28      0.76      0.41        75
+          74       0.22      0.87      0.35        45
+          75       0.34      0.91      0.49       118
+          76       0.53      0.75      0.62       563
+          77       0.02      0.73      0.03        26
+          78       0.17      0.68      0.27        34
+          79       0.06      0.74      0.10        50
+          80       0.22      0.91      0.35        93
+          81       0.01      0.88      0.03         8
+          82       0.31      0.79      0.44        34
+          83       0.02      0.62      0.03        16
+          84       0.16      0.82      0.27        96
+          85       0.08      0.79      0.15        24
+          86       0.55      0.82      0.66       328
+          87       0.16      0.77      0.27        35
+          88       0.29      0.79      0.42        43
+          89       0.11      0.71      0.18        51
+          90       0.17      0.88      0.28        24
+
+   micro avg       0.18      0.79      0.29     13014
+   macro avg       0.21      0.80      0.30     13014
+weighted avg       0.36      0.79      0.46     13014
+ samples avg       0.26      0.79      0.35     13014
+
+
+ > Model: Linear SVC Multi-label
+   - F1 (Samples): 0.5428 (Quality per instance)
+   - F1 (Macro)  : 0.5701 (Quality per label)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00        58
+           1       0.79      0.46      0.59       456
+           2       0.50      0.03      0.06        61
+           3       0.96      0.81      0.88       220
+           4       0.77      0.57      0.66        42
+           5       0.62      0.28      0.38        47
+           6       0.93      0.84      0.88       451
+           7       0.80      0.03      0.07       115
+           8       0.93      0.71      0.81       160
+           9       0.00      0.00      0.00        89
+          10       0.97      0.78      0.86        40
+          11       0.60      0.28      0.38        87
+          12       1.00      0.54      0.70        13
+          13       0.42      0.63      0.51        27
+          14       0.71      0.57      0.63        21
+          15       0.82      0.52      0.64        27
+          16       0.67      0.48      0.56        54
+          17       0.69      0.23      0.35        94
+          18       0.90      0.76      0.82       166
+          19       0.83      0.41      0.54       128
+          20       0.80      0.80      0.80       256
+          21       0.76      0.55      0.64        99
+          22       0.89      0.73      0.80       292
+          23       0.17      0.00      0.01       598
+          24       0.92      0.78      0.84       121
+          25       0.42      0.53      0.47        15
+          26       0.74      0.79      0.77        62
+          27       0.93      0.58      0.71       113
+          28       0.50      0.02      0.05        41
+          29       0.82      0.31      0.45       120
+          30       0.80      0.42      0.55       224
+          31       0.64      0.67      0.65        21
+          32       0.82      0.41      0.55        22
+          33       0.79      0.43      0.55       195
+          34       0.97      0.74      0.84        39
+          35       0.30      0.21      0.25        14
+          36       0.81      0.55      0.65       347
+          37       0.80      0.61      0.69        33
+          38       0.92      0.70      0.80        50
+          39       0.93      0.46      0.62       124
+          40       0.84      0.59      0.70        27
+          41       0.80      0.75      0.77        16
+          42       0.86      0.68      0.76       118
+          43       0.82      0.49      0.61       422
+          44       0.00      0.00      0.00        50
+          45       0.95      0.72      0.82        79
+          46       0.86      0.41      0.56       293
+          47       0.71      0.68      0.70        22
+          48       0.85      0.41      0.56       222
+          49       0.65      0.25      0.36        88
+          50       0.00      0.00      0.00        81
+          51       0.78      0.32      0.45        22
+          52       0.93      0.86      0.90      1032
+          53       0.77      0.59      0.67        17
+          54       0.75      0.40      0.52       237
+          55       1.00      0.44      0.61        43
+          56       0.92      0.65      0.76        17
+          57       0.89      0.77      0.83        84
+          58       0.64      0.18      0.29        49
+          59       0.93      0.38      0.54       179
+          60       0.55      0.10      0.17       116
+          61       0.72      0.54      0.62        39
+          62       0.92      0.59      0.72       283
+          63       0.89      0.70      0.79       115
+          64       0.80      0.63      0.71       175
+          65       0.85      0.62      0.72       421
+          66       0.86      0.68      0.76        56
+          67       0.72      0.11      0.20       227
+          68       0.60      0.56      0.58        52
+          69       1.00      0.56      0.72        16
+          70       0.73      0.49      0.59       425
+          71       0.57      0.24      0.34       105
+          72       0.78      0.33      0.46      1081
+          73       0.86      0.65      0.74        75
+          74       0.69      0.78      0.73        45
+          75       0.89      0.49      0.63       118
+          76       0.80      0.49      0.61       563
+          77       0.56      0.19      0.29        26
+          78       1.00      0.94      0.97        34
+          79       0.40      0.04      0.07        50
+          80       0.59      0.45      0.51        93
+          81       1.00      0.50      0.67         8
+          82       0.79      0.76      0.78        34
+          83       0.62      0.31      0.42        16
+          84       0.44      0.11      0.18        96
+          85       0.34      0.42      0.38        24
+          86       0.94      0.79      0.86       328
+          87       0.90      0.80      0.85        35
+          88       0.97      0.86      0.91        43
+          89       0.76      0.69      0.72        51
+          90       0.80      0.83      0.82        24
+
+   micro avg       0.84      0.51      0.63     13014
+   macro avg       0.74      0.50      0.57     13014
+weighted avg       0.77      0.51      0.59     13014
+ samples avg       0.58      0.54      0.54     13014
+
+
+ > Model: Extra Trees Classifier Multi-label
+   - F1 (Samples): 0.5790 (Quality per instance)
+   - F1 (Macro)  : 0.5649 (Quality per label)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.42      0.14      0.21        58
+           1       0.80      0.51      0.62       456
+           2       0.23      0.05      0.08        61
+           3       0.93      0.83      0.88       220
+           4       1.00      0.52      0.69        42
+           5       0.61      0.23      0.34        47
+           6       0.90      0.88      0.89       451
+           7       0.25      0.12      0.16       115
+           8       0.85      0.75      0.79       160
+           9       0.22      0.04      0.07        89
+          10       0.94      0.75      0.83        40
+          11       0.53      0.29      0.37        87
+          12       0.88      0.54      0.67        13
+          13       0.88      0.52      0.65        27
+          14       0.42      0.24      0.30        21
+          15       1.00      0.41      0.58        27
+          16       0.77      0.44      0.56        54
+          17       0.43      0.21      0.29        94
+          18       0.91      0.74      0.82       166
+          19       0.74      0.45      0.56       128
+          20       0.90      0.86      0.88       256
+          21       0.73      0.63      0.67        99
+          22       0.83      0.81      0.82       292
+          23       0.31      0.06      0.10       598
+          24       0.85      0.79      0.82       121
+          25       1.00      0.53      0.70        15
+          26       1.00      0.55      0.71        62
+          27       0.89      0.57      0.69       113
+          28       0.17      0.02      0.04        41
+          29       0.75      0.37      0.49       120
+          30       0.82      0.36      0.50       224
+          31       0.68      0.71      0.70        21
+          32       0.82      0.41      0.55        22
+          33       0.67      0.40      0.50       195
+          34       0.97      0.74      0.84        39
+          35       0.50      0.07      0.12        14
+          36       0.78      0.61      0.68       347
+          37       0.69      0.55      0.61        33
+          38       0.95      0.70      0.80        50
+          39       0.79      0.45      0.57       124
+          40       0.81      0.48      0.60        27
+          41       1.00      0.62      0.77        16
+          42       0.85      0.64      0.73       118
+          43       0.79      0.54      0.64       422
+          44       0.20      0.02      0.04        50
+          45       0.95      0.67      0.79        79
+          46       0.89      0.48      0.63       293
+          47       0.69      0.50      0.58        22
+          48       0.72      0.51      0.59       222
+          49       0.62      0.28      0.39        88
+          50       0.24      0.05      0.08        81
+          51       1.00      0.23      0.37        22
+          52       0.92      0.88      0.90      1032
+          53       1.00      0.29      0.45        17
+          54       0.72      0.38      0.50       237
+          55       0.68      0.30      0.42        43
+          56       0.62      0.59      0.61        17
+          57       0.94      0.74      0.83        84
+          58       0.80      0.08      0.15        49
+          59       0.80      0.35      0.49       179
+          60       0.37      0.13      0.19       116
+          61       0.76      0.56      0.65        39
+          62       0.86      0.54      0.66       283
+          63       0.93      0.70      0.80       115
+          64       0.81      0.73      0.77       175
+          65       0.81      0.67      0.74       421
+          66       0.89      0.55      0.68        56
+          67       0.54      0.17      0.26       227
+          68       0.90      0.54      0.67        52
+          69       1.00      0.69      0.81        16
+          70       0.80      0.49      0.61       425
+          71       0.56      0.26      0.35       105
+          72       0.74      0.40      0.52      1081
+          73       0.95      0.69      0.80        75
+          74       0.97      0.62      0.76        45
+          75       0.87      0.41      0.55       118
+          76       0.82      0.58      0.68       563
+          77       0.22      0.08      0.11        26
+          78       1.00      0.65      0.79        34
+          79       0.57      0.08      0.14        50
+          80       0.98      0.55      0.70        93
+          81       1.00      0.38      0.55         8
+          82       0.89      0.74      0.81        34
+          83       0.80      0.25      0.38        16
+          84       0.64      0.17      0.26        96
+          85       0.88      0.29      0.44        24
+          86       0.94      0.77      0.85       328
+          87       0.97      0.80      0.88        35
+          88       1.00      0.84      0.91        43
+          89       0.88      0.45      0.60        51
+          90       0.94      0.67      0.78        24
+
+   micro avg       0.81      0.53      0.64     13014
+   macro avg       0.76      0.47      0.56     13014
+weighted avg       0.77      0.53      0.61     13014
+ samples avg       0.62      0.57      0.58     13014
+
+
+==================================================
+ BEST MODEL : MLP Multi-label
+ Score      : 0.6086
+ Params     : {'hidden_layer_sizes': [200, 100], 'activation': 'relu', 'alpha': 0.002770559616788098, 'learning_rate_init': 0.0038697877342010385, 'max_iter': 500, 'early_stopping': True, 'n_iter_no_change': 10}
+==================================================
+
+############################################### Traitement du dataset : data_I #############################################
+[load dataset] Loading Dense dataset: data_I
+[fit] multiclass_classification task detected.
+
+    Dataset Target Analysis (10000 samples)
+ Type: Multiclass Classification [Balanced]
+  -> Class 0  : 1988   samples (19.88%)
+  -> Class 1  : 2049   samples (20.49%)
+  -> Class 2  : 1913   samples (19.13%)
+  -> Class 3  : 2046   samples (20.46%)
+  -> Class 4  : 2004   samples (20.04%)
+
+
+[fit] Features threshold exceeded (2000 > 800).
+[fit] Reducing to the top 800 features...
+[fit] Warning: Only kept 40.00% of the features !
+[fit] Reduction done. New shape: (8000, 800)
+
+[fit] Candidate models loaded for task 'multiclass_classification':
+   1. Logistic Regression
+   2. Hist Gradient Boosting
+   3. K-Neighbors Classifier
+   4. Gaussian Naive Bayes
+   5. Bernoulli Naive Bayes
+   6. SVC
+   7. Random Forest Classifier
+   8. Gradient Boosting Classifier
+   9. Linear SVC
+   10. Extra Trees Classifier
+
+ [filter models] Dynamic Model Filtering ---
+ Dataset Info: 8000 rows, 800 cols, Sparse=False
+ [EXCLUDED] K-Neighbors Classifier............. : Ineffective in high dimensions (800 cols)
+ [EXCLUDED] Gaussian Naive Bayes............... : Incompatible with negative values (StandardScaler)
+ [EXCLUDED] Bernoulli Naive Bayes.............. : Incompatible with negative values (StandardScaler)
+ -> Models selected: 7 / 10
+
+[CLUSTER] Optimizing: Logistic Regression...
+[CLUSTER] Success (432.3s). Best params: {'C': 0.583984500003602, 'solver': 'lbfgs', 'max_iter': 2000}
+[fit] Retraining final model on full data...
+[fit] Final training done in 18.3s.
+[CLUSTER] Optimizing: Hist Gradient Boosting...
+/info/etu/m1/s2501728/miniconda3/envs/autoML_env/lib/python3.12/site-packages/nevergrad/optimization/base.py:149: LossTooLargeWarning: Clipping very high value nan in tell (rescale the cost function?).
+  warnings.warn(msg, e)
+[CLUSTER] Error optimizing Hist Gradient Boosting: Job 251317 (task: 0) with path /info/etu/m1/s2501728/AutoML/automl_logs/251317_0_result.pkl
+has not produced any output (state: TIMEOUT)
+Error stream produced:
+----------------------------------------
+submitit WARNING (2026-01-09 18:44:52,833) - Caught signal SIGUSR2 on gpue12: this job is timed-out.
+slurmstepd-gpue12: error: *** JOB 251317 ON gpue12 CANCELLED AT 2026-01-09T18:44:56 DUE TO JOB REQUEUE ***
+slurmstepd-gpue12: error: *** STEP 251317.0 ON gpue12 CANCELLED AT 2026-01-09T18:44:56 DUE TO JOB REQUEUE ***
+submitit WARNING (2026-01-09 18:44:56,873) - Bypassing signal SIGCONT
+submitit WARNING (2026-01-09 18:44:56,899) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 18:55:22,260) - Caught signal SIGUSR2 on gpue12: this job is timed-out.
+slurmstepd-gpue12: error: *** JOB 251317 ON gpue12 CANCELLED AT 2026-01-09T18:55:26 DUE TO JOB REQUEUE ***
+slurmstepd-gpue12: error: *** STEP 251317.1 ON gpue12 CANCELLED AT 2026-01-09T18:55:26 DUE TO JOB REQUEUE ***
+submitit WARNING (2026-01-09 18:55:26,278) - Bypassing signal SIGCONT
+submitit WARNING (2026-01-09 18:55:26,279) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 19:05:52,754) - Caught signal SIGUSR2 on gpue12: this job is timed-out.
+slurmstepd-gpue12: error: *** STEP 251317.2 ON gpue12 CANCELLED AT 2026-01-09T19:05:56 DUE TO JOB REQUEUE ***
+slurmstepd-gpue12: error: *** JOB 251317 ON gpue12 CANCELLED AT 2026-01-09T19:05:56 DUE TO JOB REQUEUE ***
+submitit WARNING (2026-01-09 19:05:56,811) - Bypassing signal SIGCONT
+submitit WARNING (2026-01-09 19:05:56,812) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 19:16:28,933) - Caught signal SIGUSR2 on gpue12: this job is timed-out.
+srun: Job step aborted: Waiting up to 2 seconds for job step to finish.
+slurmstepd-gpue12: error: *** STEP 251317.3 ON gpue12 CANCELLED AT 2026-01-09T19:18:28 DUE TO TIME LIMIT ***
+slurmstepd-gpue12: error: *** JOB 251317 ON gpue12 CANCELLED AT 2026-01-09T19:18:28 DUE TO TIME LIMIT ***
+submitit WARNING (2026-01-09 19:18:28,991) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 19:18:28,998) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 19:18:28,999) - Bypassing signal SIGCONT
+
+[LOCAL] Fallback: Training locally with default params.
+[CLUSTER] Optimizing: SVC...
+[CLUSTER] Success (1185.5s). Best params: {'C': 31.339456578068024, 'kernel': 'rbf', 'gamma': 'scale', 'probability': True, 'max_iter': 2000}
+[fit] Retraining final model on full data...
+/info/etu/m1/s2501728/miniconda3/envs/autoML_env/lib/python3.12/site-packages/sklearn/svm/_base.py:305: ConvergenceWarning: Solver terminated early (max_iter=2000).  Consider pre-processing your data with StandardScaler or MinMaxScaler.
+  warnings.warn(
+[fit] Final training done in 48.5s.
+[CLUSTER] Optimizing: Random Forest Classifier...
+[CLUSTER] Success (949.7s). Best params: {'n_estimators': 116, 'max_depth': 20, 'min_samples_split': 5, 'min_samples_leaf': 1, 'class_weight': 'balanced', 'n_jobs': 1}
+[fit] Retraining final model on full data...
+[fit] Final training done in 6.0s.
+[CLUSTER] Optimizing: Gradient Boosting Classifier...
+[CLUSTER] Error optimizing Gradient Boosting Classifier: Job 251423 (task: 0) with path /info/etu/m1/s2501728/AutoML/automl_logs/251423_0_result.pkl
+has not produced any output (state: TIMEOUT)
+Error stream produced:
+----------------------------------------
+submitit WARNING (2026-01-09 20:13:02,896) - Caught signal SIGUSR2 on gpue11: this job is timed-out.
+slurmstepd-gpue11: error: *** STEP 251423.0 ON gpue11 CANCELLED AT 2026-01-09T20:13:03 DUE TO JOB REQUEUE ***
+slurmstepd-gpue11: error: *** JOB 251423 ON gpue11 CANCELLED AT 2026-01-09T20:13:03 DUE TO JOB REQUEUE ***
+submitit WARNING (2026-01-09 20:23:31,342) - Caught signal SIGUSR2 on gpue11: this job is timed-out.
+slurmstepd-gpue11: error: *** STEP 251423.1 ON gpue11 CANCELLED AT 2026-01-09T20:23:31 DUE TO JOB REQUEUE ***
+slurmstepd-gpue11: error: *** JOB 251423 ON gpue11 CANCELLED AT 2026-01-09T20:23:31 DUE TO JOB REQUEUE ***
+submitit WARNING (2026-01-09 20:23:31,945) - Bypassing signal SIGCONT
+submitit WARNING (2026-01-09 20:23:31,947) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 20:34:01,162) - Caught signal SIGUSR2 on gpue09: this job is timed-out.
+slurmstepd-gpue09: error: *** JOB 251423 ON gpue09 CANCELLED AT 2026-01-09T20:34:01 DUE TO JOB REQUEUE ***
+slurmstepd-gpue09: error: *** STEP 251423.2 ON gpue09 CANCELLED AT 2026-01-09T20:34:01 DUE TO JOB REQUEUE ***
+submitit WARNING (2026-01-09 20:44:31,728) - Caught signal SIGUSR2 on gpue11: this job is timed-out.
+srun: Job step aborted: Waiting up to 2 seconds for job step to finish.
+slurmstepd-gpue11: error: *** STEP 251423.3 ON gpue11 CANCELLED AT 2026-01-09T20:46:28 DUE TO TIME LIMIT ***
+slurmstepd-gpue11: error: *** JOB 251423 ON gpue11 CANCELLED AT 2026-01-09T20:46:28 DUE TO TIME LIMIT ***
+submitit WARNING (2026-01-09 20:46:30,318) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 20:46:30,319) - Bypassing signal SIGCONT
+
+[LOCAL] Fallback: Training locally with default params.
+[CLUSTER] Optimizing: Linear SVC...
+[CLUSTER] Error optimizing Linear SVC: Job 251443 (task: 0) with path /info/etu/m1/s2501728/AutoML/automl_logs/251443_0_result.pkl
+has not produced any output (state: TIMEOUT)
+Error stream produced:
+----------------------------------------
+srun: Job step aborted: Waiting up to 2 seconds for job step to finish.
+slurmstepd-gpue09: error: *** JOB 251443 ON gpue09 CANCELLED AT 2026-01-09T22:01:59 DUE TO TIME LIMIT ***
+slurmstepd-gpue09: error: *** STEP 251443.0 ON gpue09 CANCELLED AT 2026-01-09T22:01:59 DUE TO TIME LIMIT ***
+submitit WARNING (2026-01-09 22:02:02,614) - Caught signal SIGUSR2 on gpue09: this job is timed-out.
+submitit WARNING (2026-01-09 22:02:03,101) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 22:02:03,101) - Bypassing signal SIGCONT
+submitit WARNING (2026-01-09 22:13:22,242) - Caught signal SIGUSR2 on gpue11: this job is timed-out.
+slurmstepd-gpue11: error: *** JOB 251443 ON gpue11 CANCELLED AT 2026-01-09T22:13:22 DUE TO JOB REQUEUE ***
+slurmstepd-gpue11: error: *** STEP 251443.1 ON gpue11 CANCELLED AT 2026-01-09T22:13:22 DUE TO JOB REQUEUE ***
+submitit WARNING (2026-01-09 22:24:40,851) - Caught signal SIGUSR2 on gpue11: this job is timed-out.
+slurmstepd-gpue11: error: *** STEP 251443.2 ON gpue11 CANCELLED AT 2026-01-09T22:24:41 DUE TO JOB REQUEUE ***
+slurmstepd-gpue11: error: *** JOB 251443 ON gpue11 CANCELLED AT 2026-01-09T22:24:41 DUE TO JOB REQUEUE ***
+submitit WARNING (2026-01-09 22:24:41,410) - Bypassing signal SIGCONT
+submitit WARNING (2026-01-09 22:36:17,631) - Caught signal SIGUSR2 on gpue11: this job is timed-out.
+srun: Job step aborted: Waiting up to 2 seconds for job step to finish.
+slurmstepd-gpue11: error: *** STEP 251443.3 ON gpue11 CANCELLED AT 2026-01-09T22:37:29 DUE TO TIME LIMIT ***
+slurmstepd-gpue11: error: *** JOB 251443 ON gpue11 CANCELLED AT 2026-01-09T22:37:29 DUE TO TIME LIMIT ***
+
+[LOCAL] Fallback: Training locally with default params.
+[CLUSTER] Optimizing: Extra Trees Classifier...
+[CLUSTER] Success (155.0s). Best params: {'n_estimators': 182, 'max_depth': 30, 'min_samples_split': 4, 'n_jobs': 1}
+[fit] Retraining final model on full data...
+[fit] Final training done in 1.4s.
+
+[eval] --- Detailed Results on Test Set (2000 samples) ---
+
+ > Model: Logistic Regression
+   - Accuracy : 0.9475
+   - F1 Macro : 0.9476 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.96      0.91      0.93       428
+           1       0.95      0.97      0.96       376
+           2       0.92      0.94      0.93       371
+           3       0.97      0.96      0.97       404
+           4       0.94      0.95      0.95       421
+
+    accuracy                           0.95      2000
+   macro avg       0.95      0.95      0.95      2000
+weighted avg       0.95      0.95      0.95      2000
+
+
+ > Model: Hist Gradient Boosting
+   - Accuracy : 0.9835
+   - F1 Macro : 0.9836 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.99      0.99      0.99       428
+           1       0.99      0.99      0.99       376
+           2       0.98      0.99      0.99       371
+           3       0.98      0.98      0.98       404
+           4       0.97      0.97      0.97       421
+
+    accuracy                           0.98      2000
+   macro avg       0.98      0.98      0.98      2000
+weighted avg       0.98      0.98      0.98      2000
+
+
+ > Model: SVC
+   - Accuracy : 0.9850
+   - F1 Macro : 0.9850 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.99      0.97      0.98       428
+           1       0.98      1.00      0.99       376
+           2       0.98      0.98      0.98       371
+           3       0.99      0.98      0.99       404
+           4       0.98      0.99      0.99       421
+
+    accuracy                           0.98      2000
+   macro avg       0.98      0.99      0.99      2000
+weighted avg       0.99      0.98      0.98      2000
+
+
+ > Model: Random Forest Classifier
+   - Accuracy : 0.9485
+   - F1 Macro : 0.9489 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.95      0.94      0.95       428
+           1       0.97      0.97      0.97       376
+           2       0.94      0.96      0.95       371
+           3       0.95      0.93      0.94       404
+           4       0.94      0.94      0.94       421
+
+    accuracy                           0.95      2000
+   macro avg       0.95      0.95      0.95      2000
+weighted avg       0.95      0.95      0.95      2000
+
+
+ > Model: Gradient Boosting Classifier
+   - Accuracy : 0.9360
+   - F1 Macro : 0.9364 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.96      0.91      0.94       428
+           1       0.96      0.97      0.96       376
+           2       0.91      0.95      0.93       371
+           3       0.93      0.94      0.93       404
+           4       0.92      0.92      0.92       421
+
+    accuracy                           0.94      2000
+   macro avg       0.94      0.94      0.94      2000
+weighted avg       0.94      0.94      0.94      2000
+
+
+ > Model: Linear SVC
+   - Accuracy : 0.9340
+   - F1 Macro : 0.9341 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.95      0.88      0.91       428
+           1       0.92      0.97      0.95       376
+           2       0.92      0.93      0.93       371
+           3       0.95      0.96      0.95       404
+           4       0.92      0.94      0.93       421
+
+    accuracy                           0.93      2000
+   macro avg       0.93      0.94      0.93      2000
+weighted avg       0.93      0.93      0.93      2000
+
+
+ > Model: Extra Trees Classifier
+   - Accuracy : 0.9690
+   - F1 Macro : 0.9692 (Balanced metric)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.98      0.95      0.96       428
+           1       0.96      0.98      0.97       376
+           2       0.97      0.99      0.98       371
+           3       0.98      0.97      0.97       404
+           4       0.96      0.97      0.97       421
+
+    accuracy                           0.97      2000
+   macro avg       0.97      0.97      0.97      2000
+weighted avg       0.97      0.97      0.97      2000
+
+
+==================================================
+ BEST MODEL : SVC
+ Score      : 0.9850
+ Params     : {'C': 31.339456578068024, 'kernel': 'rbf', 'gamma': 'scale', 'probability': True, 'max_iter': 2000}
+==================================================
+
+############################################### Traitement du dataset : data_J #############################################
+[load dataset] Loading Dense dataset: data_J
+[fit] multiclass_classification task detected.
+
+    Dataset Target Analysis (8237 samples)
+ Type: Multiclass Classification [IMBALANCED]
+  -> Class 0  : 933    samples (11.33%)
+  -> Class 1  : 1433   samples (17.40%)
+  -> Class 2  : 1927   samples (23.39%)
+  -> Class 3  : 1515   samples (18.39%)
+  -> Class 4  : 979    samples (11.89%)
+  -> Class 5  : 948    samples (11.51%)
+  -> Class 6  : 502    samples (6.09%)
+
+
+
+[fit] Candidate models loaded for task 'multiclass_classification':
+   1. Logistic Regression
+   2. Hist Gradient Boosting
+   3. K-Neighbors Classifier
+   4. Gaussian Naive Bayes
+   5. Bernoulli Naive Bayes
+   6. SVC
+   7. Random Forest Classifier
+   8. Gradient Boosting Classifier
+   9. Linear SVC
+   10. Extra Trees Classifier
+
+ [filter models] Dynamic Model Filtering ---
+ Dataset Info: 6589 rows, 800 cols, Sparse=False
+ [EXCLUDED] K-Neighbors Classifier............. : Ineffective in high dimensions (800 cols)
+ [EXCLUDED] Gaussian Naive Bayes............... : Incompatible with negative values (StandardScaler)
+ [EXCLUDED] Bernoulli Naive Bayes.............. : Incompatible with negative values (StandardScaler)
+ -> Models selected: 7 / 10
+
+[CLUSTER] Optimizing: Logistic Regression...
+[CLUSTER] Success (90.1s). Best params: {'C': 0.014395557838955419, 'solver': 'lbfgs', 'max_iter': 2000}
+[fit] Retraining final model on full data...
+[fit] Final training done in 5.7s.
+[CLUSTER] Optimizing: Hist Gradient Boosting...
+slurmstepd-gpue03: error: *** JOB 249838 ON gpue03 CANCELLED AT 2026-01-09T23:19:33 ***

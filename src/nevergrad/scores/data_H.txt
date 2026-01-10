@@ -97,9 +97,10 @@
  -> Label 81 : 49     (0.11%)
 
 
-[fit] Features threshold exceeded (301562 > 500).
-[fit] Reducing to the top 500 features...
-[fit] Reduction done. New shape: (36320, 500)
+[fit] Features threshold exceeded (301562 > 800).
+[fit] Reducing to the top 800 features...
+[fit] Warning: Only kept 0.27% of the features !
+[fit] Reduction done. New shape: (36320, 800)
 
 [fit] Candidate models loaded for task 'multilabel_classification':
    1. Random Forest Classifier Multi-label
@@ -108,344 +109,619 @@
    4. Hist Gradient Boosting Multi-label
    5. MLP Multi-label
    6. Ridge Classifier
+   7. Linear SVC Multi-label
+   8. Extra Trees Classifier Multi-label
 
  [filter models] Dynamic Model Filtering ---
- Dataset Info: 36320 rows, 500 cols, Sparse=True
+ Dataset Info: 36320 rows, 800 cols, Sparse=True
  Target Info : 91 labels (Multi-label)
- [EXCLUDED] K-Neighbors Classifier Multi-label. : Too heavy for 91 labels (requires 91 models)
- [EXCLUDED] Gradient Boosting Classifier Multi-label : Too heavy for 91 labels (requires 91 models)
+ [EXCLUDED] K-Neighbors Classifier Multi-label. : Ineffective in high dimensions (800 cols)
+ [EXCLUDED] Gradient Boosting Classifier Multi-label : Incompatible with Sparse data
  [EXCLUDED] Hist Gradient Boosting Multi-label. : Incompatible with Sparse data
- -> Models selected: 3 / 6
+ -> Models selected: 5 / 8
 
 [CLUSTER] Optimizing: Random Forest Classifier Multi-label...
-[CLUSTER] Success. Best params: {'estimator__n_estimators': 220, 'estimator__max_depth': None, 'estimator__min_samples_leaf': 3, 'estimator__n_jobs': 1}
-[fit] Retraining final model on full data...
+/info/etu/m1/s2501728/miniconda3/envs/autoML_env/lib/python3.12/site-packages/nevergrad/optimization/base.py:149: LossTooLargeWarning: Clipping very high value nan in tell (rescale the cost function?).
+  warnings.warn(msg, e)
+[CLUSTER] Error optimizing Random Forest Classifier Multi-label: Job 251121 (task: 0) with path /info/etu/m1/s2501728/AutoML/automl_logs/251121_0_result.pkl
+has not produced any output (state: TIMEOUT)
+Error stream produced:
+----------------------------------------
+submitit WARNING (2026-01-09 15:18:17,876) - Caught signal SIGUSR2 on gpue11: this job is timed-out.
+slurmstepd-gpue11: error: *** STEP 251121.0 ON gpue11 CANCELLED AT 2026-01-09T15:18:18 DUE TO JOB REQUEUE ***
+slurmstepd-gpue11: error: *** JOB 251121 ON gpue11 CANCELLED AT 2026-01-09T15:18:18 DUE TO JOB REQUEUE ***
+submitit WARNING (2026-01-09 15:18:18,470) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 15:18:18,471) - Bypassing signal SIGCONT
+submitit WARNING (2026-01-09 15:28:47,465) - Caught signal SIGUSR2 on gpue11: this job is timed-out.
+slurmstepd-gpue11: error: *** STEP 251121.1 ON gpue11 CANCELLED AT 2026-01-09T15:28:48 DUE TO JOB REQUEUE ***
+slurmstepd-gpue11: error: *** JOB 251121 ON gpue11 CANCELLED AT 2026-01-09T15:28:48 DUE TO JOB REQUEUE ***
+submitit WARNING (2026-01-09 15:28:48,058) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 15:28:48,058) - Bypassing signal SIGCONT
+submitit WARNING (2026-01-09 15:39:48,201) - Caught signal SIGUSR2 on gpue11: this job is timed-out.
+slurmstepd-gpue11: error: *** STEP 251121.2 ON gpue11 CANCELLED AT 2026-01-09T15:39:48 DUE TO JOB REQUEUE ***
+slurmstepd-gpue11: error: *** JOB 251121 ON gpue11 CANCELLED AT 2026-01-09T15:39:48 DUE TO JOB REQUEUE ***
+submitit WARNING (2026-01-09 15:39:48,793) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 15:39:48,794) - Bypassing signal SIGCONT
+submitit WARNING (2026-01-09 15:50:18,615) - Caught signal SIGUSR2 on gpue11: this job is timed-out.
+srun: Job step aborted: Waiting up to 2 seconds for job step to finish.
+slurmstepd-gpue11: error: *** STEP 251121.3 ON gpue11 CANCELLED AT 2026-01-09T15:52:18 DUE TO TIME LIMIT ***
+slurmstepd-gpue11: error: *** JOB 251121 ON gpue11 CANCELLED AT 2026-01-09T15:52:18 DUE TO TIME LIMIT ***
+submitit WARNING (2026-01-09 15:52:18,698) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 15:52:18,699) - Bypassing signal SIGCONT
+
+[LOCAL] Fallback: Training locally with default params.
 [CLUSTER] Optimizing: MLP Multi-label...
-[CLUSTER] Success. Best params: {'hidden_layer_sizes': [100], 'activation': 'relu', 'alpha': 0.0011552430177881724, 'learning_rate_init': 0.003846098675643806, 'max_iter': 1000, 'early_stopping': True, 'n_iter_no_change': 10}
+[CLUSTER] Success (1344.8s). Best params: {'hidden_layer_sizes': [200, 100], 'activation': 'relu', 'alpha': 0.002770559616788098, 'learning_rate_init': 0.0038697877342010385, 'max_iter': 500, 'early_stopping': True, 'n_iter_no_change': 10}
 [fit] Retraining final model on full data...
+[fit] Final training done in 92.9s.
 [CLUSTER] Optimizing: Ridge Classifier...
-[CLUSTER] Success. Best params: {'estimator__alpha': 0.1573124217026009}
+[CLUSTER] Success (508.2s). Best params: {'estimator__alpha': 33.04756624407774, 'estimator__class_weight': 'balanced'}
 [fit] Retraining final model on full data...
+[fit] Final training done in 5.9s.
+[CLUSTER] Optimizing: Linear SVC Multi-label...
+[CLUSTER] Success (579.3s). Best params: {'estimator__C': 26.892010026746128, 'estimator__max_iter': 2000}
+[fit] Retraining final model on full data...
+[fit] Final training done in 8.8s.
+[CLUSTER] Optimizing: Extra Trees Classifier Multi-label...
+/info/etu/m1/s2501728/miniconda3/envs/autoML_env/lib/python3.12/site-packages/nevergrad/optimization/base.py:149: LossTooLargeWarning: Clipping very high value nan in tell (rescale the cost function?).
+  warnings.warn(msg, e)
+[CLUSTER] Error optimizing Extra Trees Classifier Multi-label: Job 251259 (task: 0) with path /info/etu/m1/s2501728/AutoML/automl_logs/251259_0_result.pkl
+has not produced any output (state: TIMEOUT)
+Error stream produced:
+----------------------------------------
+submitit WARNING (2026-01-09 17:11:22,807) - Caught signal SIGUSR2 on gpue11: this job is timed-out.
+slurmstepd-gpue11: error: *** STEP 251259.0 ON gpue11 CANCELLED AT 2026-01-09T17:11:23 DUE TO JOB REQUEUE ***
+slurmstepd-gpue11: error: *** JOB 251259 ON gpue11 CANCELLED AT 2026-01-09T17:11:23 DUE TO JOB REQUEUE ***
+submitit WARNING (2026-01-09 17:11:23,284) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 17:11:23,285) - Bypassing signal SIGCONT
+submitit WARNING (2026-01-09 17:21:52,233) - Caught signal SIGUSR2 on gpue11: this job is timed-out.
+slurmstepd-gpue11: error: *** STEP 251259.1 ON gpue11 CANCELLED AT 2026-01-09T17:21:52 DUE TO JOB REQUEUE ***
+slurmstepd-gpue11: error: *** JOB 251259 ON gpue11 CANCELLED AT 2026-01-09T17:21:52 DUE TO JOB REQUEUE ***
+submitit WARNING (2026-01-09 17:21:52,715) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 17:21:52,716) - Bypassing signal SIGCONT
+submitit WARNING (2026-01-09 17:32:22,640) - Caught signal SIGUSR2 on gpue11: this job is timed-out.
+slurmstepd-gpue11: error: *** STEP 251259.2 ON gpue11 CANCELLED AT 2026-01-09T17:32:22 DUE TO JOB REQUEUE ***
+slurmstepd-gpue11: error: *** JOB 251259 ON gpue11 CANCELLED AT 2026-01-09T17:32:22 DUE TO JOB REQUEUE ***
+submitit WARNING (2026-01-09 17:32:22,984) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 17:32:22,985) - Bypassing signal SIGCONT
+submitit WARNING (2026-01-09 17:42:52,075) - Caught signal SIGUSR2 on gpue12: this job is timed-out.
+srun: Job step aborted: Waiting up to 2 seconds for job step to finish.
+slurmstepd-gpue12: error: *** JOB 251259 ON gpue12 CANCELLED AT 2026-01-09T17:44:52 DUE TO TIME LIMIT ***
+slurmstepd-gpue12: error: *** STEP 251259.3 ON gpue12 CANCELLED AT 2026-01-09T17:44:52 DUE TO TIME LIMIT ***
+submitit WARNING (2026-01-09 17:44:52,159) - Bypassing signal SIGTERM
+submitit WARNING (2026-01-09 17:44:52,160) - Bypassing signal SIGCONT
+
+[LOCAL] Fallback: Training locally with default params.
 
 [eval] --- Detailed Results on Test Set (9080 samples) ---
 
  > Model: Random Forest Classifier Multi-label
-   - F1 (Samples): 0.4834 (Quality per instance)
-   - F1 (Macro)  : 0.4544 (Quality per label)
+   - F1 (Samples): 0.5715 (Quality per instance)
+   - F1 (Macro)  : 0.5460 (Quality per label)
 
 [Classification Report]
               precision    recall  f1-score   support
 
-           0       0.00      0.00      0.00        58
-           1       0.70      0.45      0.55       456
-           2       0.00      0.00      0.00        61
-           3       0.95      0.65      0.77       220
-           4       0.86      0.45      0.59        42
-           5       0.00      0.00      0.00        47
-           6       0.92      0.89      0.90       451
-           7       0.00      0.00      0.00       115
-           8       0.88      0.68      0.76       160
-           9       0.00      0.00      0.00        89
-          10       1.00      0.65      0.79        40
-          11       0.74      0.20      0.31        87
-          12       1.00      0.31      0.47        13
-          13       1.00      0.04      0.07        27
-          14       0.73      0.38      0.50        21
-          15       1.00      0.37      0.54        27
-          16       1.00      0.31      0.48        54
-          17       0.00      0.00      0.00        94
-          18       0.89      0.81      0.85       166
-          19       0.88      0.34      0.49       128
-          20       0.86      0.79      0.82       256
-          21       0.90      0.56      0.69        99
-          22       0.85      0.71      0.77       292
-          23       0.00      0.00      0.00       598
-          24       0.88      0.71      0.79       121
-          25       1.00      0.13      0.24        15
-          26       1.00      0.31      0.47        62
-          27       0.95      0.63      0.76       113
+           0       0.44      0.07      0.12        58
+           1       0.79      0.50      0.61       456
+           2       0.50      0.03      0.06        61
+           3       0.94      0.83      0.88       220
+           4       1.00      0.48      0.65        42
+           5       0.73      0.23      0.35        47
+           6       0.91      0.88      0.90       451
+           7       0.17      0.05      0.08       115
+           8       0.88      0.74      0.81       160
+           9       0.29      0.02      0.04        89
+          10       1.00      0.78      0.87        40
+          11       0.67      0.30      0.41        87
+          12       1.00      0.46      0.63        13
+          13       0.85      0.41      0.55        27
+          14       0.67      0.38      0.48        21
+          15       1.00      0.41      0.58        27
+          16       0.76      0.48      0.59        54
+          17       0.53      0.20      0.29        94
+          18       0.91      0.81      0.85       166
+          19       0.79      0.41      0.54       128
+          20       0.91      0.82      0.86       256
+          21       0.79      0.65      0.71        99
+          22       0.84      0.80      0.82       292
+          23       0.30      0.04      0.08       598
+          24       0.88      0.81      0.84       121
+          25       1.00      0.20      0.33        15
+          26       0.97      0.52      0.67        62
+          27       0.93      0.62      0.74       113
           28       0.00      0.00      0.00        41
-          29       0.96      0.19      0.32       120
-          30       0.94      0.14      0.24       224
-          31       0.86      0.29      0.43        21
-          32       0.78      0.32      0.45        22
-          33       0.80      0.35      0.49       195
-          34       1.00      0.69      0.82        39
-          35       0.00      0.00      0.00        14
-          36       0.79      0.47      0.59       347
-          37       0.81      0.52      0.63        33
-          38       0.94      0.60      0.73        50
-          39       0.92      0.44      0.59       124
-          40       0.90      0.33      0.49        27
-          41       1.00      0.44      0.61        16
-          42       0.97      0.61      0.75       118
-          43       0.81      0.55      0.65       422
+          29       0.77      0.37      0.50       120
+          30       0.83      0.36      0.50       224
+          31       0.67      0.67      0.67        21
+          32       0.89      0.36      0.52        22
+          33       0.72      0.41      0.52       195
+          34       0.97      0.72      0.82        39
+          35       1.00      0.07      0.13        14
+          36       0.79      0.60      0.68       347
+          37       0.67      0.55      0.60        33
+          38       0.94      0.66      0.78        50
+          39       0.84      0.46      0.59       124
+          40       0.79      0.41      0.54        27
+          41       1.00      0.50      0.67        16
+          42       0.84      0.64      0.73       118
+          43       0.83      0.54      0.65       422
           44       0.00      0.00      0.00        50
-          45       0.98      0.73      0.84        79
-          46       0.95      0.42      0.58       293
-          47       0.75      0.41      0.53        22
-          48       0.90      0.39      0.55       222
-          49       0.71      0.11      0.20        88
-          50       0.00      0.00      0.00        81
-          51       0.50      0.05      0.08        22
-          52       0.89      0.85      0.87      1032
-          53       1.00      0.12      0.21        17
-          54       0.78      0.28      0.41       237
-          55       1.00      0.07      0.13        43
-          56       1.00      0.41      0.58        17
-          57       0.93      0.68      0.79        84
-          58       0.00      0.00      0.00        49
-          59       0.99      0.37      0.54       179
-          60       0.00      0.00      0.00       116
-          61       1.00      0.23      0.38        39
-          62       0.93      0.44      0.60       283
-          63       0.91      0.70      0.79       115
-          64       0.91      0.51      0.65       175
-          65       0.73      0.04      0.07       421
-          66       0.91      0.70      0.79        56
-          67       1.00      0.06      0.11       227
-          68       0.89      0.31      0.46        52
+          45       1.00      0.67      0.80        79
+          46       0.91      0.48      0.63       293
+          47       0.71      0.45      0.56        22
+          48       0.74      0.49      0.59       222
+          49       0.67      0.23      0.34        88
+          50       0.67      0.05      0.09        81
+          51       1.00      0.23      0.37        22
+          52       0.93      0.89      0.91      1032
+          53       1.00      0.29      0.45        17
+          54       0.75      0.39      0.51       237
+          55       0.80      0.19      0.30        43
+          56       0.91      0.59      0.71        17
+          57       0.91      0.75      0.82        84
+          58       0.83      0.10      0.18        49
+          59       0.94      0.38      0.54       179
+          60       0.35      0.08      0.13       116
+          61       0.94      0.44      0.60        39
+          62       0.90      0.58      0.71       283
+          63       0.93      0.71      0.81       115
+          64       0.83      0.72      0.77       175
+          65       0.85      0.69      0.76       421
+          66       0.91      0.52      0.66        56
+          67       0.54      0.15      0.23       227
+          68       0.89      0.48      0.62        52
           69       1.00      0.69      0.81        16
-          70       0.84      0.43      0.56       425
-          71       0.00      0.00      0.00       105
-          72       0.82      0.31      0.45      1081
-          73       0.93      0.57      0.71        75
-          74       1.00      0.36      0.52        45
-          75       0.93      0.34      0.50       118
-          76       0.80      0.62      0.70       563
-          77       0.20      0.04      0.06        26
+          70       0.81      0.51      0.63       425
+          71       0.66      0.30      0.41       105
+          72       0.74      0.38      0.51      1081
+          73       0.93      0.71      0.80        75
+          74       1.00      0.49      0.66        45
+          75       0.93      0.47      0.63       118
+          76       0.82      0.60      0.69       563
+          77       0.25      0.04      0.07        26
           78       1.00      0.76      0.87        34
-          79       0.00      0.00      0.00        50
-          80       0.96      0.29      0.45        93
+          79       0.50      0.04      0.07        50
+          80       0.93      0.45      0.61        93
           81       0.00      0.00      0.00         8
-          82       0.84      0.62      0.71        34
-          83       1.00      0.19      0.32        16
-          84       0.00      0.00      0.00        96
-          85       0.00      0.00      0.00        24
-          86       0.94      0.81      0.87       328
-          87       0.97      0.80      0.88        35
-          88       0.97      0.79      0.87        43
-          89       0.85      0.67      0.75        51
+          82       0.88      0.68      0.77        34
+          83       1.00      0.25      0.40        16
+          84       0.69      0.09      0.17        96
+          85       0.75      0.12      0.21        24
+          86       0.94      0.83      0.88       328
+          87       0.96      0.71      0.82        35
+          88       1.00      0.79      0.88        43
+          89       0.87      0.51      0.64        51
           90       0.94      0.67      0.78        24
 
-   micro avg       0.87      0.44      0.58     13014
-   macro avg       0.72      0.36      0.45     13014
-weighted avg       0.75      0.44      0.53     13014
- samples avg       0.53      0.47      0.48     13014
+   micro avg       0.84      0.53      0.65     13014
+   macro avg       0.79      0.45      0.55     13014
+weighted avg       0.79      0.53      0.61     13014
+ samples avg       0.62      0.56      0.57     13014
 
 
  > Model: MLP Multi-label
-   - F1 (Samples): 0.5307 (Quality per instance)
-   - F1 (Macro)  : 0.5481 (Quality per label)
+   - F1 (Samples): 0.6086 (Quality per instance)
+   - F1 (Macro)  : 0.6042 (Quality per label)
 
 [Classification Report]
               precision    recall  f1-score   support
 
-           0       0.33      0.02      0.03        58
-           1       0.74      0.43      0.55       456
-           2       0.50      0.02      0.03        61
-           3       0.94      0.68      0.79       220
-           4       0.83      0.71      0.77        42
-           5       0.47      0.15      0.23        47
-           6       0.94      0.87      0.90       451
-           7       0.00      0.00      0.00       115
-           8       0.90      0.71      0.79       160
-           9       0.20      0.01      0.02        89
-          10       1.00      0.78      0.87        40
-          11       0.69      0.36      0.47        87
-          12       1.00      0.46      0.63        13
-          13       0.55      0.59      0.57        27
-          14       0.77      0.48      0.59        21
-          15       0.87      0.48      0.62        27
-          16       0.88      0.56      0.68        54
-          17       1.00      0.01      0.02        94
+           0       0.22      0.07      0.11        58
+           1       0.71      0.58      0.63       456
+           2       0.60      0.05      0.09        61
+           3       0.92      0.84      0.88       220
+           4       0.79      0.55      0.65        42
+           5       0.62      0.34      0.44        47
+           6       0.90      0.89      0.90       451
+           7       0.83      0.04      0.08       115
+           8       0.87      0.74      0.80       160
+           9       0.38      0.06      0.10        89
+          10       0.88      0.75      0.81        40
+          11       0.56      0.39      0.46        87
+          12       0.89      0.62      0.73        13
+          13       0.70      0.52      0.60        27
+          14       0.89      0.38      0.53        21
+          15       0.82      0.52      0.64        27
+          16       0.67      0.48      0.56        54
+          17       0.62      0.35      0.45        94
           18       0.90      0.82      0.86       166
-          19       0.84      0.38      0.53       128
-          20       0.85      0.84      0.84       256
-          21       0.83      0.64      0.72        99
-          22       0.82      0.79      0.81       292
-          23       0.50      0.05      0.09       598
-          24       0.90      0.72      0.80       121
-          25       0.64      0.47      0.54        15
-          26       0.74      0.74      0.74        62
-          27       0.94      0.60      0.74       113
-          28       0.00      0.00      0.00        41
-          29       0.62      0.35      0.45       120
-          30       0.74      0.38      0.50       224
-          31       0.69      0.43      0.53        21
-          32       0.89      0.36      0.52        22
-          33       0.74      0.47      0.57       195
-          34       1.00      0.72      0.84        39
-          35       0.00      0.00      0.00        14
-          36       0.74      0.52      0.61       347
-          37       0.84      0.64      0.72        33
-          38       0.93      0.82      0.87        50
-          39       0.93      0.44      0.59       124
-          40       0.79      0.41      0.54        27
-          41       1.00      0.50      0.67        16
-          42       0.97      0.58      0.73       118
-          43       0.79      0.60      0.68       422
+          19       0.68      0.52      0.59       128
+          20       0.82      0.90      0.86       256
+          21       0.66      0.70      0.68        99
+          22       0.76      0.85      0.80       292
+          23       0.50      0.12      0.20       598
+          24       0.89      0.79      0.84       121
+          25       0.53      0.53      0.53        15
+          26       0.77      0.74      0.75        62
+          27       0.91      0.60      0.72       113
+          28       0.50      0.02      0.05        41
+          29       0.73      0.41      0.52       120
+          30       0.68      0.57      0.62       224
+          31       0.74      0.67      0.70        21
+          32       0.80      0.36      0.50        22
+          33       0.74      0.43      0.54       195
+          34       1.00      0.74      0.85        39
+          35       0.42      0.36      0.38        14
+          36       0.70      0.64      0.67       347
+          37       0.87      0.61      0.71        33
+          38       1.00      0.80      0.89        50
+          39       0.88      0.52      0.65       124
+          40       0.82      0.52      0.64        27
+          41       0.75      0.56      0.64        16
+          42       0.86      0.61      0.71       118
+          43       0.76      0.62      0.68       422
           44       0.00      0.00      0.00        50
-          45       1.00      0.70      0.82        79
-          46       0.89      0.46      0.60       293
-          47       0.81      0.59      0.68        22
-          48       0.86      0.44      0.58       222
-          49       0.63      0.31      0.41        88
-          50       1.00      0.01      0.02        81
-          51       0.50      0.05      0.08        22
-          52       0.90      0.84      0.87      1032
-          53       1.00      0.47      0.64        17
-          54       0.68      0.32      0.43       237
-          55       1.00      0.47      0.63        43
-          56       0.90      0.53      0.67        17
-          57       0.98      0.73      0.84        84
-          58       0.60      0.18      0.28        49
-          59       0.98      0.36      0.53       179
-          60       0.17      0.01      0.02       116
-          61       0.71      0.44      0.54        39
-          62       0.88      0.46      0.60       283
-          63       0.88      0.74      0.80       115
-          64       0.81      0.69      0.74       175
-          65       0.53      0.15      0.23       421
-          66       0.87      0.84      0.85        56
-          67       1.00      0.07      0.12       227
-          68       0.74      0.54      0.62        52
-          69       0.92      0.75      0.83        16
-          70       0.75      0.54      0.63       425
-          71       0.74      0.32      0.45       105
-          72       0.73      0.38      0.50      1081
-          73       0.87      0.63      0.73        75
-          74       0.81      0.58      0.68        45
-          75       0.88      0.58      0.70       118
-          76       0.79      0.62      0.69       563
-          77       0.38      0.12      0.18        26
-          78       1.00      0.88      0.94        34
-          79       0.00      0.00      0.00        50
-          80       0.70      0.55      0.61        93
-          81       1.00      0.25      0.40         8
+          45       0.98      0.66      0.79        79
+          46       0.88      0.45      0.59       293
+          47       0.74      0.64      0.68        22
+          48       0.83      0.49      0.62       222
+          49       0.56      0.36      0.44        88
+          50       0.37      0.14      0.20        81
+          51       0.82      0.41      0.55        22
+          52       0.94      0.88      0.91      1032
+          53       1.00      0.65      0.79        17
+          54       0.65      0.50      0.56       237
+          55       0.90      0.44      0.59        43
+          56       0.71      0.71      0.71        17
+          57       0.82      0.73      0.77        84
+          58       0.55      0.47      0.51        49
+          59       0.72      0.44      0.54       179
+          60       0.49      0.18      0.26       116
+          61       0.74      0.51      0.61        39
+          62       0.91      0.58      0.71       283
+          63       0.90      0.72      0.80       115
+          64       0.80      0.72      0.76       175
+          65       0.75      0.72      0.74       421
+          66       0.85      0.84      0.85        56
+          67       0.67      0.16      0.26       227
+          68       0.64      0.67      0.65        52
+          69       1.00      0.75      0.86        16
+          70       0.67      0.60      0.63       425
+          71       0.63      0.45      0.52       105
+          72       0.62      0.49      0.55      1081
+          73       0.79      0.71      0.75        75
+          74       0.92      0.49      0.64        45
+          75       0.83      0.53      0.65       118
+          76       0.81      0.64      0.72       563
+          77       0.60      0.12      0.19        26
+          78       1.00      0.79      0.89        34
+          79       0.50      0.12      0.19        50
+          80       0.69      0.57      0.62        93
+          81       0.80      0.50      0.62         8
           82       0.78      0.74      0.76        34
-          83       0.62      0.31      0.42        16
-          84       0.57      0.14      0.22        96
-          85       0.67      0.17      0.27        24
-          86       0.94      0.78      0.86       328
-          87       0.97      0.83      0.89        35
-          88       1.00      0.79      0.88        43
-          89       0.85      0.67      0.75        51
-          90       0.80      0.83      0.82        24
+          83       0.71      0.31      0.43        16
+          84       0.57      0.39      0.46        96
+          85       0.67      0.42      0.51        24
+          86       0.92      0.81      0.86       328
+          87       0.97      0.80      0.88        35
+          88       1.00      0.86      0.93        43
+          89       0.74      0.61      0.67        51
+          90       0.81      0.71      0.76        24
 
-   micro avg       0.83      0.50      0.62     13014
-   macro avg       0.75      0.47      0.55     13014
-weighted avg       0.77      0.50      0.58     13014
- samples avg       0.57      0.52      0.53     13014
+   micro avg       0.78      0.58      0.66     13014
+   macro avg       0.74      0.53      0.60     13014
+weighted avg       0.75      0.58      0.64     13014
+ samples avg       0.64      0.61      0.61     13014
 
 
  > Model: Ridge Classifier
-   - F1 (Samples): 0.3679 (Quality per instance)
-   - F1 (Macro)  : 0.4249 (Quality per label)
+   - F1 (Samples): 0.3522 (Quality per instance)
+   - F1 (Macro)  : 0.2992 (Quality per label)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.03      0.76      0.05        58
+           1       0.41      0.73      0.53       456
+           2       0.02      0.85      0.04        61
+           3       0.56      0.89      0.68       220
+           4       0.12      0.71      0.21        42
+           5       0.07      0.66      0.13        47
+           6       0.69      0.92      0.79       451
+           7       0.03      0.85      0.07       115
+           8       0.57      0.79      0.67       160
+           9       0.03      0.76      0.06        89
+          10       0.21      0.82      0.33        40
+          11       0.12      0.63      0.21        87
+          12       0.04      0.92      0.08        13
+          13       0.11      0.85      0.19        27
+          14       0.09      0.67      0.15        21
+          15       0.04      0.81      0.07        27
+          16       0.14      0.81      0.24        54
+          17       0.09      0.78      0.16        94
+          18       0.45      0.80      0.57       166
+          19       0.19      0.76      0.30       128
+          20       0.55      0.96      0.70       256
+          21       0.29      0.80      0.42        99
+          22       0.67      0.90      0.76       292
+          23       0.16      0.74      0.27       598
+          24       0.29      0.84      0.44       121
+          25       0.09      0.80      0.16        15
+          26       0.24      1.00      0.39        62
+          27       0.31      0.73      0.43       113
+          28       0.03      0.73      0.07        41
+          29       0.14      0.75      0.24       120
+          30       0.31      0.89      0.46       224
+          31       0.21      0.81      0.34        21
+          32       0.04      0.64      0.07        22
+          33       0.19      0.70      0.30       195
+          34       0.19      0.77      0.30        39
+          35       0.06      0.86      0.12        14
+          36       0.46      0.74      0.57       347
+          37       0.07      0.85      0.13        33
+          38       0.46      0.92      0.62        50
+          39       0.16      0.72      0.26       124
+          40       0.08      0.67      0.14        27
+          41       0.08      0.75      0.14        16
+          42       0.18      0.72      0.28       118
+          43       0.40      0.70      0.51       422
+          44       0.02      0.74      0.04        50
+          45       0.18      0.75      0.29        79
+          46       0.19      0.69      0.30       293
+          47       0.10      0.86      0.19        22
+          48       0.11      0.83      0.19       222
+          49       0.13      0.64      0.21        88
+          50       0.04      0.81      0.08        81
+          51       0.06      0.82      0.10        22
+          52       0.86      0.84      0.85      1032
+          53       0.09      0.88      0.16        17
+          54       0.18      0.75      0.29       237
+          55       0.04      0.84      0.08        43
+          56       0.05      0.82      0.09        17
+          57       0.22      0.86      0.35        84
+          58       0.13      0.88      0.22        49
+          59       0.14      0.73      0.23       179
+          60       0.04      0.84      0.08       116
+          61       0.11      0.85      0.20        39
+          62       0.27      0.81      0.40       283
+          63       0.29      0.84      0.43       115
+          64       0.28      0.88      0.42       175
+          65       0.41      0.79      0.54       421
+          66       0.12      0.79      0.20        56
+          67       0.15      0.86      0.26       227
+          68       0.20      0.90      0.32        52
+          69       0.15      0.81      0.25        16
+          70       0.44      0.82      0.58       425
+          71       0.22      0.79      0.34       105
+          72       0.38      0.66      0.48      1081
+          73       0.28      0.76      0.41        75
+          74       0.22      0.87      0.35        45
+          75       0.34      0.91      0.49       118
+          76       0.53      0.75      0.62       563
+          77       0.02      0.73      0.03        26
+          78       0.17      0.68      0.27        34
+          79       0.06      0.74      0.10        50
+          80       0.22      0.91      0.35        93
+          81       0.01      0.88      0.03         8
+          82       0.31      0.79      0.44        34
+          83       0.02      0.62      0.03        16
+          84       0.16      0.82      0.27        96
+          85       0.08      0.79      0.15        24
+          86       0.55      0.82      0.66       328
+          87       0.16      0.77      0.27        35
+          88       0.29      0.79      0.42        43
+          89       0.11      0.71      0.18        51
+          90       0.17      0.88      0.28        24
+
+   micro avg       0.18      0.79      0.29     13014
+   macro avg       0.21      0.80      0.30     13014
+weighted avg       0.36      0.79      0.46     13014
+ samples avg       0.26      0.79      0.35     13014
+
+
+ > Model: Linear SVC Multi-label
+   - F1 (Samples): 0.5428 (Quality per instance)
+   - F1 (Macro)  : 0.5701 (Quality per label)
 
 [Classification Report]
               precision    recall  f1-score   support
 
            0       0.00      0.00      0.00        58
-           1       0.80      0.34      0.48       456
-           2       1.00      0.02      0.03        61
-           3       0.98      0.54      0.69       220
-           4       0.89      0.38      0.53        42
-           5       0.00      0.00      0.00        47
-           6       0.94      0.75      0.84       451
-           7       0.00      0.00      0.00       115
-           8       0.82      0.44      0.57       160
+           1       0.79      0.46      0.59       456
+           2       0.50      0.03      0.06        61
+           3       0.96      0.81      0.88       220
+           4       0.77      0.57      0.66        42
+           5       0.62      0.28      0.38        47
+           6       0.93      0.84      0.88       451
+           7       0.80      0.03      0.07       115
+           8       0.93      0.71      0.81       160
            9       0.00      0.00      0.00        89
-          10       1.00      0.53      0.69        40
-          11       0.80      0.28      0.41        87
-          12       1.00      0.23      0.38        13
-          13       1.00      0.11      0.20        27
-          14       0.65      0.52      0.58        21
-          15       1.00      0.41      0.58        27
-          16       0.90      0.33      0.49        54
-          17       0.00      0.00      0.00        94
-          18       0.95      0.53      0.68       166
-          19       0.81      0.27      0.41       128
-          20       0.81      0.70      0.75       256
-          21       0.78      0.40      0.53        99
-          22       0.88      0.55      0.68       292
-          23       0.00      0.00      0.00       598
-          24       0.93      0.44      0.60       121
-          25       0.56      0.33      0.42        15
-          26       0.96      0.44      0.60        62
-          27       0.93      0.44      0.60       113
-          28       0.00      0.00      0.00        41
-          29       0.86      0.15      0.26       120
-          30       0.74      0.25      0.37       224
-          31       0.73      0.52      0.61        21
-          32       0.89      0.36      0.52        22
-          33       0.79      0.30      0.44       195
-          34       1.00      0.56      0.72        39
-          35       0.00      0.00      0.00        14
-          36       0.84      0.41      0.55       347
-          37       1.00      0.33      0.50        33
-          38       0.97      0.56      0.71        50
-          39       0.97      0.31      0.48       124
-          40       0.75      0.33      0.46        27
-          41       1.00      0.44      0.61        16
-          42       1.00      0.29      0.45       118
-          43       0.84      0.37      0.52       422
+          10       0.97      0.78      0.86        40
+          11       0.60      0.28      0.38        87
+          12       1.00      0.54      0.70        13
+          13       0.42      0.63      0.51        27
+          14       0.71      0.57      0.63        21
+          15       0.82      0.52      0.64        27
+          16       0.67      0.48      0.56        54
+          17       0.69      0.23      0.35        94
+          18       0.90      0.76      0.82       166
+          19       0.83      0.41      0.54       128
+          20       0.80      0.80      0.80       256
+          21       0.76      0.55      0.64        99
+          22       0.89      0.73      0.80       292
+          23       0.17      0.00      0.01       598
+          24       0.92      0.78      0.84       121
+          25       0.42      0.53      0.47        15
+          26       0.74      0.79      0.77        62
+          27       0.93      0.58      0.71       113
+          28       0.50      0.02      0.05        41
+          29       0.82      0.31      0.45       120
+          30       0.80      0.42      0.55       224
+          31       0.64      0.67      0.65        21
+          32       0.82      0.41      0.55        22
+          33       0.79      0.43      0.55       195
+          34       0.97      0.74      0.84        39
+          35       0.30      0.21      0.25        14
+          36       0.81      0.55      0.65       347
+          37       0.80      0.61      0.69        33
+          38       0.92      0.70      0.80        50
+          39       0.93      0.46      0.62       124
+          40       0.84      0.59      0.70        27
+          41       0.80      0.75      0.77        16
+          42       0.86      0.68      0.76       118
+          43       0.82      0.49      0.61       422
           44       0.00      0.00      0.00        50
-          45       1.00      0.30      0.47        79
-          46       0.89      0.27      0.41       293
-          47       0.73      0.36      0.48        22
-          48       0.92      0.32      0.47       222
-          49       0.77      0.23      0.35        88
+          45       0.95      0.72      0.82        79
+          46       0.86      0.41      0.56       293
+          47       0.71      0.68      0.70        22
+          48       0.85      0.41      0.56       222
+          49       0.65      0.25      0.36        88
           50       0.00      0.00      0.00        81
-          51       0.50      0.05      0.08        22
-          52       0.93      0.58      0.72      1032
-          53       0.86      0.35      0.50        17
-          54       0.84      0.22      0.34       237
-          55       1.00      0.37      0.54        43
-          56       0.89      0.47      0.62        17
-          57       0.97      0.67      0.79        84
-          58       0.00      0.00      0.00        49
-          59       1.00      0.23      0.37       179
-          60       0.00      0.00      0.00       116
-          61       0.76      0.33      0.46        39
-          62       0.96      0.29      0.45       283
-          63       0.91      0.58      0.71       115
-          64       0.82      0.48      0.61       175
-          65       0.31      0.02      0.04       421
-          66       0.91      0.54      0.67        56
-          67       0.92      0.05      0.09       227
-          68       0.74      0.38      0.51        52
-          69       1.00      0.69      0.81        16
-          70       0.80      0.36      0.50       425
-          71       0.37      0.07      0.11       105
-          72       0.80      0.22      0.35      1081
-          73       0.91      0.55      0.68        75
-          74       0.90      0.42      0.58        45
-          75       0.82      0.36      0.50       118
-          76       0.82      0.36      0.50       563
-          77       0.50      0.04      0.07        26
-          78       1.00      0.56      0.72        34
-          79       0.00      0.00      0.00        50
-          80       0.73      0.24      0.36        93
-          81       0.50      0.12      0.20         8
-          82       0.83      0.56      0.67        34
-          83       0.75      0.19      0.30        16
-          84       0.00      0.00      0.00        96
-          85       1.00      0.12      0.22        24
-          86       0.92      0.55      0.69       328
-          87       0.95      0.57      0.71        35
-          88       1.00      0.63      0.77        43
-          89       0.91      0.39      0.55        51
-          90       0.89      0.71      0.79        24
+          51       0.78      0.32      0.45        22
+          52       0.93      0.86      0.90      1032
+          53       0.77      0.59      0.67        17
+          54       0.75      0.40      0.52       237
+          55       1.00      0.44      0.61        43
+          56       0.92      0.65      0.76        17
+          57       0.89      0.77      0.83        84
+          58       0.64      0.18      0.29        49
+          59       0.93      0.38      0.54       179
+          60       0.55      0.10      0.17       116
+          61       0.72      0.54      0.62        39
+          62       0.92      0.59      0.72       283
+          63       0.89      0.70      0.79       115
+          64       0.80      0.63      0.71       175
+          65       0.85      0.62      0.72       421
+          66       0.86      0.68      0.76        56
+          67       0.72      0.11      0.20       227
+          68       0.60      0.56      0.58        52
+          69       1.00      0.56      0.72        16
+          70       0.73      0.49      0.59       425
+          71       0.57      0.24      0.34       105
+          72       0.78      0.33      0.46      1081
+          73       0.86      0.65      0.74        75
+          74       0.69      0.78      0.73        45
+          75       0.89      0.49      0.63       118
+          76       0.80      0.49      0.61       563
+          77       0.56      0.19      0.29        26
+          78       1.00      0.94      0.97        34
+          79       0.40      0.04      0.07        50
+          80       0.59      0.45      0.51        93
+          81       1.00      0.50      0.67         8
+          82       0.79      0.76      0.78        34
+          83       0.62      0.31      0.42        16
+          84       0.44      0.11      0.18        96
+          85       0.34      0.42      0.38        24
+          86       0.94      0.79      0.86       328
+          87       0.90      0.80      0.85        35
+          88       0.97      0.86      0.91        43
+          89       0.76      0.69      0.72        51
+          90       0.80      0.83      0.82        24
 
-   micro avg       0.87      0.34      0.48     13014
-   macro avg       0.72      0.32      0.42     13014
-weighted avg       0.75      0.34      0.45     13014
- samples avg       0.40      0.36      0.37     13014
+   micro avg       0.84      0.51      0.63     13014
+   macro avg       0.74      0.50      0.57     13014
+weighted avg       0.77      0.51      0.59     13014
+ samples avg       0.58      0.54      0.54     13014
+
+
+ > Model: Extra Trees Classifier Multi-label
+   - F1 (Samples): 0.5790 (Quality per instance)
+   - F1 (Macro)  : 0.5649 (Quality per label)
+
+[Classification Report]
+              precision    recall  f1-score   support
+
+           0       0.42      0.14      0.21        58
+           1       0.80      0.51      0.62       456
+           2       0.23      0.05      0.08        61
+           3       0.93      0.83      0.88       220
+           4       1.00      0.52      0.69        42
+           5       0.61      0.23      0.34        47
+           6       0.90      0.88      0.89       451
+           7       0.25      0.12      0.16       115
+           8       0.85      0.75      0.79       160
+           9       0.22      0.04      0.07        89
+          10       0.94      0.75      0.83        40
+          11       0.53      0.29      0.37        87
+          12       0.88      0.54      0.67        13
+          13       0.88      0.52      0.65        27
+          14       0.42      0.24      0.30        21
+          15       1.00      0.41      0.58        27
+          16       0.77      0.44      0.56        54
+          17       0.43      0.21      0.29        94
+          18       0.91      0.74      0.82       166
+          19       0.74      0.45      0.56       128
+          20       0.90      0.86      0.88       256
+          21       0.73      0.63      0.67        99
+          22       0.83      0.81      0.82       292
+          23       0.31      0.06      0.10       598
+          24       0.85      0.79      0.82       121
+          25       1.00      0.53      0.70        15
+          26       1.00      0.55      0.71        62
+          27       0.89      0.57      0.69       113
+          28       0.17      0.02      0.04        41
+          29       0.75      0.37      0.49       120
+          30       0.82      0.36      0.50       224
+          31       0.68      0.71      0.70        21
+          32       0.82      0.41      0.55        22
+          33       0.67      0.40      0.50       195
+          34       0.97      0.74      0.84        39
+          35       0.50      0.07      0.12        14
+          36       0.78      0.61      0.68       347
+          37       0.69      0.55      0.61        33
+          38       0.95      0.70      0.80        50
+          39       0.79      0.45      0.57       124
+          40       0.81      0.48      0.60        27
+          41       1.00      0.62      0.77        16
+          42       0.85      0.64      0.73       118
+          43       0.79      0.54      0.64       422
+          44       0.20      0.02      0.04        50
+          45       0.95      0.67      0.79        79
+          46       0.89      0.48      0.63       293
+          47       0.69      0.50      0.58        22
+          48       0.72      0.51      0.59       222
+          49       0.62      0.28      0.39        88
+          50       0.24      0.05      0.08        81
+          51       1.00      0.23      0.37        22
+          52       0.92      0.88      0.90      1032
+          53       1.00      0.29      0.45        17
+          54       0.72      0.38      0.50       237
+          55       0.68      0.30      0.42        43
+          56       0.62      0.59      0.61        17
+          57       0.94      0.74      0.83        84
+          58       0.80      0.08      0.15        49
+          59       0.80      0.35      0.49       179
+          60       0.37      0.13      0.19       116
+          61       0.76      0.56      0.65        39
+          62       0.86      0.54      0.66       283
+          63       0.93      0.70      0.80       115
+          64       0.81      0.73      0.77       175
+          65       0.81      0.67      0.74       421
+          66       0.89      0.55      0.68        56
+          67       0.54      0.17      0.26       227
+          68       0.90      0.54      0.67        52
+          69       1.00      0.69      0.81        16
+          70       0.80      0.49      0.61       425
+          71       0.56      0.26      0.35       105
+          72       0.74      0.40      0.52      1081
+          73       0.95      0.69      0.80        75
+          74       0.97      0.62      0.76        45
+          75       0.87      0.41      0.55       118
+          76       0.82      0.58      0.68       563
+          77       0.22      0.08      0.11        26
+          78       1.00      0.65      0.79        34
+          79       0.57      0.08      0.14        50
+          80       0.98      0.55      0.70        93
+          81       1.00      0.38      0.55         8
+          82       0.89      0.74      0.81        34
+          83       0.80      0.25      0.38        16
+          84       0.64      0.17      0.26        96
+          85       0.88      0.29      0.44        24
+          86       0.94      0.77      0.85       328
+          87       0.97      0.80      0.88        35
+          88       1.00      0.84      0.91        43
+          89       0.88      0.45      0.60        51
+          90       0.94      0.67      0.78        24
+
+   micro avg       0.81      0.53      0.64     13014
+   macro avg       0.76      0.47      0.56     13014
+weighted avg       0.77      0.53      0.61     13014
+ samples avg       0.62      0.57      0.58     13014
 
 
 ==================================================
  BEST MODEL : MLP Multi-label
- Score      : 0.5307
- Params     : {'hidden_layer_sizes': [100], 'activation': 'relu', 'alpha': 0.0011552430177881724, 'learning_rate_init': 0.003846098675643806, 'max_iter': 1000, 'early_stopping': True, 'n_iter_no_change': 10}
+ Score      : 0.6086
+ Params     : {'hidden_layer_sizes': [200, 100], 'activation': 'relu', 'alpha': 0.002770559616788098, 'learning_rate_init': 0.0038697877342010385, 'max_iter': 500, 'early_stopping': True, 'n_iter_no_change': 10}
 ==================================================

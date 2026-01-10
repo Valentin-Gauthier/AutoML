@@ -2,8 +2,8 @@
 #SBATCH --job-name=AutoML
 #SBATCH --ntasks=1
 #SBATCH --gres=gpu:0
-#SBATCH --cpus-per-task=20
-#SBATCH --mem=20G
+#SBATCH --cpus-per-task=5
+#SBATCH --mem=10G
 #SBATCH --time=1-00:00:00
 #SBATCH --output=log_%j.txt
 

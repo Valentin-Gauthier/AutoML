@@ -390,7 +390,7 @@ class AutoML:
             1. Sparse Data: Exclude models that require dense arrays (e.g. GaussianNB).
             2. Large Dataset (>10k rows): Exclude cubic complexity models (SVC, SVR).
             3. High Dimension (>500 cols): Exclude distance-based models (KNN).
-            4. Massive Multi-label (>20 labels): Exclude 'One-vs-Rest' wrappers, keep native multi-output (MLP, Ridge).
+            4. Massive Multi-label (>5 labels): Exclude 'One-vs-Rest' wrappers, keep native multi-output (MLP, Ridge).
 
         Args:
             X (pd.DataFrame | csr_matrix): Feature matrix.
@@ -413,15 +413,26 @@ class AutoML:
                  has_negative_values = True
         
         n_labels = 1
-        if self.task_type == "multilabel_classification" and y is not None:
-             if y.ndim > 1:
+        n_classes = 2
+        
+        if y is not None:
+            if self.task_type == "multilabel_classification" and y.ndim > 1:
                 n_labels = y.shape[1]
+                
+            elif self.task_type == "multiclass_classification":
+                try:
+                    n_classes = len(np.unique(y))
+                except:
+                    n_classes = 5
+                
 
         if self.verbose:
             print(f"\n [filter models] Dynamic Model Filtering ---")
             print(f" Dataset Info: {n_rows} rows, {n_cols} cols, Sparse={is_data_sparse}")
             if n_labels > 1:
                 print(f" Target Info : {n_labels} labels (Multi-label)")
+            if n_classes > 2:
+                print(f" Target Info : {n_classes} classes (Multiclass)")
 
         for name, model in all_models:
             reason = None
@@ -443,14 +454,18 @@ class AutoML:
                 reason = f"Ineffective in high dimensions ({n_cols} cols)"
 
             # Multi-label Massif (>20 labels)
-            elif self.task_type == "multilabel_classification" and n_labels > 20:
+            elif self.task_type == "multilabel_classification" and n_labels > 5:
                 
                 fast_multioutput = ["MLP", "Ridge", "Random Forest", "Extra Trees", "Linear SVC"]
                 is_fast = any(fast in name for fast in fast_multioutput)
                 
                 if not is_fast:
                       reason = f"Too heavy for {n_labels} labels (requires {n_labels} models)"
-
+                    
+            elif self.task_type == "multiclass_classification" and n_classes >= 5:
+                if "Gradient Boosting" in name:
+                     reason = f"Too slow for {n_classes} classes (requires {n_classes} trees per iteration)"
+                
             if reason:
                 if self.verbose:
                     print(f" [EXCLUDED] {name:.<35} : {reason}")
