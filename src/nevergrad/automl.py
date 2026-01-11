@@ -238,12 +238,14 @@ class AutoML:
                     with open(types_path, 'r', encoding='utf-8') as f:
                         types = np.array([line.strip() for line in f.readlines()])
                 else:
-                    raise FileNotFoundError(f"[load dataset] Type file not found: {types_path}")
+                    types = None
+                    # raise FileNotFoundError(f"[load dataset] Type file not found: {types_path}")
             # y      
             if os.path.exists(sol_path):
                 solution = np.loadtxt(sol_path)
             else:
-                raise FileNotFoundError(f"[load dataset] Solution file not found: {sol_path}")
+                solution = None
+                # raise FileNotFoundError(f"[load dataset] Solution file not found: {sol_path}")
             
             return data, solution, types
         
@@ -624,8 +626,14 @@ class AutoML:
                 print(f"[fit] Features threshold exceeded ({n_cols} > {self.feature_selection_threshold}).")
                 print(f"[fit] Reducing to the top {self.feature_selection_threshold} features...")
                 print(f"[fit] Warning: Only kept {self.feature_selection_threshold / n_cols:.2%} of the features !")
-    
-            if self.task_type == "regression":
+                
+            y_selection = y_train
+            
+            if self.task_type == "multilabel_classification":
+                y_selection = np.argmax(y_train, axis=1)
+                score_func = f_classif
+                
+            elif self.task_type == "regression":
                 score_func = f_regression
             else:
                 if issparse(X_train):
@@ -635,14 +643,18 @@ class AutoML:
             
             selector = SelectKBest(score_func=score_func, k=self.feature_selection_threshold)
             try:
-                X_train_reduced = selector.fit_transform(X_train, y_train)
-                self.X_test = selector.transform(self.X_test)
-    
+                X_train_reduced = selector.fit_transform(X_train, y_selection)
+
+                self.selector = selector
+                
+                self.X_test = self.selector.transform(self.X_test)
+        
                 X_train = X_train_reduced
                 if self.verbose:
                     print(f"[fit] Reduction done. New shape: {X_train.shape}")
             except Exception as e:
                 print(f"[fit] Warning: Feature selection failed: {e}. Keeping original features.")
+                self.selector = None
 
         # training models
         candidates = self.models.get(self.task_type, [])
@@ -851,8 +863,6 @@ class AutoML:
             print(f"[predict] Applying feature selection...")
             X_test = self.selector.transform(X_test)
 
-        
-            
         if self.verbose:
             model_name = type(self.best_model).__name__
             if hasattr(self.best_model, "estimator"):
