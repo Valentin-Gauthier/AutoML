@@ -237,6 +237,7 @@ class AutoML:
                 if os.path.exists(types_path):
                     with open(types_path, 'r', encoding='utf-8') as f:
                         types = np.array([line.strip() for line in f.readlines()])
+
                 else:
                     types = None
                     # raise FileNotFoundError(f"[load dataset] Type file not found: {types_path}")
@@ -245,6 +246,10 @@ class AutoML:
                 solution = np.loadtxt(sol_path)
             else:
                 solution = None
+                # raise FileNotFoundError(f"[load dataset] Solution file not found: {sol_path}")
+            # y      
+            if os.path.exists(sol_path):
+                solution = np.loadtxt(sol_path)
                 # raise FileNotFoundError(f"[load dataset] Solution file not found: {sol_path}")
             
             return data, solution, types
