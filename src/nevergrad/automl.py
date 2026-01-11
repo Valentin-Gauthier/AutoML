@@ -76,7 +76,7 @@ class AutoML:
                  feature_selection_threshold: Union[int, float] = float('inf'),
                  models_config_path: str = "src/nevergrad/models_config.yaml",
                  budget: int = 40,
-                 num_workers: int = 40,
+                 num_workers: int = 10,
                  timeout_min: int = 15,
                  mem_gb: int = 8,
                  cpus_per_task: int = 1,
@@ -187,31 +187,29 @@ class AutoML:
         # convert in CSR (better for calculs)
         return coo_matrix((data, (rows, cols))).tocsr()
     
-    def load_dataset(self, folder_path:str) -> Tuple[Any, np.ndarray, np.ndarray]:
-        """Load the dataset files (.data, .solution, .types) from a given folder.
-        Automatically detects data type (sparse/dense).
-
+    def load_dataset(self, data_path:str) -> Tuple[Any, np.ndarray, np.ndarray]:
+        """Load the dataset files (.data, .solution, .type) based on the .data file path.
+    
         Args:
-            folder_path (str): Path to the folder containing the dataset.
-                               The folder name must match the file prefixes.
-                               Ex: folder 'dataset_A' must contain :
-                                        - 'dataset_A.data'
-                                        - 'dataset_A.solution'
-                                        - 'dataset_A.types'
+            data_path (str): Full path to the .data file.
+                             Ex: '/info/corpus/ChallengeMachineLearning/data_test/data.data'
+                             The function assumes that .solution and .type files 
+                             share the same base name and directory.
         
         Returns:
             Tuple: A tuple containing:
                 - X (pd.DataFrame | csr_matrix): the features.
                 - y (np.array): the solution array.
-                - types (np.array | None): Column types (Numerical, Categorical, Binary) if dense.
-                                           Returns None if sparse data.
+                - types (np.array | None): Column types if dense, else None.
         """
-        folder_path = os.path.normpath(folder_path) # (ex: "data/" -> "data")
-        basename = os.path.basename(folder_path)
+        data_path = os.path.normpath(data_path)
 
-        data_path = os.path.join(folder_path, f"{basename}.data")
-        sol_path = os.path.join(folder_path, f"{basename}.solution")
-        types_path = os.path.join(folder_path, f"{basename}.type")
+        base_path, _ = os.path.splitext(data_path)
+    
+        sol_path = f"{base_path}.solution"
+        types_path = f"{base_path}.type" 
+    
+        basename = os.path.basename(base_path)
 
         data = None
         solution = None
@@ -232,14 +230,15 @@ class AutoML:
             else:
                 if self.verbose:
                     print(f"[load dataset] Loading Dense dataset: {basename}")
-                    data = pd.read_csv(data_path, sep=r"\s+", header=None, na_values="NaN", engine="python")
-                    data.columns = [f"feature_{i}" for i in range(data.shape[1])]
-                    # types
-                    if os.path.exists(types_path):
-                        with open(types_path, 'r', encoding='utf-8') as f:
-                            types = np.array([line.strip() for line in f.readlines()])
-                    else:
-                        raise FileNotFoundError(f"[load dataset] Type file not found: {types_path}")
+                data = pd.read_csv(data_path, sep=r"\s+", header=None, na_values="NaN", engine="python")
+                data.columns = [f"feature_{i}" for i in range(data.shape[1])]
+                
+                # types
+                if os.path.exists(types_path):
+                    with open(types_path, 'r', encoding='utf-8') as f:
+                        types = np.array([line.strip() for line in f.readlines()])
+                else:
+                    raise FileNotFoundError(f"[load dataset] Type file not found: {types_path}")
             # y      
             if os.path.exists(sol_path):
                 solution = np.loadtxt(sol_path)
@@ -249,7 +248,7 @@ class AutoML:
             return data, solution, types
         
         except Exception as e:
-            raise RuntimeError(f"[load dataset] Error loading dataset from {folder_path}") from e
+            raise RuntimeError(f"[load dataset] Error loading dataset from {data_path}") from e
             
     def get_scoring_metric(self, task_type:str) -> Union[str, Callable]:
         """Determines the best Scikit-Learn scoring metric based on the task type.
@@ -446,8 +445,11 @@ class AutoML:
                  reason = "Incompatible with negative values (StandardScaler)"
                 
             # Complexité Cubique (Seulement SVC/SVR classiques, pas les Linear)
-            elif n_rows > 10_000 and name in ["SVC", "SVR"]:
-                reason = f"Too slow for {n_rows} rows (Cubic Complexity)"
+            elif name in ["SVC", "SVR"]:
+                if n_rows > 5000:
+                    reason = f"Too slow for {n_rows} rows (Limit: 5000)"
+                elif n_rows > 2000 and n_cols > 500:
+                    reason = f"Too slow for matrix {n_rows}x{n_cols}"
 
             # Haute Dimension (Distance based)
             elif n_cols > 500 and "Neighbors" in name:
